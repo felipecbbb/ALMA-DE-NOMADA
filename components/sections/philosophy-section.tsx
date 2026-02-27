@@ -66,7 +66,7 @@ export function PhilosophySection() {
               style={{ opacity: titleOpacity }}
             >
               <h2 className="text-[10.5vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[8.8vw] lg:text-[6.8vw] text-center px-6">
-                Como venir a Australia?
+                ¿Cómo venir a Australia?
               </h2>
             </div>
 
@@ -107,13 +107,13 @@ export function PhilosophySection() {
               >
                 <Image
                   src="https://almadenomada.com/cdn/shop/t/5/assets/IMG_1100.JPEG?v=63690997130712887881769101751"
-                  alt="Asesoria personalizada"
+                  alt="Asesoría personalizada"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute bottom-6 left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Tramites claros
+                    Trámites claros
                   </span>
                 </div>
               </div>
@@ -126,12 +126,12 @@ export function PhilosophySection() {
       <div className="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
         <div className="text-center">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            Asesoria personalizada para Australia
+            Asesoría personalizada para Australia
           </p>
           <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
-            Con mi experiencia viviendo en Australia, transformare tus dudas en un plan de accion claro y realista
-            a traves de una asesoria personalizada. Te acompano paso a paso para definir ciudad, tramites, visado y
-            primeros movimientos con seguridad, confianza y sin estres.
+            Con mi experiencia viviendo en Australia, transformaré tus dudas en un plan de acción claro y realista
+            a través de una asesoría personalizada. Te acompaño paso a paso para definir ciudad, trámites, visado y
+            primeros movimientos con seguridad, confianza y sin estrés.
           </p>
           <a
             href="https://calendly.com/ainhhgarcia/nueva-reunion?back=1&month=2026-01"
@@ -139,7 +139,7 @@ export function PhilosophySection() {
             rel="noreferrer"
             className="mt-8 inline-flex rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-secondary"
           >
-            Reserva tu asesoria 1:1
+            Reserva tu asesoría 1:1
           </a>
         </div>
       </div>

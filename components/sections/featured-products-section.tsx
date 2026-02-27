@@ -7,25 +7,25 @@ const features = [
     title: "Thailand",
     description: "Playas y cultura",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
-    summary: "Ruta equilibrada entre islas, norte y ciudad segun tu estilo de viaje.",
+    summary: "Ruta equilibrada entre islas, norte y ciudad según tu estilo de viaje.",
   },
   {
     title: "Sri Lanka",
     description: "Naturaleza y surf",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/sir%20lanka.jpeg?v=60339183477933206391769101746",
-    summary: "Itinerario flexible para combinar playas, montana y presupuesto realista.",
+    summary: "Itinerario flexible para combinar playas, montaña y presupuesto realista.",
   },
   {
     title: "Japan",
     description: "Urbano y tradicional",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/japon.jpeg?v=69856797805187058121769101746",
-    summary: "Plan por zonas, transporte y tiempos para aprovechar al maximo cada etapa.",
+    summary: "Plan por zonas, transporte y tiempos para aprovechar al máximo cada etapa.",
   },
   {
     title: "Australia",
     description: "Working holiday",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751",
-    summary: "Estrategia para llegada, primeros tramites y adaptacion a tu nueva rutina.",
+    summary: "Estrategia para llegada, primeros trámites y adaptación a tu nueva rutina.",
   },
   {
     title: "New Zealand",
@@ -47,7 +47,7 @@ export function FeaturedProductsSection() {
       {/* Section Title */}
       <div className="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          En que destinos puedo ayudarte?
+          ¿En qué destinos puedo ayudarte?
         </h2>
         <p className="mx-auto mt-6 max-w-md text-sm text-muted-foreground uppercase tracking-widest">
           Destinos

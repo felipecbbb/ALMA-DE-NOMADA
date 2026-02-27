@@ -33,13 +33,13 @@ export function Header() {
         >
           <Image
             src="/logo-alma.png"
-            alt="Logo Alma de Nomada"
+            alt="Logo Alma de Nómada"
             width={30}
             height={30}
             className="h-[30px] w-[30px] rounded-full object-cover"
             priority
           />
-          <span>ALMA DE NOMADA</span>
+          <span>ALMA DE NÓMADA</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -48,7 +48,7 @@ export function Header() {
             href="/#quienes-somos"
             className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
-            Sobre mi
+            Sobre mí
           </Link>
           <Link
             href="/#destinos"
@@ -60,7 +60,7 @@ export function Header() {
             href="/#guias"
             className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
-            Guias
+            Guías
           </Link>
           <Link
             href="/#contacto"
@@ -90,7 +90,7 @@ export function Header() {
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Sobre mi
+              Sobre mí
             </Link>
             <Link
               href="/#destinos"
@@ -104,7 +104,7 @@ export function Header() {
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
               >
-                Guias
+                Guías
               </Link>
               <Link
               href="/#contacto"

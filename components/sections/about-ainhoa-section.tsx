@@ -7,24 +7,24 @@ export function AboutAinhoaSection() {
         <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl md:mx-0 md:max-w-md">
           <img
             src="/about-ainhoa-whatsapp-2026-02-27.jpg"
-            alt="Ainhoa Garcia - Alma de Nomada"
+            alt="Ainhoa García - Alma de Nómada"
             className="h-auto w-full object-cover"
             loading="lazy"
           />
         </div>
 
         <div className="text-left">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Quienes somos</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Quiénes somos</p>
           <h2 className="mt-4 text-4xl font-semibold leading-tight text-foreground md:text-5xl">
             Hola, soy Ainhoa.
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Soy travel coach y fundadora de Alma de Nomada. Despues de vivir mi propia experiencia migrando y
-            viajando, acompano a personas que quieren organizar su proxima aventura con un plan realista y claro.
+            Soy travel coach y fundadora de Alma de Nómada. Después de vivir mi propia experiencia migrando y
+            viajando, acompaño a personas que quieren organizar su próxima aventura con un plan realista y claro.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Mi enfoque combina estrategia practica y acompanamiento cercano: destino ideal, tramites, presupuesto y
-            preparacion mental para que tomes decisiones con seguridad y confianza.
+            Mi enfoque combina estrategia práctica y acompañamiento cercano: destino ideal, trámites, presupuesto y
+            preparación mental para que tomes decisiones con seguridad y confianza.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a

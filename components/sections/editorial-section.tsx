@@ -5,13 +5,13 @@ const partners = [
     name: "HOLAFLY",
     logo: "https://almadenomada.com/cdn/shop/t/5/assets/holafly_principal.svg?v=95146794696988832201769101753",
     href: "https://esim.holafly.com/?irclickid=3A5QomSSfxycUzgxaS1LvWC5UkpSUH1HlxBEU80&discount=ainhhgarcia&utm_source=affiliate&utm_medium=Ainhoa%20Garcia%20Rey&utm_campaign=6841836&irgwc=1&afsrc=1&tw_source=impact&tw_campaign=6841836&tw_term=2006335",
-    description: "eSIM internacional con descuento para viajar conectado desde el primer dia.",
+    description: "eSIM internacional con descuento para viajar conectado desde el primer día.",
   },
   {
     name: "IATI SEGUROS",
     logo: "https://almadenomada.com/cdn/shop/t/5/assets/logo-iati-flat-orange.svg?v=103646652425050645201769101746",
     href: "https://www.iatiseguros.com/?r=46492105736708",
-    description: "Seguro de viaje recomendado para moverte con mas tranquilidad.",
+    description: "Seguro de viaje recomendado para moverte con más tranquilidad.",
   },
 ];
 

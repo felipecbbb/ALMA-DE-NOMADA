@@ -18,8 +18,8 @@ const changa = Changa({
 });
 
 export const metadata: Metadata = {
-  title: 'ALMA DE NOMADA | Inicio',
-  description: 'Asesorias personalizadas para viajar con claridad, confianza y tranquilidad.',
+  title: 'ALMA DE NÓMADA | Inicio',
+  description: 'Asesorías personalizadas para viajar con claridad, confianza y tranquilidad.',
   generator: 'v0.app',
   icons: {
     icon: '/logo-alma.png',

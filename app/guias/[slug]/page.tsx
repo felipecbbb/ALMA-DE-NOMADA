@@ -39,15 +39,15 @@ export async function generateMetadata({
 
   if (!guide) {
     return {
-      title: "Guia no encontrada | ALMA DE NOMADA",
+      title: "Guía no encontrada | ALMA DE NÓMADA",
     };
   }
 
   return {
-    title: `${guide.title} | ALMA DE NOMADA`,
+    title: `${guide.title} | ALMA DE NÓMADA`,
     description:
       guide.short_description ??
-      "Guia digital para planificar tu viaje de forma clara y accionable.",
+      "Guía digital para planificar tu viaje de forma clara y accionable.",
   };
 }
 
@@ -85,7 +85,7 @@ export default async function GuideDetailPage({
 
           <div className="flex flex-col justify-center">
             <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-              Guia digital
+              Guía digital
             </p>
             <h1 className="mt-3 text-4xl font-semibold uppercase leading-[0.95] text-foreground md:text-5xl">
               {guide.title}
@@ -99,7 +99,7 @@ export default async function GuideDetailPage({
               {formatPrice(guide.price_cents, guide.currency)}
             </p>
             <div className="mt-8">
-              <GuideCheckoutButton productId={guide.id} label="Comprar guia" />
+              <GuideCheckoutButton productId={guide.id} label="Comprar guía" />
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
               Pago seguro con Stripe. Recibirás acceso inmediato tras la compra.
@@ -110,7 +110,7 @@ export default async function GuideDetailPage({
                 href="/#guias"
                 className="text-sm font-medium text-foreground underline underline-offset-4"
               >
-                Volver a guias
+                Volver a guías
               </Link>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default async function GuideDetailPage({
       <section className="px-6 pb-20 md:px-12 lg:px-20">
         <div className="mx-auto max-w-6xl rounded-3xl border border-border bg-card p-6 md:p-8">
           <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-            Que incluye esta guia
+            Qué incluye esta guía
           </h2>
           <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-muted-foreground md:text-base">
             {guide.description ??
@@ -133,7 +133,7 @@ export default async function GuideDetailPage({
         <section className="px-6 pb-24 md:px-12 lg:px-20">
           <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-              Galeria de la guia
+              Galería de la guía
             </h2>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               {galleryImages.map((image: string, index: number) => (

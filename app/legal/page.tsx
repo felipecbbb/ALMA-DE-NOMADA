@@ -7,9 +7,9 @@ import { OpenCookiePreferencesButton } from "@/components/open-cookie-preference
 const updateDate = "27 de febrero de 2026";
 
 export const metadata: Metadata = {
-  title: "ALMA DE NOMADA | Legal",
+  title: "ALMA DE NÓMADA | Legal",
   description:
-    "Aviso legal, política de privacidad, política de cookies y términos de contratación de ALMA DE NOMADA.",
+    "Aviso legal, política de privacidad, política de cookies y términos de contratación de ALMA DE NÓMADA.",
 };
 
 export default function LegalPage() {
@@ -28,7 +28,7 @@ export default function LegalPage() {
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
             En esta página encontrarás el aviso legal, la política de privacidad,
             la política de cookies, los términos y condiciones y la política de
-            contratación aplicables a ALMA DE NOMADA.
+            contratación aplicables a ALMA DE NÓMADA.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             Última actualización: {updateDate}
@@ -66,7 +66,7 @@ export default function LegalPage() {
               <h2 className="text-2xl font-semibold text-foreground md:text-3xl">1. Aviso legal</h2>
               <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                 <p>
-                  Titular del sitio: ALMA DE NOMADA. Actividad principal: contenidos,
+                  Titular del sitio: ALMA DE NÓMADA. Actividad principal: contenidos,
                   guías digitales y asesoría de viajes personalizada.
                 </p>
                 <p>
@@ -95,10 +95,10 @@ export default function LegalPage() {
                   Los contenidos, diseños, textos, imágenes, vídeos, marcas y demás
                   elementos están protegidos por la normativa de propiedad intelectual e
                   industrial. Queda prohibida su reproducción, distribución o comunicación
-                  pública sin autorización expresa de ALMA DE NOMADA.
+                  pública sin autorización expresa de ALMA DE NÓMADA.
                 </p>
                 <p>
-                  ALMA DE NOMADA puede actualizar, modificar o eliminar contenidos del
+                  ALMA DE NÓMADA puede actualizar, modificar o eliminar contenidos del
                   sitio y de estas condiciones legales sin previo aviso para adaptarlas a
                   cambios normativos o del servicio.
                 </p>
@@ -111,7 +111,7 @@ export default function LegalPage() {
               </h2>
               <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                 <p>
-                  Responsable del tratamiento: ALMA DE NOMADA. Finalidad: responder
+                  Responsable del tratamiento: ALMA DE NÓMADA. Finalidad: responder
                   consultas, gestionar reservas, enviar información solicitada y prestar
                   los servicios contratados.
                 </p>
@@ -205,7 +205,7 @@ export default function LegalPage() {
                 <p>
                   Asesorías y sesiones: la contratación implica que el cliente facilita
                   información veraz y completa para personalizar recomendaciones. ALMA DE
-                  NOMADA presta acompañamiento y orientación, pero no garantiza resultados
+                  NÓMADA presta acompañamiento y orientación, pero no garantiza resultados
                   concretos ajenos a su control (visados, decisiones de terceros,
                   disponibilidad de vuelos u otros servicios externos).
                 </p>
@@ -234,7 +234,7 @@ export default function LegalPage() {
                   informarán antes de contratar.
                 </p>
                 <p>
-                  Cambios por parte de ALMA DE NOMADA: en caso de fuerza mayor o motivos
+                  Cambios por parte de ALMA DE NÓMADA: en caso de fuerza mayor o motivos
                   organizativos justificados, podrá proponerse nueva fecha u opción
                   equivalente para prestar el servicio.
                 </p>

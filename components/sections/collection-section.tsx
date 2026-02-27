@@ -10,9 +10,9 @@ const fallbackGuides = [
   {
     id: "fallback-bali",
     slug: "guia-bali",
-    title: "GUIA DE BALI",
+    title: "GUÍA DE BALI",
     short_description:
-      "Itinerario por zonas, transporte, presupuesto y recomendaciones practicas.",
+      "Itinerario por zonas, transporte, presupuesto y recomendaciones prácticas.",
     image_url:
       "https://almadenomada.com/cdn/shop/t/5/assets/GUIA%20BALI.jpeg?v=165168668847227153021769101751",
     price_cents: 1300,
@@ -21,9 +21,9 @@ const fallbackGuides = [
   {
     id: "fallback-australia",
     slug: "guia-australia",
-    title: "GUIA DE AUSTRALIA",
+    title: "GUÍA DE AUSTRALIA",
     short_description:
-      "Guia practica para planificar tu llegada, visado y primeros tramites.",
+      "Guía práctica para planificar tu llegada, visado y primeros trámites.",
     image_url:
       "https://almadenomada.com/cdn/shop/t/5/assets/GUIA%20AUSTRALIA.jpeg?v=21027950027759913761769101750",
     price_cents: 1300,
@@ -64,7 +64,7 @@ export function CollectionSection() {
     <section id="guias" className="bg-background">
       <div className="px-6 py-20 md:px-12 md:py-10 lg:px-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
-          Guias digitales
+          Guías digitales
         </h2>
       </div>
 
@@ -137,7 +137,7 @@ export function CollectionSection() {
 
         {loading ? (
           <p className="px-6 pt-4 text-sm text-muted-foreground md:px-12 lg:px-20">
-            Cargando guias...
+            Cargando guías...
           </p>
         ) : null}
       </div>

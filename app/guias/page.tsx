@@ -31,10 +31,10 @@ export default async function GuidesPage() {
             Tienda
           </p>
           <h1 className="mt-3 text-4xl font-semibold uppercase text-foreground md:text-5xl">
-            Guias digitales
+            Guías digitales
           </h1>
           <p className="mt-4 max-w-2xl text-base text-muted-foreground">
-            Elige tu guia y compra en un checkout seguro. Todo pensado para que
+            Elige tu guía y compra en un checkout seguro. Todo pensado para que
             prepares tu viaje sin perder tiempo.
           </p>
         </div>

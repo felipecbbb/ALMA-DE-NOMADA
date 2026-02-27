@@ -8,7 +8,7 @@ const footerLinks = {
     { label: "Inicio", href: "/#inicio" },
     { label: "Australia", href: "/#australia" },
     { label: "Destinos", href: "/#destinos" },
-    { label: "Guias", href: "/#guias" },
+    { label: "Guías", href: "/#guias" },
   ],
   about: [
     { label: "Contacto", href: "https://almadenomada.com/pages/contact" },
@@ -18,8 +18,8 @@ const footerLinks = {
   ],
   service: [
     { label: "Privacidad", href: "/legal#privacidad" },
-    { label: "Terminos y Condiciones", href: "/legal#terminos" },
-    { label: "Politica de Viaje", href: "/legal#viajes" },
+    { label: "Términos y Condiciones", href: "/legal#terminos" },
+    { label: "Política de Viaje", href: "/legal#viajes" },
     { label: "Aviso Legal", href: "/legal#aviso-legal" },
   ],
 };
@@ -33,10 +33,10 @@ export function FooterSection() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
             <Link href="/" className="text-lg font-medium text-foreground">
-              ALMA DE NOMADA
+              ALMA DE NÓMADA
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Descubre el mundo con nosotros. Experiencias unicas, destinos inolvidables y la mejor compania para tu proxima aventura.
+              Descubre el mundo con nosotros. Experiencias únicas, destinos inolvidables y la mejor compañía para tu próxima aventura.
             </p>
           </div>
 
@@ -99,7 +99,7 @@ export function FooterSection() {
       <div className="border-t border-border px-6 py-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-xs text-muted-foreground">
-            2026 Alma de Nomada. Todos los derechos reservados.
+            2026 Alma de Nómada. Todos los derechos reservados.
           </p>
 
           

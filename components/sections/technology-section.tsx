@@ -92,7 +92,7 @@ export function TechnologySection() {
   const [textProgress, setTextProgress] = useState(0);
   
   const descriptionText =
-    "Dar el paso hacia una nueva vida o una nueva aventura despierta ilusion y tambien muchas preguntas. Esta asesoria esta pensada para acompanarte con claridad, confianza y tranquilidad en cada etapa de tu proceso. Aqui encontraras orientacion practica, informacion clara y apoyo emocional para que tomes decisiones seguras y alineadas con lo que suenas.";
+    "Dar el paso hacia una nueva vida o una nueva aventura despierta ilusión y también muchas preguntas. Esta asesoría está pensada para acompañarte con claridad, confianza y tranquilidad en cada etapa de tu proceso. Aquí encontrarás orientación práctica, información clara y apoyo emocional para que tomes decisiones seguras y alineadas con lo que sueñas.";
   const planningSteps = [
     {
       id: "01",
@@ -101,13 +101,13 @@ export function TechnologySection() {
     },
     {
       id: "02",
-      title: "TRAMITES CLAROS",
-      description: "Resuelve tus dudas sobre visados, documentacion y planificacion sin estres ni confusion.",
+      title: "TRÁMITES CLAROS",
+      description: "Resuelve tus dudas sobre visados, documentación y planificación sin estrés ni confusión.",
     },
     {
       id: "03",
-      title: "PREPARACION MENTAL",
-      description: "Preparate para el cambio, gestiona tus miedos y da el salto con seguridad y confianza.",
+      title: "PREPARACIÓN MENTAL",
+      description: "Prepárate para el cambio, gestiona tus miedos y da el salto con seguridad y confianza.",
     },
   ];
 
@@ -228,7 +228,7 @@ export function TechnologySection() {
                 className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
               >
                 <h2 className="max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl">
-                  {["Estas", "planeando", "viajar?"].map((word, index) => {
+                  {["¿Estás", "planeando", "viajar?"].map((word, index) => {
                     // Each word fades out sequentially based on scrollProgress
                     const wordFadeStart = index * 0.07; // Technology: 0, Meets: 0.07, Wilderness: 0.14
                     const wordFadeEnd = wordFadeStart + 0.07;
@@ -334,7 +334,7 @@ export function TechnologySection() {
               rel="noreferrer"
               className="inline-flex rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-secondary"
             >
-              Reserva tu asesoria
+              Reserva tu asesoría
             </a>
           </div>
         </div>
