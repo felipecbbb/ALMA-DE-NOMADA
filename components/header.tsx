@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 export function Header() {
@@ -19,62 +20,55 @@ export function Header() {
 
   return (
     <header 
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md rounded-full" : "bg-transparent"}`}
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-[1500px] transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md rounded-full" : "bg-transparent"}`}
       style={{
         boxShadow: isScrolled ? "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px" : "none"
       }}
     >
-      <div className="flex items-center justify-between transition-all duration-300 px-2 pl-5 py-2">
+      <div className="flex items-center justify-between transition-all duration-300 px-3 py-2 md:px-5">
         {/* Logo */}
-        <Link href="#inicio" className={`text-lg font-semibold uppercase tracking-tight transition-colors duration-300 ${isScrolled ? "text-primary" : "text-white"}`}>
-          ALMA DE NOMADA
+        <Link
+          href="/#inicio"
+          className={`flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold uppercase tracking-tight transition-colors duration-300 md:text-base lg:text-lg ${isScrolled ? "text-primary" : "text-white"}`}
+        >
+          <Image
+            src="/logo-alma.png"
+            alt="Logo Alma de Nomada"
+            width={30}
+            height={30}
+            className="h-[30px] w-[30px] rounded-full object-cover"
+            priority
+          />
+          <span>ALMA DE NOMADA</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-5 md:flex lg:gap-8">
           <Link
-            href="#inicio"
-            className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
+            href="/#quienes-somos"
+            className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
-            Inicio
+            Sobre mi
           </Link>
           <Link
-            href="#australia"
-            className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
-          >
-            Australia
-          </Link>
-          <Link
-            href="#destinos"
-            className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
+            href="/#destinos"
+            className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
             Destinos
           </Link>
           <Link
-            href="#guias"
-            className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
+            href="/#guias"
+            className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
             Guias
           </Link>
           <Link
-            href="#legal"
-            className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
+            href="/#contacto"
+            className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
-            Legal
+            Contacto
           </Link>
         </nav>
-
-        {/* CTA */}
-        <div className="hidden items-center gap-6 md:flex">
-          <Link
-            href="https://calendly.com/ainhhgarcia"
-            className={`px-4 py-2 text-sm font-medium transition-all rounded-full ${isScrolled ? "bg-foreground text-background hover:opacity-80" : "bg-white text-foreground hover:bg-white/90"}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Reservas
-          </Link>
-        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -92,48 +86,32 @@ export function Header() {
         <div className="border-t border-border bg-background px-6 py-8 md:hidden rounded-b-2xl">
           <nav className="flex flex-col gap-6">
             <Link
-              href="#inicio"
+              href="/#quienes-somos"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Inicio
+              Sobre mi
             </Link>
             <Link
-              href="#australia"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Australia
-            </Link>
-            <Link
-              href="#destinos"
+              href="/#destinos"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
               Destinos
             </Link>
             <Link
-              href="#guias"
+              href="/#guias"
+              className="text-lg text-foreground"
+              onClick={() => setIsMenuOpen(false)}
+              >
+                Guias
+              </Link>
+              <Link
+              href="/#contacto"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Guias
-            </Link>
-            <Link
-              href="#legal"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Legal
-            </Link>
-            <Link
-              href="https://calendly.com/ainhhgarcia"
-              className="mt-4 bg-foreground px-5 py-3 text-center text-sm font-medium text-background rounded-full"
-              onClick={() => setIsMenuOpen(false)}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Reservas
+              Contacto
             </Link>
           </nav>
         </div>

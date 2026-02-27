@@ -65,8 +65,8 @@ export function PhilosophySection() {
               className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
               style={{ opacity: titleOpacity }}
             >
-              <h2 className="text-[12vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[10vw] lg:text-[8vw] text-center px-6">
-                Como venir a Australia.
+              <h2 className="text-[10.5vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[8.8vw] lg:text-[6.8vw] text-center px-6">
+                Como venir a Australia?
               </h2>
             </div>
 

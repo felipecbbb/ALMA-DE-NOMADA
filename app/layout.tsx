@@ -1,7 +1,8 @@
 import React from "react"
 import type { Metadata } from 'next'
 import { Changa, Poppins } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+import { CookieConsentBanner } from "@/components/cookie-consent-banner"
+import { ConsentManagedAnalytics } from "@/components/consent-managed-analytics"
 import './globals.css'
 
 const poppins = Poppins({
@@ -21,21 +22,9 @@ export const metadata: Metadata = {
   description: 'Asesorias personalizadas para viajar con claridad, confianza y tranquilidad.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/logo-alma.png',
+    shortcut: '/logo-alma.png',
+    apple: '/logo-alma.png',
   },
 }
 
@@ -48,7 +37,8 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${poppins.variable} ${changa.variable} font-sans antialiased`}>
         {children}
-        <Analytics />
+        <CookieConsentBanner />
+        <ConsentManagedAnalytics />
       </body>
     </html>
   )

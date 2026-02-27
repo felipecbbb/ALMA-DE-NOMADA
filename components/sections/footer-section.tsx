@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { OpenCookiePreferencesButton } from "@/components/open-cookie-preferences-button";
 
 const footerLinks = {
   explore: [
-    { label: "Inicio", href: "#inicio" },
-    { label: "Australia", href: "#australia" },
-    { label: "Destinos", href: "#destinos" },
-    { label: "Guias", href: "#guias" },
+    { label: "Inicio", href: "/#inicio" },
+    { label: "Australia", href: "/#australia" },
+    { label: "Destinos", href: "/#destinos" },
+    { label: "Guias", href: "/#guias" },
   ],
   about: [
     { label: "Contacto", href: "https://almadenomada.com/pages/contact" },
@@ -16,16 +17,16 @@ const footerLinks = {
     { label: "Email", href: "mailto:almadenomad@gmail.com" },
   ],
   service: [
-    { label: "Privacidad", href: "https://almadenomada.com/pages/legal" },
-    { label: "Terminos y Condiciones", href: "https://almadenomada.com/pages/legal" },
-    { label: "Politicas de Viaje", href: "https://almadenomada.com/pages/legal" },
-    { label: "Aviso Legal", href: "https://almadenomada.com/pages/legal" },
+    { label: "Privacidad", href: "/legal#privacidad" },
+    { label: "Terminos y Condiciones", href: "/legal#terminos" },
+    { label: "Politica de Viaje", href: "/legal#viajes" },
+    { label: "Aviso Legal", href: "/legal#aviso-legal" },
   ],
 };
 
 export function FooterSection() {
   return (
-    <footer className="bg-background">
+    <footer id="contacto" className="bg-background">
       {/* Main Footer Content */}
       <div className="border-t border-border px-6 py-16 md:px-12 md:py-20 lg:px-20">
         <div className="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
@@ -64,7 +65,7 @@ export function FooterSection() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    target="_blank"
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {link.label}
@@ -82,7 +83,6 @@ export function FooterSection() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    target="_blank"
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {link.label}
@@ -90,6 +90,7 @@ export function FooterSection() {
                 </li>
               ))}
             </ul>
+            <OpenCookiePreferencesButton className="mt-4 text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground" />
           </div>
         </div>
       </div>
