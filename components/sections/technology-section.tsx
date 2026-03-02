@@ -42,7 +42,7 @@ function ScrollRevealText({ text, fullyVisible = false }: { text: string; fullyV
   return (
     <p
       ref={containerRef}
-      className="text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl"
+      className="text-left text-base font-semibold leading-relaxed sm:text-lg md:text-4xl lg:text-5xl"
     >
       {words.map((word, index) => {
         const wordProgress = index / words.length;
