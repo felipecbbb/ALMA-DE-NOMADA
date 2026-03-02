@@ -2,16 +2,16 @@
 
 const partners = [
   {
-    name: "HOLAFLY",
-    logo: "https://almadenomada.com/cdn/shop/t/5/assets/holafly_principal.svg?v=95146794696988832201769101753",
-    href: "https://esim.holafly.com/?irclickid=3A5QomSSfxycUzgxaS1LvWC5UkpSUH1HlxBEU80&discount=ainhhgarcia&utm_source=affiliate&utm_medium=Ainhoa%20Garcia%20Rey&utm_campaign=6841836&irgwc=1&afsrc=1&tw_source=impact&tw_campaign=6841836&tw_term=2006335",
-    description: "eSIM internacional con descuento para viajar conectado desde el primer día.",
-  },
-  {
     name: "IATI SEGUROS",
     logo: "https://almadenomada.com/cdn/shop/t/5/assets/logo-iati-flat-orange.svg?v=103646652425050645201769101746",
     href: "https://www.iatiseguros.com/?r=46492105736708",
     description: "Seguro de viaje recomendado para moverte con más tranquilidad.",
+  },
+  {
+    name: "HOLAFLY",
+    logo: "https://almadenomada.com/cdn/shop/t/5/assets/holafly_principal.svg?v=95146794696988832201769101753",
+    href: "https://esim.holafly.com/?irclickid=3A5QomSSfxycUzgxaS1LvWC5UkpSUH1HlxBEU80&discount=ainhhgarcia&utm_source=affiliate&utm_medium=Ainhoa%20Garcia%20Rey&utm_campaign=6841836&irgwc=1&afsrc=1&tw_source=impact&tw_campaign=6841836&tw_term=2006335",
+    description: "eSIM internacional con descuento para viajar conectado desde el primer día.",
   },
 ];
 
@@ -23,31 +23,8 @@ export function EditorialSection() {
           Descuentos exclusivos: con nuestros partners
         </h2>
         <p className="mx-auto mt-6 max-w-3xl text-lg text-secondary-foreground/85">
-          Tu primera reserva, 10% de descuento.
-        </p>
-        <p className="mx-auto mt-3 max-w-3xl text-lg text-secondary-foreground/85">
           Ahorra en tu seguro de viaje y conectividad con partners recomendados.
         </p>
-
-        <article className="mx-auto mt-8 max-w-3xl rounded-2xl border border-primary/35 bg-white/95 p-6 text-left text-foreground shadow-lg md:p-7">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Reserva
-          </p>
-          <h3 className="mt-2 text-2xl font-semibold text-primary md:text-3xl">
-            10% de descuento en tu primera reserva
-          </h3>
-          <p className="mt-3 text-base text-muted-foreground">
-            Activa tu primera asesoría con precio especial y empieza tu plan con claridad desde el día uno.
-          </p>
-          <a
-            href="https://calendly.com/ainhhgarcia/30min?back=1&month=2026-01"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-5 inline-flex rounded-full bg-primary px-6 py-2 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:bg-secondary"
-          >
-            Reservar ahora
-          </a>
-        </article>
 
         <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           {partners.map((partner) => (
@@ -59,6 +36,9 @@ export function EditorialSection() {
                 <img src={partner.logo} alt={partner.name} className="h-full w-full object-contain" loading="lazy" />
               </div>
               <h3 className="mt-4 text-2xl font-semibold">{partner.name}</h3>
+              <p className="mt-2 text-sm font-semibold text-primary">
+                10% de descuento en tu primera reserva
+              </p>
               <p className="mt-2 text-sm text-muted-foreground">{partner.description}</p>
               <a
                 href={partner.href}
