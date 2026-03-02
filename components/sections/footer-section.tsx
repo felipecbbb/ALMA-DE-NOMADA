@@ -11,9 +11,7 @@ const footerLinks = {
     { label: "Guías", href: "/#guias" },
   ],
   about: [
-    { label: "Contacto", href: "https://almadenomada.com/pages/contact" },
     { label: "Instagram", href: "https://www.instagram.com/almadenomad/" },
-    { label: "Reservas", href: "https://calendly.com/ainhhgarcia" },
     { label: "Email", href: "mailto:almadenomad@gmail.com" },
   ],
   service: [
@@ -59,7 +57,7 @@ export function FooterSection() {
 
           {/* Contacto */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">Contacto</h4>
+            <h4 className="mb-4 text-sm font-medium text-foreground">Contacta con nosotros</h4>
             <ul className="space-y-3">
               {footerLinks.about.map((link) => (
                 <li key={link.label}>

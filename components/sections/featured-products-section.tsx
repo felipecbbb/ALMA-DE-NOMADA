@@ -5,39 +5,45 @@ import { FadeImage } from "@/components/fade-image";
 const features = [
   {
     title: "Thailand",
-    description: "Playas y cultura",
+    description: "Templos, selva y mar turquesa",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
-    summary: "Ruta equilibrada entre islas, norte y ciudad según tu estilo de viaje.",
+    summary:
+      "Viaja entre templos dorados, selvas y aguas turquesa en una ruta diseñada para que vivas la esencia de Tailandia con intención y libertad.",
   },
   {
-    title: "Sri Lanka",
-    description: "Naturaleza y surf",
+    title: "🇱🇰 Sri Lanka",
+    description: "Surf, selva y espiritualidad",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/sir%20lanka.jpeg?v=60339183477933206391769101746",
-    summary: "Itinerario flexible para combinar playas, montaña y presupuesto realista.",
+    summary:
+      "Una isla donde el surf, la selva y la espiritualidad se encuentran. Descubre Sri Lanka a tu ritmo, con un itinerario que fluye contigo.",
   },
   {
-    title: "Japan",
-    description: "Urbano y tradicional",
+    title: "🇯🇵 Japan",
+    description: "Tradición y vanguardia",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/japon.jpeg?v=69856797805187058121769101746",
-    summary: "Plan por zonas, transporte y tiempos para aprovechar al máximo cada etapa.",
+    summary:
+      "Tradición y vanguardia en equilibrio perfecto. Explora Japón con un recorrido pensado para que cada día se sienta único e inolvidable.",
   },
   {
-    title: "Australia",
-    description: "Working holiday",
+    title: "🇦🇺 Australia (Working Holiday)",
+    description: "Nueva vida con estrategia",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751",
-    summary: "Estrategia para llegada, primeros trámites y adaptación a tu nueva rutina.",
+    summary:
+      "Empieza tu nueva vida al otro lado del mundo con claridad, confianza y una estrategia que te permita construir tu propio camino.",
   },
   {
-    title: "New Zealand",
-    description: "Roadtrip y naturaleza",
+    title: "🇳🇿 New Zealand",
+    description: "Roadtrip consciente",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/new%20zealand.jpeg?v=23240636594380725261769101745",
-    summary: "Recorrido pensado para distancias reales, clima y estacionalidad.",
+    summary:
+      "Carreteras infinitas, montañas dramáticas y lagos imposibles. Vive Nueva Zelanda como una aventura consciente y bien planificada.",
   },
   {
-    title: "Maldives",
-    description: "Viaje premium",
+    title: "🇲🇻 Maldives",
+    description: "Calma y paraíso",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747",
-    summary: "Consejos para elegir isla, traslados y presupuesto sin sorpresas.",
+    summary:
+      "Aguas cristalinas, arena blanca y calma absoluta. Organiza tu viaje a Maldivas para disfrutar el paraíso sin preocupación.",
   },
 ];
 
@@ -47,7 +53,7 @@ export function FeaturedProductsSection() {
       {/* Section Title */}
       <div className="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          ¿En qué destinos puedo ayudarte?
+          ¿En qué destinos podemos ayudarte?
         </h2>
         <p className="mx-auto mt-6 max-w-md text-sm text-muted-foreground uppercase tracking-widest">
           Destinos

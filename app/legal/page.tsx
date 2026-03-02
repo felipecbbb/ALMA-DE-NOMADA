@@ -26,9 +26,24 @@ export default function LegalPage() {
             Textos legales
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            En esta página encontrarás el aviso legal, la política de privacidad,
-            la política de cookies, los términos y condiciones y la política de
-            contratación aplicables a ALMA DE NÓMADA.
+            Aviso legal, términos y condiciones disponibles con total transparencia.
+            Nuestros servicios son informativos, personalizados y de acompañamiento.
+          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Responsable: ALMA DE NÓMADA. Contacto:{" "}
+            <a className="font-medium text-foreground underline" href="mailto:almadenomad@gmail.com">
+              almadenomad@gmail.com
+            </a>
+            {" "}e Instagram{" "}
+            <a
+              className="font-medium text-foreground underline"
+              href="https://www.instagram.com/almadenomad/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              @almadenomad
+            </a>
+            .
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             Última actualización: {updateDate}

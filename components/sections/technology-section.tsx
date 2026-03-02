@@ -92,12 +92,12 @@ export function TechnologySection() {
   const [textProgress, setTextProgress] = useState(0);
   
   const descriptionText =
-    "Dar el paso hacia una nueva vida o una nueva aventura despierta ilusión y también muchas preguntas. Esta asesoría está pensada para acompañarte con claridad, confianza y tranquilidad en cada etapa de tu proceso. Aquí encontrarás orientación práctica, información clara y apoyo emocional para que tomes decisiones seguras y alineadas con lo que sueñas.";
+    "Cambiar de país o planear una aventura larga requiere algo más que motivación: requiere claridad. Esta asesoría te ayuda a ordenar ideas, tomar decisiones con seguridad y construir un plan sólido que te permita disfrutar el proceso desde el inicio. Porque cuando tienes dirección, todo fluye diferente.";
   const planningSteps = [
     {
       id: "01",
-      title: "TU DESTINO IDEAL",
-      description: "Te ayudo a elegir el destino y el tipo de experiencia que mejor encaja contigo y con tu momento de vida.",
+      title: "DESTINO IDEAL",
+      description: "Te ayudamos a encontrar tu destino y tipo de experiencia que mejor encaje contigo y tu momento de vida.",
     },
     {
       id: "02",

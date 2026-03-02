@@ -20,9 +20,12 @@ export function EditorialSection() {
     <section className="bg-secondary text-secondary-foreground">
       <div className="px-6 py-20 text-center md:px-12 md:py-24 lg:px-20">
         <h2 className="text-4xl font-medium uppercase tracking-wider text-primary md:text-6xl">
-          Descuentos exclusivos
+          Descuentos exclusivos: con nuestros partners
         </h2>
         <p className="mx-auto mt-6 max-w-3xl text-lg text-secondary-foreground/85">
+          Tu primera reserva, 10% de descuento.
+        </p>
+        <p className="mx-auto mt-3 max-w-3xl text-lg text-secondary-foreground/85">
           Ahorra en tu seguro de viaje y conectividad con partners recomendados.
         </p>
 

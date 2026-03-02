@@ -123,6 +123,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
   
   html {
     scroll-behavior: smooth;
