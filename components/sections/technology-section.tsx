@@ -181,7 +181,7 @@ export function TechnologySection() {
   return (
     <section ref={sectionRef} id="planeando" className="relative bg-secondary">
       {/* Sticky container for scroll animation */}
-      <div className="sticky top-0 h-[88svh] overflow-hidden md:h-screen">
+      <div className="relative h-[72svh] overflow-hidden md:sticky md:top-0 md:h-screen">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
             <div 
@@ -307,7 +307,7 @@ export function TechnologySection() {
       </div>
 
       {/* Scroll space to enable animation */}
-      <div style={{ height: isMobile ? "92vh" : "200vh" }} />
+      <div style={{ height: isMobile ? "0" : "200vh" }} />
 
       {/* Description Section with Background Image and Scroll Reveal */}
       <div 
