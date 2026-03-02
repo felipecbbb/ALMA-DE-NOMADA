@@ -114,7 +114,7 @@ export function HeroSection() {
 
   // Keep title readable for longer before transitioning into the grid.
   const textFadeEnd = isMobile ? 0.05 : 0.32;
-  const textOpacity = isMobile ? 0 : Math.max(0, 1 - (scrollProgress / textFadeEnd));
+  const textOpacity = isMobile ? 1 : Math.max(0, 1 - (scrollProgress / textFadeEnd));
   
   // Image transforms start after the text has mostly faded.
   const imageProgress = isMobile
