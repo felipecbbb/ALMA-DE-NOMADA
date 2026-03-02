@@ -78,8 +78,8 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/IMG_1343.jpg",
-    alt: "Philippines",
+    src: "/about-ainhoa-whatsapp-2026-02-27.jpg",
+    alt: "Ainhoa viajando",
     position: "right",
     span: 1,
   },
