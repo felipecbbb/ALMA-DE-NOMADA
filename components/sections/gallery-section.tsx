@@ -119,23 +119,37 @@ export function GallerySection() {
     setActiveMobileIndex(nextIndex);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) return;
-    const interval = window.setInterval(() => {
-      setActiveMobileIndex((current) => (current + 1) % images.length);
-    }, 3400);
-
-    return () => window.clearInterval(interval);
-  }, [isMobile, images.length]);
-
-  useEffect(() => {
-    if (!isMobile) return;
+  const scrollToMobileIndex = useCallback((index: number, behavior: ScrollBehavior = "smooth") => {
     const scroller = mobileScrollerRef.current;
     if (!scroller) return;
 
-    const target = scroller.children.item(activeMobileIndex) as HTMLElement | null;
-    target?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  }, [isMobile, activeMobileIndex]);
+    const target = scroller.children.item(index) as HTMLElement | null;
+    if (!target) return;
+
+    const rawLeft = target.offsetLeft - (scroller.clientWidth - target.offsetWidth) / 2;
+    const maxLeft = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+    const left = Math.max(0, Math.min(rawLeft, maxLeft));
+    scroller.scrollTo({ left, behavior });
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    scrollToMobileIndex(0, "auto");
+    setActiveMobileIndex(0);
+  }, [isMobile, scrollToMobileIndex]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const interval = window.setInterval(() => {
+      setActiveMobileIndex((current) => {
+        const next = (current + 1) % images.length;
+        scrollToMobileIndex(next);
+        return next;
+      });
+    }, 3400);
+
+    return () => window.clearInterval(interval);
+  }, [isMobile, images.length, scrollToMobileIndex]);
 
   if (isMobile) {
     return (
