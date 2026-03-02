@@ -129,9 +129,9 @@ export function PhilosophySection() {
             Asesoría personalizada para Australia
           </p>
           <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
-            Con mi experiencia viviendo en Australia, transformaré tus dudas en un plan de acción claro y realista
-            a través de una asesoría personalizada. Te acompaño paso a paso para definir ciudad, trámites, visado y
-            primeros movimientos con seguridad, confianza y sin estrés.
+            Gracias a mi experiencia viviendo en Australia, transformaré tus dudas en un plan personalizado con una
+            acción clara. Te acompañamos a dar tus primeros pasos: ciudad, trámites, visados para darte seguridad,
+            confianza y sin estrés.
           </p>
           <a
             href="https://calendly.com/ainhhgarcia/nueva-reunion?back=1&month=2026-01"
