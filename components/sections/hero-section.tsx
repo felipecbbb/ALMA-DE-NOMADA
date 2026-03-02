@@ -137,7 +137,7 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} id="inicio" className="relative bg-background">
       {/* Sticky container for scroll animation */}
-      <div className="sticky top-0 z-20 h-[88svh] overflow-hidden md:h-screen">
+      <div className="relative z-20 h-[72svh] overflow-hidden md:sticky md:top-0 md:h-screen">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
           <div 
@@ -275,10 +275,10 @@ export function HeroSection() {
       </div>
 
       {/* Scroll space to enable animation */}
-      <div style={{ height: isMobile ? "92vh" : "200vh" }} />
+      <div style={{ height: isMobile ? "0" : "200vh" }} />
 
       {/* Tagline Section */}
-      <div className="relative z-0 -mt-24 px-6 pt-10 pb-24 md:-mt-32 md:px-12 md:pt-16 md:pb-32 lg:-mt-40 lg:px-20 lg:pt-20 lg:pb-40">
+      <div className="relative z-0 mt-6 px-6 pt-0 pb-20 md:-mt-32 md:px-12 md:pt-16 md:pb-32 lg:-mt-40 lg:px-20 lg:pt-20 lg:pb-40">
         <p className="mx-auto max-w-2xl text-center text-xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
           Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
         </p>
