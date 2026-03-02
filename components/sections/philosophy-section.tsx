@@ -136,7 +136,7 @@ export function PhilosophySection() {
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             Asesoría personalizada para Australia
           </p>
-          <p className="mt-6 text-center text-xl leading-relaxed text-muted-foreground md:mt-8 md:text-3xl">
+          <p className="mt-6 text-justify text-xl leading-relaxed text-muted-foreground md:mt-8 md:text-3xl">
             Gracias a mi experiencia viviendo en Australia, transformaré tus dudas en un plan personalizado con una
             acción clara. Te acompañamos a dar tus primeros pasos: ciudad, trámites, visados para darte seguridad,
             confianza y sin estrés.
