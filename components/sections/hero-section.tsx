@@ -266,7 +266,7 @@ export function HeroSection() {
       <div className="h-[200vh]" />
 
       {/* Tagline Section */}
-      <div className="relative z-0 -mt-20 px-6 pt-10 pb-24 md:-mt-28 md:px-12 md:pt-16 md:pb-32 lg:-mt-36 lg:px-20 lg:pt-20 lg:pb-40">
+      <div className="relative z-0 -mt-24 px-6 pt-10 pb-24 md:-mt-32 md:px-12 md:pt-16 md:pb-32 lg:-mt-40 lg:px-20 lg:pt-20 lg:pb-40">
         <p className="mx-auto max-w-2xl text-center text-2xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
           Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
         </p>
