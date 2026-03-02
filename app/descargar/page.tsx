@@ -1,28 +1,24 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
 import { Header } from "@/components/header";
 import { FooterSection } from "@/components/sections/footer-section";
 
 export default function DescargarPage() {
-  const searchParams = useSearchParams();
-  const initialToken = useMemo(
-    () => searchParams.get("token") ?? "",
-    [searchParams],
-  );
-
-  const [token, setToken] = useState(initialToken);
+  const [token, setToken] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!token && initialToken) {
-      setToken(initialToken);
+    if (typeof window === "undefined") return;
+    const tokenFromUrl =
+      new URLSearchParams(window.location.search).get("token") ?? "";
+    if (!token && tokenFromUrl) {
+      setToken(tokenFromUrl);
     }
-  }, [initialToken, token]);
+  }, [token]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
