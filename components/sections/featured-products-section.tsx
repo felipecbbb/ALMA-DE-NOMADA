@@ -4,7 +4,7 @@ import { FadeImage } from "@/components/fade-image";
 
 const features = [
   {
-    title: "Thailand",
+    title: "🇹🇭 Thailand",
     description: "Templos, selva y mar turquesa",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
     summary:
@@ -44,6 +44,27 @@ const features = [
     image: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747",
     summary:
       "Aguas cristalinas, arena blanca y calma absoluta. Organiza tu viaje a Maldivas para disfrutar el paraíso sin preocupación.",
+  },
+  {
+    title: "🇻🇳 Vietnam",
+    description: "Ruta cultural y naturaleza",
+    image: "https://almadenomada.com/cdn/shop/t/5/assets/vietnam.jpeg?v=35700450405453791711769101746",
+    summary:
+      "Descubre Vietnam entre arrozales, ciudades vibrantes y paisajes únicos con un recorrido pensado para viajar con intención.",
+  },
+  {
+    title: "🇵🇭 Filipinas",
+    description: "Islas, playas y aventura",
+    image: "/IMG_1343.jpg",
+    summary:
+      "Vive Filipinas entre islas paradisíacas, mar cristalino y experiencias locales para una aventura auténtica y bien planificada.",
+  },
+  {
+    title: "🇮🇩 Indonesia",
+    description: "Templos, volcanes y océano",
+    image: "https://almadenomada.com/cdn/shop/t/5/assets/lombok.jpeg?v=173855469035230574911769101747",
+    summary:
+      "Explora Indonesia a tu ritmo entre cultura, naturaleza y playas espectaculares con una guía clara para organizar cada etapa.",
   },
 ];
 
