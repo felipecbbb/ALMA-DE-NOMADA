@@ -19,7 +19,7 @@ export function GallerySection() {
     { src: "https://almadenomada.com/cdn/shop/t/5/assets/new%20zealand.jpeg?v=23240636594380725261769101745", alt: "New Zealand" },
     { src: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747", alt: "Maldives" },
     { src: "https://almadenomada.com/cdn/shop/t/5/assets/vietnam.jpeg?v=35700450405453791711769101746", alt: "Vietnam" },
-    { src: "https://almadenomada.com/cdn/shop/t/5/assets/filipinas.jpg?v=63190761128601842521769101753", alt: "Philippines" },
+    { src: "/IMG_1343.jpg", alt: "Philippines" },
   ];
 
   // Calculate section height based on content width

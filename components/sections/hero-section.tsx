@@ -145,7 +145,7 @@ export function HeroSection() {
                 muted
                 playsInline
                 preload="auto"
-                poster="https://almadenomada.com/cdn/shop/t/5/assets/IMG_1100.JPEG?v=63690997130712887881769101751"
+                poster="/IMG_1343.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
                 src="https://almadenomada.com/cdn/shop/videos/c/vp/b04b9e96f33a42878b3d61ea1e7ec3d0/b04b9e96f33a42878b3d61ea1e7ec3d0.HD-1080p-7.2Mbps-67097679.mp4?v=0"
               />

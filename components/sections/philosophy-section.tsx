@@ -106,7 +106,7 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="https://almadenomada.com/cdn/shop/t/5/assets/IMG_1100.JPEG?v=63690997130712887881769101751"
+                  src="/tramites-claros-ainhoa.jpg"
                   alt="Asesoría personalizada"
                   fill
                   className="object-cover"

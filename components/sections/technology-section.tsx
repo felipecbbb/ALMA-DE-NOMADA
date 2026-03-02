@@ -72,7 +72,7 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "https://almadenomada.com/cdn/shop/t/5/assets/filipinas.jpg?v=63190761128601842521769101753",
+    src: "/IMG_1343.jpg",
     alt: "Philippines",
     position: "right",
     span: 1,
@@ -216,7 +216,7 @@ export function TechnologySection() {
               }}
             >
               <Image
-                src="https://almadenomada.com/cdn/shop/t/5/assets/IMG_1100.JPEG?v=63690997130712887881769101751"
+                src="/IMG_1343.jpg"
                 alt="Plan de viaje"
                 fill
                 className="object-cover"
