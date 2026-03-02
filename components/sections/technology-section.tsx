@@ -158,22 +158,22 @@ export function TechnologySection() {
   }, [isMobile]);
 
   // Title fades out first (0 to 0.2)
-  const titleOpacity = isMobile ? 0 : Math.max(0, 1 - (scrollProgress / 0.2));
+  const titleOpacity = isMobile ? 1 : Math.max(0, 1 - (scrollProgress / 0.2));
   
   // Image transforms start after title fades (0.2 to 1)
   const imageProgress = isMobile
-    ? 1
+    ? 0
     : Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
   
   // Smooth interpolations
-  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
-  const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * 22; // 0% to 22%
-  const sideOpacity = imageProgress;
-  const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
-  const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const borderRadius = imageProgress * 24; // 0px to 24px
-  const gap = imageProgress * 16; // 0px to 16px
+  const centerWidth = isMobile ? 100 : 100 - (imageProgress * 58); // 100% to 42%
+  const centerHeight = isMobile ? 100 : 100 - (imageProgress * 30); // 100% to 70%
+  const sideWidth = isMobile ? 0 : imageProgress * 22; // 0% to 22%
+  const sideOpacity = isMobile ? 0 : imageProgress;
+  const sideTranslateLeft = isMobile ? -100 : -100 + (imageProgress * 100); // -100% to 0%
+  const sideTranslateRight = isMobile ? 100 : 100 - (imageProgress * 100); // 100% to 0%
+  const borderRadius = isMobile ? 18 : imageProgress * 24; // 0px to 24px
+  const gap = isMobile ? 0 : imageProgress * 16; // 0px to 16px
 
   // Calculate grayscale for text section based on textProgress
   const grayscaleAmount = Math.round((1 - textProgress) * 100);
@@ -184,39 +184,41 @@ export function TechnologySection() {
       <div className="sticky top-0 h-[88svh] overflow-hidden md:h-screen">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
-          <div 
-            className="relative flex h-full w-full items-stretch justify-center"
-            style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px` }}
-          >
+            <div 
+              className="relative flex h-full w-full items-stretch justify-center"
+              style={{ gap: `${gap}px`, padding: `${isMobile ? 10 : imageProgress * 16}px` }}
+            >
             
             {/* Left Column */}
-            <div 
-              className="flex flex-col will-change-transform"
-              style={{
-                width: `${sideWidth}%`,
-                gap: `${gap}px`,
-                transform: `translateX(${sideTranslateLeft}%)`,
-                opacity: sideOpacity,
-              }}
-            >
-              {sideImages.filter(img => img.position === "left").map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className="relative overflow-hidden will-change-transform"
-                  style={{
-                    flex: img.span,
-                    borderRadius: `${borderRadius}px`,
-                  }}
-                >
-                  <Image
-                    src={img.src || "/placeholder.svg"}
-                    alt={img.alt}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            {!isMobile ? (
+              <div 
+                className="flex flex-col will-change-transform"
+                style={{
+                  width: `${sideWidth}%`,
+                  gap: `${gap}px`,
+                  transform: `translateX(${sideTranslateLeft}%)`,
+                  opacity: sideOpacity,
+                }}
+              >
+                {sideImages.filter(img => img.position === "left").map((img, idx) => (
+                  <div 
+                    key={idx} 
+                    className="relative overflow-hidden will-change-transform"
+                    style={{
+                      flex: img.span,
+                      borderRadius: `${borderRadius}px`,
+                    }}
+                  >
+                    <Image
+                      src={img.src || "/placeholder.svg"}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
 
             {/* Main Center Image */}
             <div 
@@ -243,7 +245,7 @@ export function TechnologySection() {
                 <h2 className="max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl">
                   {["¿Estás", "planeando", "viajar?"].map((word, index) => {
                     // Each word fades out sequentially based on scrollProgress
-                    const wordFadeStart = index * 0.07; // Technology: 0, Meets: 0.07, Wilderness: 0.14
+                    const wordFadeStart = isMobile ? 999 : index * 0.07;
                     const wordFadeEnd = wordFadeStart + 0.07;
                     const wordProgress = Math.max(0, Math.min(1, (scrollProgress - wordFadeStart) / (wordFadeEnd - wordFadeStart)));
                     const wordOpacity = 1 - wordProgress;
@@ -270,33 +272,35 @@ export function TechnologySection() {
             </div>
 
             {/* Right Column */}
-            <div 
-              className="flex flex-col will-change-transform"
-              style={{
-                width: `${sideWidth}%`,
-                gap: `${gap}px`,
-                transform: `translateX(${sideTranslateRight}%)`,
-                opacity: sideOpacity,
-              }}
-            >
-              {sideImages.filter(img => img.position === "right").map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className="relative overflow-hidden will-change-transform"
-                  style={{
-                    flex: img.span,
-                    borderRadius: `${borderRadius}px`,
-                  }}
-                >
-                  <Image
-                    src={img.src || "/placeholder.svg"}
-                    alt={img.alt}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            {!isMobile ? (
+              <div 
+                className="flex flex-col will-change-transform"
+                style={{
+                  width: `${sideWidth}%`,
+                  gap: `${gap}px`,
+                  transform: `translateX(${sideTranslateRight}%)`,
+                  opacity: sideOpacity,
+                }}
+              >
+                {sideImages.filter(img => img.position === "right").map((img, idx) => (
+                  <div 
+                    key={idx} 
+                    className="relative overflow-hidden will-change-transform"
+                    style={{
+                      flex: img.span,
+                      borderRadius: `${borderRadius}px`,
+                    }}
+                  >
+                    <Image
+                      src={img.src || "/placeholder.svg"}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
 
           </div>
         </div>

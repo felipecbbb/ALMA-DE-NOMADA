@@ -118,18 +118,18 @@ export function HeroSection() {
   
   // Image transforms start after the text has mostly faded.
   const imageProgress = isMobile
-    ? 1
+    ? 0
     : Math.max(0, Math.min(1, (scrollProgress - textFadeEnd) / (1 - textFadeEnd)));
   
   // Smooth interpolations
-  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
-  const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * 22; // 0% to 22%
-  const sideOpacity = imageProgress;
-  const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
-  const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const borderRadius = imageProgress * 24; // 0px to 24px
-  const gap = imageProgress * 16; // 0px to 16px
+  const centerWidth = isMobile ? 100 : 100 - (imageProgress * 58); // 100% to 42%
+  const centerHeight = isMobile ? 100 : 100 - (imageProgress * 30); // 100% to 70%
+  const sideWidth = isMobile ? 0 : imageProgress * 22; // 0% to 22%
+  const sideOpacity = isMobile ? 0 : imageProgress;
+  const sideTranslateLeft = isMobile ? -100 : -100 + (imageProgress * 100); // -100% to 0%
+  const sideTranslateRight = isMobile ? 100 : 100 - (imageProgress * 100); // 100% to 0%
+  const borderRadius = isMobile ? 18 : imageProgress * 24; // 0px to 24px
+  const gap = isMobile ? 0 : imageProgress * 16; // 0px to 16px
   
   // Vertical offset for side columns to move them up on mobile
   const sideTranslateY = -(imageProgress * (isMobile ? 8 : 15)); // Move up when expanded
@@ -144,42 +144,44 @@ export function HeroSection() {
             className="relative flex h-full w-full items-stretch justify-center"
             style={{
               gap: `${gap}px`,
-              padding: `${imageProgress * 16}px`,
+              padding: `${isMobile ? 10 : imageProgress * 16}px`,
               paddingBottom: `${(isMobile ? 28 : 60) + (imageProgress * (isMobile ? 20 : 40))}px`,
             }}
           >
             
             {/* Left Column */}
-            <div 
-              className="flex flex-col will-change-transform"
-              style={{
-                width: `${sideWidth}%`,
-                gap: `${gap}px`,
-                transform: `translateX(${sideTranslateLeft}%) translateY(${sideTranslateY}%)`,
-                opacity: sideOpacity,
-              }}
-            >
-              {sideImages.filter(img => img.position === "left").map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className="relative overflow-hidden will-change-transform"
-                  style={{
-                    flex: img.span,
-                    borderRadius: `${borderRadius}px`,
-                  }}
-                >
-                  <Image
-                    src={img.src || "/placeholder.svg"}
-                    alt={img.alt}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            {!isMobile ? (
+              <div 
+                className="flex flex-col will-change-transform"
+                style={{
+                  width: `${sideWidth}%`,
+                  gap: `${gap}px`,
+                  transform: `translateX(${sideTranslateLeft}%) translateY(${sideTranslateY}%)`,
+                  opacity: sideOpacity,
+                }}
+              >
+                {sideImages.filter(img => img.position === "left").map((img, idx) => (
+                  <div 
+                    key={idx} 
+                    className="relative overflow-hidden will-change-transform"
+                    style={{
+                      flex: img.span,
+                      borderRadius: `${borderRadius}px`,
+                    }}
+                  >
+                    <Image
+                      src={img.src || "/placeholder.svg"}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
 
             {/* Main Hero Image - Center */}
-            <div 
+            <div
               className="relative overflow-hidden will-change-transform"
               style={{
                 width: `${centerWidth}%`,
@@ -238,33 +240,35 @@ export function HeroSection() {
             </div>
 
             {/* Right Column */}
-            <div 
-              className="flex flex-col will-change-transform"
-              style={{
-                width: `${sideWidth}%`,
-                gap: `${gap}px`,
-                transform: `translateX(${sideTranslateRight}%) translateY(${sideTranslateY}%)`,
-                opacity: sideOpacity,
-              }}
-            >
-              {sideImages.filter(img => img.position === "right").map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className="relative overflow-hidden will-change-transform"
-                  style={{
-                    flex: img.span,
-                    borderRadius: `${borderRadius}px`,
-                  }}
-                >
-                  <Image
-                    src={img.src || "/placeholder.svg"}
-                    alt={img.alt}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            {!isMobile ? (
+              <div 
+                className="flex flex-col will-change-transform"
+                style={{
+                  width: `${sideWidth}%`,
+                  gap: `${gap}px`,
+                  transform: `translateX(${sideTranslateRight}%) translateY(${sideTranslateY}%)`,
+                  opacity: sideOpacity,
+                }}
+              >
+                {sideImages.filter(img => img.position === "right").map((img, idx) => (
+                  <div 
+                    key={idx} 
+                    className="relative overflow-hidden will-change-transform"
+                    style={{
+                      flex: img.span,
+                      borderRadius: `${borderRadius}px`,
+                    }}
+                  >
+                    <Image
+                      src={img.src || "/placeholder.svg"}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
 
           </div>
         </div>
