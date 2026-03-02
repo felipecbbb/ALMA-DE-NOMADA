@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function PhilosophySection() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [alpineTranslateX, setAlpineTranslateX] = useState(-100);
   const [forestTranslateX, setForestTranslateX] = useState(100);
@@ -12,6 +14,12 @@ export function PhilosophySection() {
 
   const updateTransforms = useCallback(() => {
     if (!sectionRef.current) return;
+    if (isMobile) {
+      setAlpineTranslateX(0);
+      setForestTranslateX(0);
+      setTitleOpacity(0);
+      return;
+    }
     
     const rect = sectionRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
@@ -30,7 +38,7 @@ export function PhilosophySection() {
     
     // Title fades out as blocks come together
     setTitleOpacity(1 - progress);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,8 +65,8 @@ export function PhilosophySection() {
   return (
     <section id="australia" className="bg-background">
       {/* Scroll-Animated Product Grid */}
-      <div ref={sectionRef} className="relative" style={{ height: "200vh" }}>
-        <div className="sticky top-0 h-screen flex items-center justify-center">
+      <div ref={sectionRef} className="relative" style={{ height: isMobile ? "125vh" : "200vh" }}>
+        <div className="sticky top-0 flex h-[88svh] items-center justify-center md:h-screen">
           <div className="relative w-full">
             {/* Title - positioned behind the blocks */}
             <div 
@@ -123,12 +131,12 @@ export function PhilosophySection() {
       </div>
 
       {/* Description */}
-      <div className="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
+      <div className="px-6 py-14 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
         <div className="text-center">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             Asesoría personalizada para Australia
           </p>
-          <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
+          <p className="mt-6 text-center text-xl leading-relaxed text-muted-foreground md:mt-8 md:text-3xl">
             Gracias a mi experiencia viviendo en Australia, transformaré tus dudas en un plan personalizado con una
             acción clara. Te acompañamos a dar tus primeros pasos: ciudad, trámites, visados para darte seguridad,
             confianza y sin estrés.

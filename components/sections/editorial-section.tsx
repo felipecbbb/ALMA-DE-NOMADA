@@ -18,7 +18,7 @@ const partners = [
 export function EditorialSection() {
   return (
     <section className="bg-secondary text-secondary-foreground">
-      <div className="px-6 py-20 text-center md:px-12 md:py-24 lg:px-20">
+      <div className="px-6 py-14 text-center md:px-12 md:py-24 lg:px-20">
         <h2 className="text-4xl font-medium uppercase tracking-wider text-primary md:text-6xl">
           Descuentos exclusivos: con nuestros partners
         </h2>

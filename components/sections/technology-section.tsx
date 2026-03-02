@@ -2,12 +2,18 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
-function ScrollRevealText({ text }: { text: string }) {
+function ScrollRevealText({ text, fullyVisible = false }: { text: string; fullyVisible?: boolean }) {
   const containerRef = useRef<HTMLParagraphElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (fullyVisible) {
+      setProgress(1);
+      return;
+    }
+
     const handleScroll = () => {
       if (!containerRef.current) return;
       
@@ -27,9 +33,9 @@ function ScrollRevealText({ text }: { text: string }) {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial check
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [fullyVisible]);
 
   const words = text.split(" ");
   
@@ -86,6 +92,7 @@ const sideImages = [
 ];
 
 export function TechnologySection() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const textSectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -116,11 +123,15 @@ export function TechnologySection() {
       if (!sectionRef.current) return;
       
       const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 2;
+      const scrollableHeight = window.innerHeight * (isMobile ? 0.9 : 2);
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
       
       setScrollProgress(progress);
+      if (isMobile) {
+        setTextProgress(1);
+        return;
+      }
 
       // Text scroll progress
       if (textSectionRef.current) {
@@ -144,13 +155,15 @@ export function TechnologySection() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isMobile]);
 
   // Title fades out first (0 to 0.2)
-  const titleOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
+  const titleOpacity = isMobile ? 0 : Math.max(0, 1 - (scrollProgress / 0.2));
   
   // Image transforms start after title fades (0.2 to 1)
-  const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
+  const imageProgress = isMobile
+    ? 1
+    : Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
   
   // Smooth interpolations
   const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
@@ -168,7 +181,7 @@ export function TechnologySection() {
   return (
     <section ref={sectionRef} id="planeando" className="relative bg-secondary">
       {/* Sticky container for scroll animation */}
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-[88svh] overflow-hidden md:h-screen">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
           <div 
@@ -290,12 +303,12 @@ export function TechnologySection() {
       </div>
 
       {/* Scroll space to enable animation */}
-      <div className="h-[200vh]" />
+      <div style={{ height: isMobile ? "92vh" : "200vh" }} />
 
       {/* Description Section with Background Image and Scroll Reveal */}
       <div 
         ref={textSectionRef}
-        className="relative overflow-hidden bg-background px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40"
+        className="relative overflow-hidden bg-background px-6 py-14 md:px-12 md:py-32 lg:px-20 lg:py-40"
       >
         <div
           className="absolute inset-0"
@@ -314,7 +327,7 @@ export function TechnologySection() {
 
         {/* Text Content */}
         <div className="relative z-10 mx-auto max-w-4xl">
-          <ScrollRevealText text={descriptionText} />
+          <ScrollRevealText text={descriptionText} fullyVisible={isMobile} />
           <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
             {planningSteps.map((step) => (
               <article

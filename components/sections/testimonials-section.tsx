@@ -6,7 +6,7 @@ export function TestimonialsSection() {
   return (
     <section id="legal" className="bg-background">
       {/* Large Text Statement */}
-      <div className="px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40">
+      <div className="px-6 py-14 md:px-12 md:py-32 lg:px-20 lg:py-40">
         <p className="mx-auto max-w-5xl text-2xl leading-relaxed text-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
           Política de privacidad, términos y condiciones y aviso legal disponibles para que tomes decisiones con total
           transparencia. El servicio es informativo, orientativo y de acompañamiento. Responsable: Ainhoa García.

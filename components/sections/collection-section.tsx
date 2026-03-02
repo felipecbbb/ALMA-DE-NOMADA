@@ -38,13 +38,13 @@ export function CollectionSection() {
 
   return (
     <section id="guias" className="bg-background">
-      <div className="px-6 py-20 md:px-12 md:py-10 lg:px-20">
+      <div className="px-6 py-12 md:px-12 md:py-10 lg:px-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
           Guías digitales
         </h2>
       </div>
 
-      <div className="pb-24">
+      <div className="pb-14 md:pb-24">
         <div className="flex gap-6 overflow-x-auto px-6 pb-4 md:hidden snap-x snap-mandatory scrollbar-hide">
           {items.map((guide) => (
             <Link

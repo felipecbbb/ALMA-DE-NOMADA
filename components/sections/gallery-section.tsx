@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function GallerySection() {
+  const isMobile = useIsMobile();
   const galleryRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [sectionHeight, setSectionHeight] = useState("100vh");
@@ -24,6 +26,11 @@ export function GallerySection() {
 
   // Calculate section height based on content width
   useEffect(() => {
+    if (isMobile) {
+      setSectionHeight("auto");
+      return;
+    }
+
     const calculateHeight = () => {
       if (!containerRef.current) return;
       const containerWidth = containerRef.current.scrollWidth;
@@ -41,9 +48,10 @@ export function GallerySection() {
       clearTimeout(timer);
       window.removeEventListener("resize", calculateHeight);
     };
-  }, []);
+  }, [isMobile]);
 
   const updateTransform = useCallback(() => {
+    if (isMobile) return;
     if (!galleryRef.current || !containerRef.current) return;
     
     const rect = galleryRef.current.getBoundingClientRect();
@@ -63,9 +71,11 @@ export function GallerySection() {
     const newTranslateX = progress * -totalScrollDistance;
     
     setTranslateX(newTranslateX);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleScroll = () => {
       // Cancel any pending animation frame
       if (rafRef.current) {
@@ -85,7 +95,30 @@ export function GallerySection() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [updateTransform]);
+  }, [isMobile, updateTransform]);
+
+  if (isMobile) {
+    return (
+      <section id="gallery" className="bg-background px-6 py-12">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="relative h-[48svh] w-[78vw] flex-shrink-0 snap-center overflow-hidden rounded-2xl"
+            >
+              <Image
+                src={image.src || "/placeholder.svg"}
+                alt={image.alt}
+                fill
+                className="object-cover"
+                priority={index < 3}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section 

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const rotatingPhrases = [
   "TU PRÓXIMA AVENTURA",
@@ -37,6 +38,7 @@ const sideImages = [
 ];
 
 export function HeroSection() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -47,7 +49,7 @@ export function HeroSection() {
       if (!sectionRef.current) return;
       
       const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 2;
+      const scrollableHeight = window.innerHeight * (isMobile ? 0.9 : 2);
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
       
@@ -60,7 +62,7 @@ export function HeroSection() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -111,11 +113,13 @@ export function HeroSection() {
   }, []);
 
   // Keep title readable for longer before transitioning into the grid.
-  const textFadeEnd = 0.32;
-  const textOpacity = Math.max(0, 1 - (scrollProgress / textFadeEnd));
+  const textFadeEnd = isMobile ? 0.05 : 0.32;
+  const textOpacity = isMobile ? 0 : Math.max(0, 1 - (scrollProgress / textFadeEnd));
   
   // Image transforms start after the text has mostly faded.
-  const imageProgress = Math.max(0, Math.min(1, (scrollProgress - textFadeEnd) / (1 - textFadeEnd)));
+  const imageProgress = isMobile
+    ? 1
+    : Math.max(0, Math.min(1, (scrollProgress - textFadeEnd) / (1 - textFadeEnd)));
   
   // Smooth interpolations
   const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
@@ -128,17 +132,21 @@ export function HeroSection() {
   const gap = imageProgress * 16; // 0px to 16px
   
   // Vertical offset for side columns to move them up on mobile
-  const sideTranslateY = -(imageProgress * 15); // Move up by 15% when fully expanded
+  const sideTranslateY = -(imageProgress * (isMobile ? 8 : 15)); // Move up when expanded
 
   return (
     <section ref={sectionRef} id="inicio" className="relative bg-background">
       {/* Sticky container for scroll animation */}
-      <div className="sticky top-0 z-20 h-screen overflow-hidden">
+      <div className="sticky top-0 z-20 h-[88svh] overflow-hidden md:h-screen">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
           <div 
             className="relative flex h-full w-full items-stretch justify-center"
-            style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px`, paddingBottom: `${60 + (imageProgress * 40)}px` }}
+            style={{
+              gap: `${gap}px`,
+              padding: `${imageProgress * 16}px`,
+              paddingBottom: `${(isMobile ? 28 : 60) + (imageProgress * (isMobile ? 20 : 40))}px`,
+            }}
           >
             
             {/* Left Column */}
@@ -263,11 +271,11 @@ export function HeroSection() {
       </div>
 
       {/* Scroll space to enable animation */}
-      <div className="h-[200vh]" />
+      <div style={{ height: isMobile ? "92vh" : "200vh" }} />
 
       {/* Tagline Section */}
       <div className="relative z-0 -mt-24 px-6 pt-10 pb-24 md:-mt-32 md:px-12 md:pt-16 md:pb-32 lg:-mt-40 lg:px-20 lg:pt-20 lg:pb-40">
-        <p className="mx-auto max-w-2xl text-center text-2xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
+        <p className="mx-auto max-w-2xl text-center text-xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
           Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
         </p>
       </div>

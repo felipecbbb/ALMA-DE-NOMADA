@@ -2,7 +2,7 @@
 
 export function AboutAinhoaSection() {
   return (
-    <section id="quienes-somos" className="bg-background px-6 py-24 md:px-12 md:py-28 lg:px-20 lg:py-32">
+    <section id="quienes-somos" className="bg-background px-6 py-14 md:px-12 md:py-28 lg:px-20 lg:py-32">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
         <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl md:mx-0 md:max-w-md">
           <img
