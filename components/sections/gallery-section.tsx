@@ -8,10 +8,11 @@ export function GallerySection() {
   const isMobile = useIsMobile();
   const galleryRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const mobileScrollerRef = useRef<HTMLDivElement>(null);
   const [sectionHeight, setSectionHeight] = useState("100vh");
   const [translateX, setTranslateX] = useState(0);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const rafRef = useRef<number | null>(null);
-  const lastScrollRef = useRef(0);
 
   const images = [
     { src: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746", alt: "Thailand" },
@@ -97,10 +98,53 @@ export function GallerySection() {
     };
   }, [isMobile, updateTransform]);
 
+  const handleMobileScroll = useCallback(() => {
+    const scroller = mobileScrollerRef.current;
+    if (!scroller) return;
+
+    const center = scroller.scrollLeft + scroller.clientWidth / 2;
+    let nextIndex = 0;
+    let minDistance = Number.POSITIVE_INFINITY;
+
+    Array.from(scroller.children).forEach((child, index) => {
+      const card = child as HTMLElement;
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.abs(cardCenter - center);
+      if (distance < minDistance) {
+        minDistance = distance;
+        nextIndex = index;
+      }
+    });
+
+    setActiveMobileIndex(nextIndex);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const interval = window.setInterval(() => {
+      setActiveMobileIndex((current) => (current + 1) % images.length);
+    }, 3400);
+
+    return () => window.clearInterval(interval);
+  }, [isMobile, images.length]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const scroller = mobileScrollerRef.current;
+    if (!scroller) return;
+
+    const target = scroller.children.item(activeMobileIndex) as HTMLElement | null;
+    target?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [isMobile, activeMobileIndex]);
+
   if (isMobile) {
     return (
       <section id="gallery" className="bg-background px-6 py-12">
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+        <div
+          ref={mobileScrollerRef}
+          onScroll={handleMobileScroll}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
+        >
           {images.map((image, index) => (
             <div
               key={index}
