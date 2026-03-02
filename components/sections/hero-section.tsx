@@ -38,6 +38,7 @@ const sideImages = [
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activePhrase, setActivePhrase] = useState(0);
 
@@ -69,6 +70,46 @@ export function HeroSection() {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const startSecond = 2;
+
+    const playFromSecond = () => {
+      const safeStart = Number.isFinite(video.duration)
+        ? Math.min(startSecond, Math.max(0, video.duration - 0.1))
+        : startSecond;
+      video.currentTime = safeStart;
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          // Ignore autoplay rejections from some browsers.
+        });
+      }
+    };
+
+    const handleLoadedMetadata = () => {
+      playFromSecond();
+    };
+
+    const handleEnded = () => {
+      playFromSecond();
+    };
+
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("ended", handleEnded);
+
+    if (video.readyState >= 1) {
+      playFromSecond();
+    }
+
+    return () => {
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("ended", handleEnded);
+    };
+  }, []);
+
   // Keep title readable for longer before transitioning into the grid.
   const textFadeEnd = 0.32;
   const textOpacity = Math.max(0, 1 - (scrollProgress / textFadeEnd));
@@ -92,7 +133,7 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} id="inicio" className="relative bg-background">
       {/* Sticky container for scroll animation */}
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 z-20 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
           <div 
@@ -140,8 +181,8 @@ export function HeroSection() {
               }}
             >
               <video
+                ref={heroVideoRef}
                 autoPlay
-                loop
                 muted
                 playsInline
                 preload="auto"
@@ -225,7 +266,7 @@ export function HeroSection() {
       <div className="h-[200vh]" />
 
       {/* Tagline Section */}
-      <div className="px-6 pt-32 pb-28 md:pt-48 md:px-12 md:pb-36 lg:px-20 lg:pt-56 lg:pb-44">
+      <div className="relative z-0 -mt-28 px-6 pt-10 pb-24 md:-mt-36 md:px-12 md:pt-16 md:pb-32 lg:-mt-44 lg:px-20 lg:pt-20 lg:pb-40">
         <p className="mx-auto max-w-2xl text-center text-2xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
           Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
         </p>
