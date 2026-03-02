@@ -4,7 +4,7 @@ import { FadeImage } from "@/components/fade-image";
 
 const features = [
   {
-    title: "🇹🇭 Thailand",
+    title: "🇹🇭 Tailandia",
     description: "Templos, selva y mar turquesa",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
     summary:
