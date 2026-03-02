@@ -29,6 +29,26 @@ export function EditorialSection() {
           Ahorra en tu seguro de viaje y conectividad con partners recomendados.
         </p>
 
+        <article className="mx-auto mt-8 max-w-3xl rounded-2xl border border-primary/35 bg-white/95 p-6 text-left text-foreground shadow-lg md:p-7">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Reserva
+          </p>
+          <h3 className="mt-2 text-2xl font-semibold text-primary md:text-3xl">
+            10% de descuento en tu primera reserva
+          </h3>
+          <p className="mt-3 text-base text-muted-foreground">
+            Activa tu primera asesoría con precio especial y empieza tu plan con claridad desde el día uno.
+          </p>
+          <a
+            href="https://calendly.com/ainhhgarcia/30min?back=1&month=2026-01"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex rounded-full bg-primary px-6 py-2 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:bg-secondary"
+          >
+            Reservar ahora
+          </a>
+        </article>
+
         <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           {partners.map((partner) => (
             <article
