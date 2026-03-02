@@ -25,7 +25,7 @@ const features = [
       "Tradición y vanguardia en equilibrio perfecto. Explora Japón con un recorrido pensado para que cada día se sienta único e inolvidable.",
   },
   {
-    title: "🇦🇺 Australia (Working Holiday)",
+    title: "🇦🇺 Australia",
     description: "Nueva vida con estrategia",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751",
     summary:
