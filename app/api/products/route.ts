@@ -49,7 +49,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const title = String(body.title ?? "").trim();
     const imageUrl = String(body.imageUrl ?? "").trim();
+    const digitalFilePath = String(body.digitalFilePath ?? "").trim();
     const priceCents = Number(body.priceCents ?? 0);
+    const stock = Number(body.stock ?? 0);
     const currency = String(body.currency ?? "EUR").toUpperCase().trim();
     const shortDescription = String(body.shortDescription ?? "").trim();
     const description = String(body.description ?? "").trim();
@@ -70,9 +72,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!digitalFilePath) {
+      return NextResponse.json(
+        { error: "Debes subir el archivo digital de la guia." },
+        { status: 400 },
+      );
+    }
+
     if (!Number.isFinite(priceCents) || priceCents <= 0) {
       return NextResponse.json(
         { error: "El precio debe ser mayor que cero (en centimos)." },
+        { status: 400 },
+      );
+    }
+
+    if (!Number.isInteger(stock) || stock < 0) {
+      return NextResponse.json(
+        { error: "El stock debe ser un numero entero mayor o igual a cero." },
         { status: 400 },
       );
     }
@@ -91,9 +107,11 @@ export async function POST(request: NextRequest) {
         short_description: shortDescription || null,
         description: description || null,
         image_url: imageUrl,
+        digital_file_path: digitalFilePath,
         gallery_images: galleryImages,
         price_cents: Math.round(priceCents),
         currency,
+        stock,
         active,
       })
       .select("*")

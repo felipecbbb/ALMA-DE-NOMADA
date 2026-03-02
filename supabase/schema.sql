@@ -1,4 +1,4 @@
--- ALMA DE NOMADA - Store schema (products + orders)
+-- ALMA DE NÓMADA - Store schema (products + orders)
 -- Run this in Supabase SQL Editor.
 
 create extension if not exists pgcrypto;
@@ -10,13 +10,22 @@ create table if not exists public.products (
   short_description text,
   description text,
   image_url text not null,
+  digital_file_path text,
   gallery_images text[] default '{}',
   price_cents integer not null check (price_cents > 0),
   currency text not null default 'EUR',
+  stock integer not null default 0 check (stock >= 0),
   active boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Migration-safe in case products table already existed without stock.
+alter table if exists public.products
+  add column if not exists stock integer not null default 0;
+
+alter table if exists public.products
+  add column if not exists digital_file_path text;
 
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
@@ -28,14 +37,27 @@ create table if not exists public.orders (
   currency text not null default 'EUR',
   items jsonb not null default '[]'::jsonb,
   metadata jsonb not null default '{}'::jsonb,
+  download_token text unique,
+  download_code_hash text,
+  download_sent_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table if exists public.orders
+  add column if not exists download_token text;
+
+alter table if exists public.orders
+  add column if not exists download_code_hash text;
+
+alter table if exists public.orders
+  add column if not exists download_sent_at timestamptz;
 
 create index if not exists products_active_idx on public.products(active);
 create index if not exists products_slug_idx on public.products(slug);
 create index if not exists orders_created_idx on public.orders(created_at desc);
 create index if not exists orders_status_idx on public.orders(status);
+create unique index if not exists orders_download_token_idx on public.orders(download_token);
 
 create or replace function public.touch_updated_at()
 returns trigger

@@ -55,6 +55,17 @@ export async function PATCH(
       payload.image_url = imageUrl;
     }
 
+    if (body.digitalFilePath !== undefined) {
+      const digitalFilePath = String(body.digitalFilePath ?? "").trim();
+      if (!digitalFilePath) {
+        return NextResponse.json(
+          { error: "El archivo digital no puede estar vacio." },
+          { status: 400 },
+        );
+      }
+      payload.digital_file_path = digitalFilePath;
+    }
+
     if (body.galleryImages !== undefined) {
       payload.gallery_images = parseGalleryImages(body.galleryImages);
     }
@@ -68,6 +79,17 @@ export async function PATCH(
         );
       }
       payload.price_cents = Math.round(priceCents);
+    }
+
+    if (body.stock !== undefined) {
+      const stock = Number(body.stock);
+      if (!Number.isInteger(stock) || stock < 0) {
+        return NextResponse.json(
+          { error: "El stock debe ser un numero entero mayor o igual a cero." },
+          { status: 400 },
+        );
+      }
+      payload.stock = stock;
     }
 
     if (body.currency !== undefined) {

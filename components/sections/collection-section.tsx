@@ -6,31 +6,6 @@ import { FadeImage } from "@/components/fade-image";
 import { ProductRecord } from "@/lib/store-types";
 import { formatPrice } from "@/lib/store-utils";
 
-const fallbackGuides = [
-  {
-    id: "fallback-bali",
-    slug: "guia-bali",
-    title: "GUÍA DE BALI",
-    short_description:
-      "Itinerario por zonas, transporte, presupuesto y recomendaciones prácticas.",
-    image_url:
-      "https://almadenomada.com/cdn/shop/t/5/assets/GUIA%20BALI.jpeg?v=165168668847227153021769101751",
-    price_cents: 1300,
-    currency: "EUR",
-  },
-  {
-    id: "fallback-australia",
-    slug: "guia-australia",
-    title: "GUÍA DE AUSTRALIA",
-    short_description:
-      "Guía práctica para planificar tu llegada, visado y primeros trámites.",
-    image_url:
-      "https://almadenomada.com/cdn/shop/t/5/assets/GUIA%20AUSTRALIA.jpeg?v=21027950027759913761769101750",
-    price_cents: 1300,
-    currency: "EUR",
-  },
-];
-
 export function CollectionSection() {
   const [guides, setGuides] = useState<ProductRecord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +21,8 @@ export function CollectionSection() {
         if (!mounted) return;
         setGuides((payload.products as ProductRecord[]) ?? []);
       } catch {
-        // Keep fallback guides when API fails.
+        if (!mounted) return;
+        setGuides([]);
       } finally {
         if (mounted) setLoading(false);
       }
@@ -58,7 +34,7 @@ export function CollectionSection() {
     };
   }, []);
 
-  const items = guides.length > 0 ? guides : fallbackGuides;
+  const items = guides;
 
   return (
     <section id="guias" className="bg-background">
@@ -74,7 +50,7 @@ export function CollectionSection() {
             <Link
               key={guide.id}
               href={`/guias/${guide.slug}`}
-              className="group w-[75vw] flex-shrink-0 snap-center"
+              className={`group w-[75vw] flex-shrink-0 snap-center ${guide.stock <= 0 ? "opacity-80" : ""}`}
             >
               <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
                 <FadeImage
@@ -94,6 +70,13 @@ export function CollectionSection() {
                     <p className="mt-2 text-sm text-muted-foreground">
                       {guide.short_description}
                     </p>
+                    <p
+                      className={`mt-2 text-xs font-medium ${
+                        guide.stock > 0 ? "text-emerald-700" : "text-red-600"
+                      }`}
+                    >
+                      {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
+                    </p>
                   </div>
                   <span className="text-lg font-medium text-foreground">
                     {formatPrice(guide.price_cents, guide.currency)}
@@ -106,7 +89,11 @@ export function CollectionSection() {
 
         <div className="hidden gap-8 md:grid md:grid-cols-2 md:px-12 lg:px-20">
           {items.map((guide) => (
-            <Link key={guide.id} href={`/guias/${guide.slug}`} className="group">
+            <Link
+              key={guide.id}
+              href={`/guias/${guide.slug}`}
+              className={`group ${guide.stock <= 0 ? "opacity-80" : ""}`}
+            >
               <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
                 <FadeImage
                   src={guide.image_url || "/placeholder.svg"}
@@ -125,6 +112,13 @@ export function CollectionSection() {
                     <p className="mt-2 text-sm text-muted-foreground">
                       {guide.short_description}
                     </p>
+                    <p
+                      className={`mt-2 text-xs font-medium ${
+                        guide.stock > 0 ? "text-emerald-700" : "text-red-600"
+                      }`}
+                    >
+                      {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
+                    </p>
                   </div>
                   <span className="text-2xl font-medium text-foreground">
                     {formatPrice(guide.price_cents, guide.currency)}
@@ -138,6 +132,11 @@ export function CollectionSection() {
         {loading ? (
           <p className="px-6 pt-4 text-sm text-muted-foreground md:px-12 lg:px-20">
             Cargando guías...
+          </p>
+        ) : null}
+        {!loading && items.length === 0 ? (
+          <p className="px-6 pt-4 text-sm text-muted-foreground md:px-12 lg:px-20">
+            No hay guías publicadas todavía. Sube productos desde el panel admin.
           </p>
         ) : null}
       </div>

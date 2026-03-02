@@ -41,7 +41,11 @@ export default async function GuidesPage() {
 
         <div className="mx-auto mt-10 grid max-w-6xl gap-8 md:grid-cols-2">
           {guides.map((guide) => (
-            <Link key={guide.id} href={`/guias/${guide.slug}`} className="group block">
+            <Link
+              key={guide.id}
+              href={`/guias/${guide.slug}`}
+              className={`group block ${guide.stock <= 0 ? "opacity-80" : ""}`}
+            >
               <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-muted">
                 <img
                   src={guide.image_url}
@@ -54,6 +58,13 @@ export default async function GuidesPage() {
                 <p className="mt-2 text-sm text-muted-foreground">
                   {guide.short_description}
                 </p>
+                <p
+                  className={`mt-3 text-xs font-medium ${
+                    guide.stock > 0 ? "text-emerald-700" : "text-red-600"
+                  }`}
+                >
+                  {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
+                </p>
                 <p className="mt-4 text-lg font-semibold text-foreground">
                   {formatPrice(guide.price_cents, guide.currency)}
                 </p>
@@ -61,6 +72,11 @@ export default async function GuidesPage() {
             </Link>
           ))}
         </div>
+        {guides.length === 0 ? (
+          <p className="mx-auto mt-8 max-w-6xl text-sm text-muted-foreground">
+            No hay guías disponibles todavía.
+          </p>
+        ) : null}
       </section>
       <FooterSection />
     </main>

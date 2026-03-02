@@ -66,6 +66,8 @@ export default async function GuideDetailPage({
   const galleryImages = Array.isArray(guide.gallery_images)
     ? guide.gallery_images.filter((entry: unknown): entry is string => typeof entry === "string")
     : [];
+  const stock = Number(guide.stock ?? 0);
+  const isOutOfStock = stock <= 0;
 
   return (
     <main className="min-h-screen bg-background">
@@ -98,12 +100,29 @@ export default async function GuideDetailPage({
             <p className="mt-6 text-3xl font-semibold text-foreground">
               {formatPrice(guide.price_cents, guide.currency)}
             </p>
-            <div className="mt-8">
-              <GuideCheckoutButton productId={guide.id} label="Comprar guía" />
-            </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Pago seguro con Stripe. Recibirás acceso inmediato tras la compra.
+            <p
+              className={`mt-3 text-sm font-medium ${
+                isOutOfStock ? "text-red-600" : "text-emerald-700"
+              }`}
+            >
+              {isOutOfStock ? "Agotado" : `Stock disponible: ${stock}`}
             </p>
+            <div className="mt-8">
+              <GuideCheckoutButton
+                productId={guide.id}
+                label="Comprar guía"
+                disabled={isOutOfStock}
+              />
+            </div>
+            {isOutOfStock ? (
+              <p className="mt-4 text-xs text-muted-foreground">
+                Esta guía no tiene stock ahora mismo. Puedes revisarla más tarde.
+              </p>
+            ) : (
+              <p className="mt-4 text-xs text-muted-foreground">
+                Pago seguro con Stripe. Recibirás acceso inmediato tras la compra.
+              </p>
+            )}
 
             <div className="mt-8 border-t border-border pt-6">
               <Link

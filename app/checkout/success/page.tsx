@@ -15,8 +15,9 @@ export default function CheckoutSuccessPage() {
             Gracias por tu compra
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-            Tu pedido se ha procesado correctamente. Si tienes cualquier duda sobre
-            acceso a la guia, escríbenos a{" "}
+            Tu pedido se ha procesado correctamente. Te enviaremos por correo un
+            enlace y un codigo de descarga para tu guia digital. Si tienes
+            cualquier duda, escribenos a{" "}
             <a className="underline" href="mailto:almadenomad@gmail.com">
               almadenomad@gmail.com
             </a>
@@ -29,6 +30,12 @@ export default function CheckoutSuccessPage() {
               className="rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground"
             >
               Ver más guías
+            </Link>
+            <Link
+              href="/descargar"
+              className="rounded-full border border-border px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-foreground"
+            >
+              Descargar compra
             </Link>
             <Link
               href="/"

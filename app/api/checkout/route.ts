@@ -43,6 +43,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (Number(product.stock ?? 0) <= 0) {
+      return NextResponse.json(
+        { error: "Este producto esta agotado en este momento." },
+        { status: 400 },
+      );
+    }
+
+    if (!String(product.digital_file_path ?? "").trim()) {
+      return NextResponse.json(
+        { error: "Esta guia todavia no tiene archivo digital disponible." },
+        { status: 400 },
+      );
+    }
+
     const stripe = getStripeServerClient();
     const baseUrl = getBaseUrl(request);
 

@@ -13,8 +13,10 @@ const emptyForm = {
   shortDescription: "",
   description: "",
   imageUrl: "",
+  digitalFilePath: "",
   galleryImages: "",
   priceEur: "13",
+  stock: "0",
   currency: "EUR",
   active: true,
 };
@@ -40,6 +42,8 @@ export default function AdminPage() {
   const [products, setProducts] = useState<ProductRecord[]>([]);
   const [orders, setOrders] = useState<OrderRecord[]>([]);
   const [savingProduct, setSavingProduct] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingGuide, setUploadingGuide] = useState(false);
   const [form, setForm] = useState(emptyForm);
 
   const isEditing = useMemo(() => form.id !== "", [form.id]);
@@ -120,6 +124,38 @@ export default function AdminPage() {
 
   const resetForm = () => setForm(emptyForm);
 
+  const uploadAsset = async (file: File, kind: "image" | "guide") => {
+    const formData = new FormData();
+    formData.append("kind", kind);
+    formData.append("file", file);
+
+    const response = await fetch("/api/admin/upload", {
+      method: "POST",
+      headers: { "x-admin-key": adminKey },
+      body: formData,
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.error ?? "No se pudo subir el archivo.");
+    }
+
+    if (kind === "image") {
+      const url = String(result.url ?? "").trim();
+      if (!url) {
+        throw new Error("No se recibio URL de imagen tras la subida.");
+      }
+      setForm((prev) => ({ ...prev, imageUrl: url }));
+      return;
+    }
+
+    const path = String(result.path ?? "").trim();
+    if (!path) {
+      throw new Error("No se recibio la ruta del archivo digital.");
+    }
+    setForm((prev) => ({ ...prev, digitalFilePath: path }));
+  };
+
   const editProduct = (product: ProductRecord) => {
     setTab("productos");
     setForm({
@@ -129,10 +165,12 @@ export default function AdminPage() {
       shortDescription: product.short_description ?? "",
       description: product.description ?? "",
       imageUrl: product.image_url,
+      digitalFilePath: product.digital_file_path ?? "",
       galleryImages: Array.isArray(product.gallery_images)
         ? product.gallery_images.join("\n")
         : "",
       priceEur: toMoneyInput(product.price_cents),
+      stock: String(product.stock ?? 0),
       currency: product.currency,
       active: product.active,
     });
@@ -147,10 +185,17 @@ export default function AdminPage() {
       return;
     }
 
+    const stock = Number(form.stock);
+    if (!Number.isInteger(stock) || stock < 0) {
+      setError("El stock debe ser un número entero mayor o igual a cero.");
+      return;
+    }
+
     const title = form.title.trim();
     const imageUrl = form.imageUrl.trim();
-    if (!title || !imageUrl) {
-      setError("Título e imagen principal son obligatorios.");
+    const digitalFilePath = form.digitalFilePath.trim();
+    if (!title || !imageUrl || !digitalFilePath) {
+      setError("Titulo, imagen principal y archivo digital son obligatorios.");
       return;
     }
 
@@ -160,8 +205,10 @@ export default function AdminPage() {
       shortDescription: form.shortDescription.trim(),
       description: form.description.trim(),
       imageUrl,
+      digitalFilePath,
       galleryImages: form.galleryImages,
       priceCents,
+      stock,
       currency: form.currency.trim().toUpperCase(),
       active: form.active,
     };
@@ -389,14 +436,78 @@ export default function AdminPage() {
                   className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
                   placeholder="Slug (opcional)"
                 />
-                <input
-                  value={form.imageUrl}
-                  onChange={(event) =>
-                    setForm((prev) => ({ ...prev, imageUrl: event.target.value }))
-                  }
-                  className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
-                  placeholder="URL imagen principal"
-                />
+                <div className="space-y-2 rounded-xl border border-border bg-background p-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    Imagen principal
+                  </p>
+                  <input
+                    value={form.imageUrl}
+                    readOnly
+                    className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-muted-foreground"
+                    placeholder="Sube una imagen"
+                  />
+                  <label className="inline-flex cursor-pointer rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground">
+                    {uploadingImage ? "Subiendo..." : "Subir imagen"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      disabled={uploadingImage}
+                      onChange={async (event) => {
+                        const file = event.target.files?.[0];
+                        event.currentTarget.value = "";
+                        if (!file) return;
+                        try {
+                          setUploadingImage(true);
+                          setError(null);
+                          await uploadAsset(file, "image");
+                        } catch (err) {
+                          setError(
+                            err instanceof Error ? err.message : "Error subiendo imagen.",
+                          );
+                        } finally {
+                          setUploadingImage(false);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="space-y-2 rounded-xl border border-border bg-background p-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    Archivo digital de la guia
+                  </p>
+                  <input
+                    value={form.digitalFilePath}
+                    readOnly
+                    className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-muted-foreground"
+                    placeholder="Sube el PDF/ZIP de la guia"
+                  />
+                  <label className="inline-flex cursor-pointer rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground">
+                    {uploadingGuide ? "Subiendo..." : "Subir guia"}
+                    <input
+                      type="file"
+                      accept=".pdf,.zip,.rar,.epub,.doc,.docx,.ppt,.pptx"
+                      className="hidden"
+                      disabled={uploadingGuide}
+                      onChange={async (event) => {
+                        const file = event.target.files?.[0];
+                        event.currentTarget.value = "";
+                        if (!file) return;
+                        try {
+                          setUploadingGuide(true);
+                          setError(null);
+                          await uploadAsset(file, "guide");
+                        } catch (err) {
+                          setError(
+                            err instanceof Error ? err.message : "Error subiendo guia.",
+                          );
+                        } finally {
+                          setUploadingGuide(false);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
                 <textarea
                   value={form.shortDescription}
                   onChange={(event) =>
@@ -427,7 +538,7 @@ export default function AdminPage() {
                   className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
                   placeholder="Galería (una URL por línea)"
                 />
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   <input
                     value={form.priceEur}
                     onChange={(event) =>
@@ -435,6 +546,14 @@ export default function AdminPage() {
                     }
                     className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
                     placeholder="Precio (ej: 13,00)"
+                  />
+                  <input
+                    value={form.stock}
+                    onChange={(event) =>
+                      setForm((prev) => ({ ...prev, stock: event.target.value }))
+                    }
+                    className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
+                    placeholder="Stock"
                   />
                   <input
                     value={form.currency}
@@ -458,7 +577,7 @@ export default function AdminPage() {
                 <div className="flex flex-wrap gap-2 pt-2">
                   <button
                     type="submit"
-                    disabled={savingProduct}
+                    disabled={savingProduct || uploadingImage || uploadingGuide}
                     className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
                   >
                     {savingProduct
@@ -487,6 +606,8 @@ export default function AdminPage() {
                     <tr className="border-b border-border bg-muted/40 text-left text-xs uppercase tracking-[0.16em] text-muted-foreground">
                       <th className="px-4 py-3">Producto</th>
                       <th className="px-4 py-3">Precio</th>
+                      <th className="px-4 py-3">Stock</th>
+                      <th className="px-4 py-3">Guía</th>
                       <th className="px-4 py-3">Estado</th>
                       <th className="px-4 py-3">Actualizado</th>
                       <th className="px-4 py-3">Acciones</th>
@@ -501,6 +622,20 @@ export default function AdminPage() {
                         </td>
                         <td className="px-4 py-3 text-foreground">
                           {formatPrice(product.price_cents, product.currency)}
+                        </td>
+                        <td className="px-4 py-3 text-foreground">
+                          {product.stock}
+                        </td>
+                        <td className="px-4 py-3 text-xs">
+                          {product.digital_file_path ? (
+                            <span className="rounded-full bg-emerald-100 px-2 py-1 font-medium text-emerald-700">
+                              Subida
+                            </span>
+                          ) : (
+                            <span className="rounded-full bg-red-100 px-2 py-1 font-medium text-red-700">
+                              Falta
+                            </span>
+                          )}
                         </td>
                         <td className="px-4 py-3">
                           <span
@@ -539,7 +674,7 @@ export default function AdminPage() {
                     {products.length === 0 ? (
                       <tr>
                         <td
-                          colSpan={5}
+                          colSpan={7}
                           className="px-4 py-6 text-center text-sm text-muted-foreground"
                         >
                           No hay productos todavía.

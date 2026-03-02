@@ -6,12 +6,14 @@ type GuideCheckoutButtonProps = {
   productId: string;
   className?: string;
   label?: string;
+  disabled?: boolean;
 };
 
 export function GuideCheckoutButton({
   productId,
   className,
   label = "Comprar ahora",
+  disabled = false,
 }: GuideCheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,13 +49,13 @@ export function GuideCheckoutButton({
       <button
         type="button"
         onClick={handleCheckout}
-        disabled={loading}
+        disabled={loading || disabled}
         className={
           className ??
           "inline-flex rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-70"
         }
       >
-        {loading ? "Redirigiendo..." : label}
+        {loading ? "Redirigiendo..." : disabled ? "Agotado" : label}
       </button>
       {error ? <p className="mt-2 text-xs text-red-500">{error}</p> : null}
     </div>

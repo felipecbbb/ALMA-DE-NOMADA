@@ -12,6 +12,15 @@ STRIPE_SECRET_KEY=sk_live_o_sk_test
 STRIPE_WEBHOOK_SECRET=whsec_xxx
 
 ADMIN_PANEL_KEY=tu_clave_admin_segura
+
+# Entrega de guias por email
+RESEND_API_KEY=re_xxx
+ORDER_EMAIL_FROM="ALMA DE NOMADA <noreply@tudominio.com>"
+DOWNLOAD_CODE_SECRET=una_clave_larga_aleatoria
+
+# Storage buckets en Supabase
+SUPABASE_PUBLIC_BUCKET=alma-public
+SUPABASE_PRIVATE_BUCKET=alma-guides
 ```
 
 ## 2) Base de datos en Supabase
@@ -19,6 +28,9 @@ ADMIN_PANEL_KEY=tu_clave_admin_segura
 1. Abre el SQL Editor.
 2. Ejecuta el script:
    - `supabase/schema.sql`
+3. Crea buckets en Storage:
+   - `alma-public` (public) para imagenes
+   - `alma-guides` (private) para archivos de guias digitales
 
 ## 3) Stripe Webhook
 
@@ -42,3 +54,4 @@ Eventos mínimos:
    - Listing: `/guias`
    - Detalle: `/guias/[slug]`
 5. Al pagar, Stripe redirige a success/cancel y webhook guarda pedido en Supabase.
+6. El webhook genera codigo + token y envia el email de descarga.

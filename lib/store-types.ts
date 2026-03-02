@@ -5,9 +5,11 @@ export type ProductRecord = {
   short_description: string | null;
   description: string | null;
   image_url: string;
+  digital_file_path: string | null;
   gallery_images: string[] | null;
   price_cents: number;
   currency: string;
+  stock: number;
   active: boolean;
   created_at: string;
   updated_at: string;
@@ -28,6 +30,8 @@ export type OrderRecord = {
     currency: string;
   }> | null;
   metadata: Record<string, string> | null;
+  download_token: string | null;
+  download_sent_at: string | null;
   created_at: string;
   updated_at: string;
 };
