@@ -19,15 +19,15 @@ const partners = [
 
 export function EditorialSection() {
   return (
-    <section className="bg-background px-6 py-14 md:px-12 md:py-24 lg:px-20">
+    <section className="bg-secondary px-6 py-16 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-5xl">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
           Partners
         </p>
-        <h2 className="mt-3 text-3xl font-semibold text-foreground md:text-4xl">
+        <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
           Descuentos exclusivos con nuestros partners
         </h2>
-        <p className="mt-4 max-w-2xl text-base text-muted-foreground">
+        <p className="mt-4 max-w-2xl text-base text-white/70">
           Ahorra en tu seguro de viaje y conectividad con partners que usamos y recomendamos.
         </p>
 
@@ -38,9 +38,9 @@ export function EditorialSection() {
               href={partner.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-5 rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+              className="group flex items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10"
             >
-              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-muted p-2">
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-white p-2">
                 <img
                   src={partner.logo}
                   alt={partner.name}
@@ -50,14 +50,14 @@ export function EditorialSection() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-semibold text-foreground">{partner.name}</h3>
-                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                  <h3 className="text-base font-semibold text-white">{partner.name}</h3>
+                  <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">
                     {partner.discount}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">{partner.description}</p>
+                <p className="mt-1 text-sm text-white/60">{partner.description}</p>
               </div>
-              <span className="hidden flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 md:block">
+              <span className="hidden flex-shrink-0 text-white/40 transition-transform duration-300 group-hover:translate-x-1 md:block">
                 &rarr;
               </span>
             </a>
