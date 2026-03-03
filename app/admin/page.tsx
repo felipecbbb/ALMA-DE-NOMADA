@@ -44,6 +44,7 @@ export default function AdminPage() {
   const [savingProduct, setSavingProduct] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingGuide, setUploadingGuide] = useState(false);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
   const [form, setForm] = useState(emptyForm);
 
   const isEditing = useMemo(() => form.id !== "", [form.id]);
@@ -124,7 +125,7 @@ export default function AdminPage() {
 
   const resetForm = () => setForm(emptyForm);
 
-  const uploadAsset = async (file: File, kind: "image" | "guide") => {
+  const uploadAsset = async (file: File, kind: "image" | "guide"): Promise<string> => {
     const formData = new FormData();
     formData.append("kind", kind);
     formData.append("file", file);
@@ -146,7 +147,7 @@ export default function AdminPage() {
         throw new Error("No se recibio URL de imagen tras la subida.");
       }
       setForm((prev) => ({ ...prev, imageUrl: url }));
-      return;
+      return url;
     }
 
     const path = String(result.path ?? "").trim();
@@ -154,6 +155,34 @@ export default function AdminPage() {
       throw new Error("No se recibio la ruta del archivo digital.");
     }
     setForm((prev) => ({ ...prev, digitalFilePath: path }));
+    return path;
+  };
+
+  const uploadGalleryImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("kind", "image");
+    formData.append("file", file);
+
+    const response = await fetch("/api/admin/upload", {
+      method: "POST",
+      headers: { "x-admin-key": adminKey },
+      body: formData,
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.error ?? "No se pudo subir la imagen de galería.");
+    }
+
+    const url = String(result.url ?? "").trim();
+    if (!url) {
+      throw new Error("No se recibio URL de imagen de galería.");
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      galleryImages: prev.galleryImages ? `${prev.galleryImages}\n${url}` : url,
+    }));
   };
 
   const editProduct = (product: ProductRecord) => {
@@ -440,14 +469,26 @@ export default function AdminPage() {
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                     Imagen principal
                   </p>
-                  <input
-                    value={form.imageUrl}
-                    readOnly
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-muted-foreground"
-                    placeholder="Sube una imagen"
-                  />
-                  <label className="inline-flex cursor-pointer rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground">
-                    {uploadingImage ? "Subiendo..." : "Subir imagen"}
+                  {form.imageUrl ? (
+                    <div className="relative">
+                      <img
+                        src={form.imageUrl}
+                        alt="Preview"
+                        className="h-32 w-full rounded-lg object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setForm((prev) => ({ ...prev, imageUrl: "" }))}
+                        className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-0.5 text-xs font-bold text-white"
+                      >
+                        X
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">Sin imagen</p>
+                  )}
+                  <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground hover:bg-muted">
+                    {uploadingImage ? "Subiendo..." : form.imageUrl ? "Cambiar imagen" : "Subir imagen"}
                     <input
                       type="file"
                       accept="image/*"
@@ -474,16 +515,29 @@ export default function AdminPage() {
                 </div>
                 <div className="space-y-2 rounded-xl border border-border bg-background p-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                    Archivo digital de la guia
+                    Archivo digital de la guía
                   </p>
-                  <input
-                    value={form.digitalFilePath}
-                    readOnly
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-muted-foreground"
-                    placeholder="Sube el PDF/ZIP de la guia"
-                  />
-                  <label className="inline-flex cursor-pointer rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground">
-                    {uploadingGuide ? "Subiendo..." : "Subir guia"}
+                  {form.digitalFilePath ? (
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
+                        Archivo subido
+                      </span>
+                      <span className="truncate text-xs text-muted-foreground">
+                        {form.digitalFilePath.split("/").pop()}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setForm((prev) => ({ ...prev, digitalFilePath: "" }))}
+                        className="ml-auto text-xs font-bold text-red-600"
+                      >
+                        Quitar
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">Sin archivo digital</p>
+                  )}
+                  <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground hover:bg-muted">
+                    {uploadingGuide ? "Subiendo..." : form.digitalFilePath ? "Cambiar guía" : "Subir guía"}
                     <input
                       type="file"
                       accept=".pdf,.zip,.rar,.epub,.doc,.docx,.ppt,.pptx"
@@ -499,7 +553,7 @@ export default function AdminPage() {
                           await uploadAsset(file, "guide");
                         } catch (err) {
                           setError(
-                            err instanceof Error ? err.message : "Error subiendo guia.",
+                            err instanceof Error ? err.message : "Error subiendo guía.",
                           );
                         } finally {
                           setUploadingGuide(false);
@@ -529,15 +583,70 @@ export default function AdminPage() {
                   className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
                   placeholder="Descripción larga"
                 />
-                <textarea
-                  value={form.galleryImages}
-                  onChange={(event) =>
-                    setForm((prev) => ({ ...prev, galleryImages: event.target.value }))
-                  }
-                  rows={3}
-                  className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"
-                  placeholder="Galería (una URL por línea)"
-                />
+                <div className="space-y-2 rounded-xl border border-border bg-background p-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    Galería de imágenes
+                  </p>
+                  {form.galleryImages ? (
+                    <div className="flex flex-wrap gap-2">
+                      {form.galleryImages
+                        .split("\n")
+                        .filter((url) => url.trim())
+                        .map((url, idx) => (
+                          <div key={idx} className="relative">
+                            <img
+                              src={url.trim()}
+                              alt={`Galería ${idx + 1}`}
+                              className="h-16 w-16 rounded-lg object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const urls = form.galleryImages
+                                  .split("\n")
+                                  .filter((u) => u.trim());
+                                urls.splice(idx, 1);
+                                setForm((prev) => ({
+                                  ...prev,
+                                  galleryImages: urls.join("\n"),
+                                }));
+                              }}
+                              className="absolute -right-1 -top-1 rounded-full bg-red-600 px-1 text-[10px] font-bold text-white"
+                            >
+                              X
+                            </button>
+                          </div>
+                        ))}
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">Sin imágenes de galería</p>
+                  )}
+                  <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-foreground hover:bg-muted">
+                    {uploadingGallery ? "Subiendo..." : "Añadir imagen"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      disabled={uploadingGallery}
+                      onChange={async (event) => {
+                        const file = event.target.files?.[0];
+                        event.currentTarget.value = "";
+                        if (!file) return;
+                        try {
+                          setUploadingGallery(true);
+                          setError(null);
+                          await uploadGalleryImage(file);
+                        } catch (err) {
+                          setError(
+                            err instanceof Error ? err.message : "Error subiendo imagen de galería.",
+                          );
+                        } finally {
+                          setUploadingGallery(false);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
                 <div className="grid grid-cols-3 gap-3">
                   <input
                     value={form.priceEur}
@@ -577,7 +686,7 @@ export default function AdminPage() {
                 <div className="flex flex-wrap gap-2 pt-2">
                   <button
                     type="submit"
-                    disabled={savingProduct || uploadingImage || uploadingGuide}
+                    disabled={savingProduct || uploadingImage || uploadingGuide || uploadingGallery}
                     className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
                   >
                     {savingProduct
@@ -617,8 +726,23 @@ export default function AdminPage() {
                     {products.map((product) => (
                       <tr key={product.id} className="border-b border-border text-sm">
                         <td className="px-4 py-3">
-                          <p className="font-medium text-foreground">{product.title}</p>
-                          <p className="text-xs text-muted-foreground">{product.slug}</p>
+                          <div className="flex items-center gap-3">
+                            {product.image_url ? (
+                              <img
+                                src={product.image_url}
+                                alt={product.title}
+                                className="h-10 w-10 flex-shrink-0 rounded-lg object-cover"
+                              />
+                            ) : (
+                              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs text-muted-foreground">
+                                —
+                              </div>
+                            )}
+                            <div>
+                              <p className="font-medium text-foreground">{product.title}</p>
+                              <p className="text-xs text-muted-foreground">{product.slug}</p>
+                            </div>
+                          </div>
                         </td>
                         <td className="px-4 py-3 text-foreground">
                           {formatPrice(product.price_cents, product.currency)}

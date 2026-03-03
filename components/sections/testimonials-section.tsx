@@ -6,13 +6,13 @@ export function TestimonialsSection() {
   return (
     <section id="legal" className="bg-background">
       {/* Large Text Statement */}
-      <div className="px-6 py-14 md:px-12 md:py-32 lg:px-20 lg:py-40">
-        <p className="mx-auto max-w-5xl text-2xl leading-relaxed text-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
+      <div className="px-6 py-14 md:px-12 md:py-24 lg:px-20 lg:py-28">
+        <p className="max-w-5xl text-left text-xl leading-relaxed text-foreground md:text-2xl lg:text-3xl lg:leading-snug">
           Política de privacidad, términos y condiciones y aviso legal disponibles para que tomes decisiones con total
           transparencia. El servicio es informativo, orientativo y de acompañamiento.
-          <span className="mt-3 block">
-            Responsable: Ainhoa García. Contacto: almadenomad@gmail.com.
-          </span>
+        </p>
+        <p className="mt-4 max-w-5xl text-left text-sm leading-relaxed text-muted-foreground md:text-base">
+          Responsable: Ainhoa García. Contacto: almadenomad@gmail.com.
         </p>
       </div>
 
