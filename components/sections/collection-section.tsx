@@ -45,49 +45,7 @@ export function CollectionSection() {
       </div>
 
       <div className="pb-14 md:pb-24">
-        <div className="flex gap-6 overflow-x-auto px-6 pb-4 md:hidden snap-x snap-mandatory scrollbar-hide">
-          {items.map((guide) => (
-            <Link
-              key={guide.id}
-              href={`/guias/${guide.slug}`}
-              className={`group w-[75vw] flex-shrink-0 snap-center ${guide.stock <= 0 ? "opacity-80" : ""}`}
-            >
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
-                <FadeImage
-                  src={guide.image_url || "/placeholder.svg"}
-                  alt={guide.title}
-                  fill
-                  className="object-cover group-hover:scale-105"
-                />
-              </div>
-
-              <div className="py-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium leading-snug text-foreground">
-                      {guide.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {guide.short_description}
-                    </p>
-                    <p
-                      className={`mt-2 text-xs font-medium ${
-                        guide.stock > 0 ? "text-emerald-700" : "text-red-600"
-                      }`}
-                    >
-                      {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
-                    </p>
-                  </div>
-                  <span className="text-lg font-medium text-foreground">
-                    {formatPrice(guide.price_cents, guide.currency)}
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="hidden gap-8 md:grid md:grid-cols-2 md:px-12 lg:px-20">
+        <div className="grid grid-cols-2 gap-4 px-6 md:gap-8 md:px-12 lg:px-20">
           {items.map((guide) => (
             <Link
               key={guide.id}
@@ -103,24 +61,24 @@ export function CollectionSection() {
                 />
               </div>
 
-              <div className="py-6">
-                <div className="flex items-start justify-between gap-4">
+              <div className="py-3 md:py-6">
+                <div className="flex flex-col gap-1 md:flex-row md:items-start md:justify-between md:gap-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-medium leading-snug text-foreground">
+                    <h3 className="text-sm font-medium leading-snug text-foreground md:text-lg">
                       {guide.title}
                     </h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
+                    <p className="mt-1 hidden text-sm text-muted-foreground md:block">
                       {guide.short_description}
                     </p>
                     <p
-                      className={`mt-2 text-xs font-medium ${
+                      className={`mt-1 text-xs font-medium ${
                         guide.stock > 0 ? "text-emerald-700" : "text-red-600"
                       }`}
                     >
                       {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
                     </p>
                   </div>
-                  <span className="text-2xl font-medium text-foreground">
+                  <span className="text-sm font-medium text-foreground md:text-2xl">
                     {formatPrice(guide.price_cents, guide.currency)}
                   </span>
                 </div>
