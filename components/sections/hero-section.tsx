@@ -135,6 +135,7 @@ export function HeroSection() {
   const sideTranslateY = -(imageProgress * (isMobile ? 8 : 15)); // Move up when expanded
 
   return (
+    <>
     <section ref={sectionRef} id="inicio" className="relative bg-background">
       {/* Sticky container for scroll animation */}
       <div className="relative z-20 h-[72svh] overflow-hidden md:sticky md:top-0 md:h-screen">
@@ -277,12 +278,14 @@ export function HeroSection() {
       {/* Scroll space to enable animation */}
       <div style={{ height: isMobile ? "0" : "200vh" }} />
 
-      {/* Tagline Section */}
-      <div className="relative z-30 mt-6 px-6 pt-0 pb-20 md:mt-0 md:px-12 md:pt-16 md:pb-32 lg:mt-0 lg:px-20 lg:pt-20 lg:pb-40">
-        <p className="mx-auto max-w-2xl text-center text-xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
-          Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
-        </p>
-      </div>
     </section>
+
+    {/* Tagline Section — outside hero so it's never covered by sticky video */}
+    <div className="bg-background px-6 py-14 md:px-12 md:py-20 lg:px-20 lg:py-28">
+      <p className="mx-auto max-w-2xl text-center text-xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
+        Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
+      </p>
+    </div>
+    </>
   );
 }
