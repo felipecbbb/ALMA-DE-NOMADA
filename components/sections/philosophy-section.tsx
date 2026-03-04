@@ -17,7 +17,7 @@ export function PhilosophySection() {
     if (isMobile) {
       setAlpineTranslateX(0);
       setForestTranslateX(0);
-      setTitleOpacity(0);
+      setTitleOpacity(1);
       return;
     }
     
@@ -68,12 +68,17 @@ export function PhilosophySection() {
       <div ref={sectionRef} className="relative" style={{ height: isMobile ? "125vh" : "200vh" }}>
         <div className="sticky top-0 flex h-[88svh] items-center justify-center md:h-screen">
           <div className="relative w-full">
-            {/* Title - positioned behind the blocks */}
-            <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
+            {/* Title - static on mobile, animated overlay on desktop */}
+            <h2
+              className="mb-6 px-6 text-center text-[8vw] font-medium leading-[0.95] tracking-tighter text-foreground md:hidden"
+            >
+              ¿Cómo venir a Australia?
+            </h2>
+            <div
+              className="absolute inset-0 hidden items-center justify-center pointer-events-none z-0 md:flex"
               style={{ opacity: titleOpacity }}
             >
-              <h2 className="text-[10.5vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[8.8vw] lg:text-[6.8vw] text-center px-6">
+              <h2 className="text-[8.8vw] font-medium leading-[0.95] tracking-tighter text-foreground lg:text-[6.8vw] text-center px-6">
                 ¿Cómo venir a Australia?
               </h2>
             </div>
