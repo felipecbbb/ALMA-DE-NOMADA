@@ -152,7 +152,7 @@ export function PhilosophySection() {
             rel="noreferrer"
             className="mt-8 inline-flex rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-secondary"
           >
-            Reserva tu asesoría 1:1
+            Reserva tu asesoría
           </a>
         </div>
       </div>
