@@ -15,12 +15,13 @@ export async function POST(req: Request) {
     await sendEmail({
       to: adminEmail,
       subject: `Nuevo mensaje de contacto — ${name}`,
-      html: contactFormHtml({ name, email, phone, message }),
-      text: contactFormText({ name, email, phone, message }),
+      html: contactFormHtml({ name, email, phone: phone ?? "", message }),
+      text: contactFormText({ name, email, phone: phone ?? "", message }),
     });
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("[contact] Error sending email:", err);
     return NextResponse.json({ error: "Error al enviar" }, { status: 500 });
   }
 }

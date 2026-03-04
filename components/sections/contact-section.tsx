@@ -7,6 +7,7 @@ export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -15,16 +16,18 @@ export function ContactSection() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
+    setError(false);
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      if (!res.ok) throw new Error("Error");
       setSent(true);
       setForm({ name: "", email: "", phone: "", message: "" });
     } catch {
-      // silently fail
+      setError(true);
     } finally {
       setSending(false);
     }
@@ -98,6 +101,11 @@ export function ContactSection() {
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6">
+              {error && (
+                <p className="text-sm text-red-600">
+                  Ha ocurrido un error al enviar el mensaje. Por favor, inténtalo de nuevo.
+                </p>
+              )}
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-foreground">
