@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const partners = [
   {
     name: "IATI SEGUROS",
@@ -31,7 +33,44 @@ export function EditorialSection() {
           Ahorra en tu seguro de viaje y conectividad con partners que usamos y recomendamos.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
+        {/* Featured discount banner */}
+        <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-primary/20 via-white/5 to-white/10 p-8 backdrop-blur-sm md:p-10">
+          <div className="flex flex-col items-center gap-6 text-center md:flex-row md:text-left">
+            <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-lg md:h-24 md:w-24">
+              <Image
+                src="/logo-alma.png"
+                alt="Alma de Nómada"
+                width={64}
+                height={64}
+                className="h-16 w-16 rounded-full object-cover"
+              />
+            </div>
+            <div className="flex-1">
+              <div className="flex flex-col items-center gap-3 md:flex-row">
+                <span className="rounded-full bg-primary px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-white">
+                  10 % descuento
+                </span>
+              </div>
+              <h3 className="mt-3 text-xl font-bold text-white md:text-2xl">
+                Tu primera reserva con Alma de Nómada
+              </h3>
+              <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/70">
+                Reserva tu primera asesoría personalizada y obtén un 10&nbsp;% de descuento.
+                Empieza a planificar tu viaje o tu nueva vida con el acompañamiento que necesitas.
+              </p>
+              <a
+                href="https://calendly.com/ainhhgarcia"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex rounded-full bg-primary px-7 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
+              >
+                Reserva con descuento
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
           {partners.map((partner) => (
             <a
               key={partner.name}
