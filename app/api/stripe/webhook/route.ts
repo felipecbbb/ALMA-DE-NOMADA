@@ -7,6 +7,10 @@ import {
   hashDownloadCode,
   sendDigitalGuideEmail,
 } from "@/lib/digital-delivery";
+import {
+  sendNewOrderNotificationEmail,
+  sendPaymentFailedEmail,
+} from "@/lib/email";
 import { getStripeServerClient } from "@/lib/stripe";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 
@@ -209,6 +213,8 @@ async function ensureDigitalDelivery(
     productTitle,
     downloadUrl,
     downloadCode: codeToSend,
+    totalCents: session.amount_total ?? 0,
+    currency: session.currency ?? "eur",
   });
 
   if (!sendResult.sent) return;
@@ -262,6 +268,18 @@ export async function POST(request: NextRequest) {
       }
 
       await ensureDigitalDelivery(session, metadata);
+
+      // Notify admin about the new order
+      const customerEmail = session.customer_details?.email ?? "";
+      if (customerEmail) {
+        await sendNewOrderNotificationEmail({
+          customerEmail,
+          items,
+          totalCents: session.amount_total ?? 0,
+          currency: (session.currency ?? "eur").toUpperCase(),
+          stripeSessionId: session.id,
+        });
+      }
     }
 
     if (event.type === "checkout.session.expired") {
@@ -272,10 +290,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (event.type === "checkout.session.async_payment_failed") {
-      await upsertOrderFromSession(
-        event.data.object as Stripe.Checkout.Session,
-        "cancelled",
-      );
+      const failedSession = event.data.object as Stripe.Checkout.Session;
+      await upsertOrderFromSession(failedSession, "cancelled");
+
+      const failedEmail = failedSession.customer_details?.email ?? "";
+      if (failedEmail) {
+        await sendPaymentFailedEmail({ to: failedEmail });
+      }
     }
 
     return NextResponse.json({ received: true });

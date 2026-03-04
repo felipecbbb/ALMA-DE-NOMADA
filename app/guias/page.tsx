@@ -39,33 +39,33 @@ export default async function GuidesPage() {
           </p>
         </div>
 
-        <div className="mx-auto mt-10 grid max-w-6xl gap-8 md:grid-cols-2">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {guides.map((guide) => (
             <Link
               key={guide.id}
               href={`/guias/${guide.slug}`}
               className={`group block ${guide.stock <= 0 ? "opacity-80" : ""}`}
             >
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-muted">
+              <div className="relative aspect-[2/3] overflow-hidden rounded-xl bg-muted">
                 <img
                   src={guide.image_url}
                   alt={guide.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="py-5">
-                <h2 className="text-2xl font-semibold text-foreground">{guide.title}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
+              <div className="py-4">
+                <h2 className="text-base font-semibold text-foreground">{guide.title}</h2>
+                <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
                   {guide.short_description}
                 </p>
                 <p
-                  className={`mt-3 text-xs font-medium ${
+                  className={`mt-2 text-xs font-medium ${
                     guide.stock > 0 ? "text-emerald-700" : "text-red-600"
                   }`}
                 >
                   {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
                 </p>
-                <p className="mt-4 text-lg font-semibold text-foreground">
+                <p className="mt-2 text-sm font-semibold text-foreground">
                   {formatPrice(guide.price_cents, guide.currency)}
                 </p>
               </div>

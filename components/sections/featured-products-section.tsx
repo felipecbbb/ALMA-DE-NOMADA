@@ -82,7 +82,7 @@ export function FeaturedProductsSection() {
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-1 gap-4 px-6 pb-20 md:grid-cols-3 md:px-12 lg:px-20">
+      <div className="grid grid-cols-1 gap-4 px-6 pb-20 sm:grid-cols-2 md:grid-cols-3 md:px-12 lg:grid-cols-4 lg:px-20">
         {features.map((feature) => (
           <div key={feature.title} className="group">
             {/* Image */}
