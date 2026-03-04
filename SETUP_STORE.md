@@ -1,4 +1,8 @@
-# Setup tienda (Supabase + Stripe)
+# Setup tienda (Supabase + Stripe + SMTP)
+
+**Última actualización:** 4 de marzo de 2026
+
+---
 
 ## 1) Variables de entorno (`.env.local`)
 
@@ -13,24 +17,28 @@ STRIPE_WEBHOOK_SECRET=whsec_xxx
 
 ADMIN_PANEL_KEY=tu_clave_admin_segura
 
-# Entrega de guias por email
-RESEND_API_KEY=re_xxx
-ORDER_EMAIL_FROM="ALMA DE NOMADA <noreply@tudominio.com>"
-DOWNLOAD_CODE_SECRET=una_clave_larga_aleatoria
-
-# Storage buckets en Supabase
-SUPABASE_PUBLIC_BUCKET=alma-public
-SUPABASE_PRIVATE_BUCKET=alma-guides
+# SMTP (emails transaccionales)
+SMTP_HOST=smtp.ionos.es
+SMTP_PORT=587
+SMTP_USER=info@almadenomada.com
+SMTP_PASS=Nomada:73Web
+SMTP_FROM=ALMA DE NÓMADA <info@almadenomada.com>
+ADMIN_EMAIL=almadenomad@gmail.com
 ```
+
+> Estas mismas variables deben configurarse en **Vercel > Settings > Environment Variables** para producción.
+
+---
 
 ## 2) Base de datos en Supabase
 
 1. Abre el SQL Editor.
-2. Ejecuta el script:
-   - `supabase/schema.sql`
+2. Ejecuta `supabase/schema.sql`
 3. Crea buckets en Storage:
-   - `alma-public` (public) para imagenes
-   - `alma-guides` (private) para archivos de guias digitales
+   - `alma-public` (public) — imágenes
+   - `alma-guides` (private) — archivos de guías digitales
+
+---
 
 ## 3) Stripe Webhook
 
@@ -44,14 +52,14 @@ Eventos mínimos:
 - `checkout.session.expired`
 - `checkout.session.async_payment_failed`
 
+---
+
 ## 4) Flujo final
 
-1. Entra en `/admin`.
-2. Accede con `ADMIN_PANEL_KEY`.
-3. Crea productos (guías) y márcalos activos.
-4. Verás las guías automáticamente en frontend:
-   - Home sección guías (`/#guias`)
-   - Listing: `/guias`
-   - Detalle: `/guias/[slug]`
-5. Al pagar, Stripe redirige a success/cancel y webhook guarda pedido en Supabase.
-6. El webhook genera codigo + token y envia el email de descarga.
+1. Entra en `/admin` con `ADMIN_PANEL_KEY`
+2. Crea productos (guías) y márcalos activos
+3. Las guías aparecen en: Home (`/#guias`), `/guias`, `/guias/[slug]`
+4. Al pagar, Stripe webhook guarda pedido en Supabase
+5. Webhook genera código + token y envía email de descarga al cliente
+6. Admin recibe notificación de nuevo pedido en `almadenomad@gmail.com`
+7. Formulario de contacto envía a `almadenomad@gmail.com` con diseño branded

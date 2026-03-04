@@ -1,119 +1,52 @@
-# Migración a emails transaccionales con SMTP (IONOS)
+# Sistema de emails transaccionales — SMTP (IONOS)
 
-**Fecha:** 3 de marzo de 2026
+**Última actualización:** 4 de marzo de 2026
 
 ---
 
-## Objetivo
+## Configuración SMTP
 
-Reemplazar el envío de emails vía API de Resend por SMTP propio de IONOS (`smtp.ionos.es`) y añadir todos los emails transaccionales necesarios para la tienda.
+- **Proveedor:** IONOS (`smtp.ionos.es`, STARTTLS, puerto 587)
+- **Cuenta:** `info@almadenomada.com`
+- **Librería:** Nodemailer (singleton lazy)
+- **Destino formulario de contacto:** `almadenomad@gmail.com`
 
 ---
 
 ## Emails implementados
 
-| # | Email | Destinatario | Trigger (Stripe webhook) |
-|---|-------|-------------|--------------------------|
-| 1 | Confirmación de pedido + descarga | Cliente | `checkout.session.completed` |
-| 2 | Notificación de nuevo pedido | Admin (info@almadenomada.com) | `checkout.session.completed` |
-| 3 | Pago fallido | Cliente | `checkout.session.async_payment_failed` |
+| # | Email | Destinatario | Trigger |
+|---|-------|-------------|---------|
+| 1 | Confirmación de pedido + descarga | Cliente | Stripe `checkout.session.completed` |
+| 2 | Notificación de nuevo pedido | Admin (`almadenomad@gmail.com`) | Stripe `checkout.session.completed` |
+| 3 | Pago fallido | Cliente | Stripe `checkout.session.async_payment_failed` |
+| 4 | Formulario de contacto | Admin (`almadenomad@gmail.com`) | POST `/api/contact` |
 
 ---
 
-## Cambios realizados
+## Archivos clave
 
-### 1. Dependencias instaladas
-
-```bash
-npm install nodemailer
-npm install -D @types/nodemailer
-```
-
-También se instaló `dotenv` como dev dependency para el script de prueba.
-
-### 2. Variables de entorno añadidas (`.env.local`)
-
-```
-SMTP_HOST=smtp.ionos.es
-SMTP_PORT=587
-SMTP_USER=info@almadenomada.com
-SMTP_PASS=Nomada:73Web
-SMTP_FROM="ALMA DE NÓMADA <info@almadenomada.com>"
-ADMIN_EMAIL=info@almadenomada.com
-```
-
-> **Importante:** Estas mismas variables deben configurarse en Vercel (Settings → Environment Variables) para que funcionen en producción.
-
-### 3. Archivos creados
-
-#### `lib/email.ts`
-- Transporte SMTP con Nodemailer (IONOS, STARTTLS puerto 587)
-- Singleton lazy del transporter para reutilizar conexiones
-- Función genérica `sendEmail({ to, subject, html, text })`
-- Cabeceras `replyTo` y `X-Mailer` para mejorar entregabilidad
-- Tres funciones específicas:
-  - `sendOrderConfirmationEmail()` — al cliente, con código y enlace de descarga
-  - `sendNewOrderNotificationEmail()` — al admin, con detalles del pedido
-  - `sendPaymentFailedEmail()` — al cliente
-
-#### `lib/email-templates.ts`
-- Templates HTML responsive, compatibles con clientes de email
-- Diseño branded con colores de ALMA DE NÓMADA:
-  - Verde oscuro: `#184038`
-  - Terracota: `#D3623B`
-  - Crema: `#FAF6E8`
-- Función `layout()` compartida (header con logo + footer con copyright)
-- Cada template tiene versión HTML y texto plano:
-  - `orderConfirmationHtml()` / `orderConfirmationText()`
-  - `newOrderNotificationHtml()` / `newOrderNotificationText()`
-  - `paymentFailedHtml()` / `paymentFailedText()`
-
-#### `test-email.ts` (script de prueba, borrable)
-- Envía los 3 emails de prueba a una dirección especificada
-- Usa `dotenv` para cargar `.env.local`
-
-### 4. Archivos modificados
-
-#### `lib/digital-delivery.ts`
-- Eliminada la dependencia de la API de Resend (`fetch` a `api.resend.com`)
-- `sendDigitalGuideEmail()` ahora delega en `sendOrderConfirmationEmail()` vía SMTP
-- Añadidos parámetros opcionales `totalCents` y `currency`
-- Todas las funciones de token/hash se mantienen intactas
-
-#### `app/api/stripe/webhook/route.ts`
-- Añadido import de `sendNewOrderNotificationEmail` y `sendPaymentFailedEmail`
-- En `checkout.session.completed`:
-  - Se pasan `totalCents` y `currency` a `sendDigitalGuideEmail`
-  - Se añade llamada a `sendNewOrderNotificationEmail()` para notificar al admin
-- En `checkout.session.async_payment_failed`:
-  - Se añade llamada a `sendPaymentFailedEmail()` al cliente
+| Archivo | Descripción |
+|---------|-------------|
+| `lib/email.ts` | Transporter SMTP + funciones de envío |
+| `lib/email-templates.ts` | Templates HTML/texto con branding (layout compartido) |
+| `app/api/contact/route.ts` | API del formulario de contacto |
+| `app/api/stripe/webhook/route.ts` | Webhook Stripe (pedidos + emails) |
+| `lib/digital-delivery.ts` | Entrega digital de guías |
 
 ---
 
-## Estado DNS del dominio
+## Branding de emails
 
-Verificado el 3 de marzo de 2026:
-
-| Registro | Estado | Valor |
-|----------|--------|-------|
-| SPF | OK | `v=spf1 include:_spf-eu.ionos.com ~all` |
-| DMARC | Parcial | Redirige a `dmarc.ionos.es` con `p=none` |
-| DKIM | **No configurado** | Sin registro encontrado |
-
-### Acciones pendientes para evitar spam
-
-1. **Activar DKIM en IONOS** (panel de control → Email → Autenticación de email / DKIM)
-2. **Mejorar DMARC** — Editar el registro TXT de `_dmarc.almadenomada.com` a:
-   ```
-   v=DMARC1; p=quarantine; rua=mailto:info@almadenomada.com
-   ```
-3. Tras activar DKIM, probar de nuevo el envío — los emails deberían llegar a bandeja principal.
+- Verde oscuro: `#184038`
+- Terracota: `#D3623B`
+- Crema: `#FAF6E8`
+- Layout compartido: header "ALMA DE NÓMADA" + footer copyright
+- Todos los emails tienen versión HTML y texto plano
 
 ---
 
-## Variables necesarias en Vercel
-
-Para que funcione en producción, añadir en Vercel → Settings → Environment Variables:
+## Variables de entorno necesarias
 
 ```
 SMTP_HOST=smtp.ionos.es
@@ -121,12 +54,36 @@ SMTP_PORT=587
 SMTP_USER=info@almadenomada.com
 SMTP_PASS=Nomada:73Web
 SMTP_FROM=ALMA DE NÓMADA <info@almadenomada.com>
-ADMIN_EMAIL=info@almadenomada.com
+ADMIN_EMAIL=almadenomad@gmail.com
 ```
+
+> Estas variables deben estar en `.env.local` (local) y en **Vercel > Settings > Environment Variables** (producción).
 
 ---
 
-## Verificación
+## Estado DNS
 
-- Build (`npx next build`): **OK, sin errores**
-- Envío de prueba SMTP: **OK, 3/3 emails enviados** (llegaron a spam por falta de DKIM)
+| Registro | Estado |
+|----------|--------|
+| SPF | OK (`v=spf1 include:_spf-eu.ionos.com ~all`) |
+| DMARC | Parcial (redirige a `dmarc.ionos.es`, `p=none`) |
+| DKIM | **No configurado** — activar en panel IONOS para evitar spam |
+
+---
+
+## Historial de cambios
+
+### 4 de marzo de 2026
+- Email de contacto redirigido a `almadenomad@gmail.com`
+- Formulario de contacto usa plantilla branded (`contactFormHtml`) con layout compartido
+- Añadido error logging en `/api/contact` (`console.error`)
+- Frontend muestra mensaje de error si el envío falla
+- Ocultado número de stock en frontend (solo muestra "Agotado" si stock = 0)
+- Texto "Reserva tu asesoría 1:1" → "Reserva tu asesoría"
+- Título sección Ainhoa: negrita + más pequeño en móvil (`text-2xl font-bold`)
+
+### 3 de marzo de 2026
+- Migración de Resend API a SMTP IONOS (Nodemailer)
+- Implementados 3 emails transaccionales (confirmación, notificación admin, pago fallido)
+- Templates HTML responsive con branding ALMA DE NÓMADA
+- Build verificado OK, envío de prueba OK (spam por falta de DKIM)
