@@ -249,3 +249,80 @@ export function paymentFailedText({ customerEmail }: PaymentFailedParams) {
     "Responde a este email si necesitas ayuda.",
   ].join("\n");
 }
+
+// ─── 4. Formulario de contacto (al admin) ────────────────────────────────────
+
+type ContactFormParams = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+};
+
+export function contactFormHtml({ name, email, phone, message }: ContactFormParams) {
+  return layout(`
+    <h2 style="margin:0 0 8px;color:${BRAND.green};">Nuevo mensaje de contacto</h2>
+    <p style="margin:0 0 20px;color:${BRAND.textLight};">Has recibido un nuevo mensaje desde el formulario de contacto de la web.</p>
+
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:${BRAND.cream};border-radius:6px;margin-bottom:24px;">
+      <tr>
+        <td style="padding:16px 20px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="padding:8px 0;vertical-align:top;">
+                <p style="margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:${BRAND.textLight};font-weight:bold;">Nombre</p>
+                <p style="margin:0;font-size:15px;font-weight:bold;color:${BRAND.textDark};">${name}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0;vertical-align:top;border-top:1px solid #e5e7eb;">
+                <p style="margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:${BRAND.textLight};font-weight:bold;">Email</p>
+                <p style="margin:0;font-size:15px;color:${BRAND.textDark};">
+                  <a href="mailto:${email}" style="color:${BRAND.terracotta};text-decoration:none;font-weight:bold;">${email}</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0;vertical-align:top;border-top:1px solid #e5e7eb;">
+                <p style="margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:${BRAND.textLight};font-weight:bold;">Teléfono</p>
+                <p style="margin:0;font-size:15px;color:${BRAND.textDark};">${phone || "No proporcionado"}</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <h3 style="margin:0 0 12px;color:${BRAND.green};font-size:14px;text-transform:uppercase;letter-spacing:1px;">Mensaje</h3>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:${BRAND.cream};border-radius:6px;border-left:4px solid ${BRAND.terracotta};margin-bottom:24px;">
+      <tr>
+        <td style="padding:16px 20px;">
+          <p style="margin:0;font-size:15px;line-height:1.6;color:${BRAND.textDark};white-space:pre-wrap;">${message}</p>
+        </td>
+      </tr>
+    </table>
+
+    <table role="presentation" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="background-color:${BRAND.terracotta};border-radius:6px;">
+          <a href="mailto:${email}" style="display:inline-block;padding:12px 24px;color:#ffffff;font-weight:bold;text-decoration:none;font-size:14px;">
+            Responder a ${name}
+          </a>
+        </td>
+      </tr>
+    </table>
+  `);
+}
+
+export function contactFormText({ name, email, phone, message }: ContactFormParams) {
+  return [
+    "NUEVO MENSAJE DE CONTACTO — ALMA DE NÓMADA",
+    "",
+    `Nombre: ${name}`,
+    `Email: ${email}`,
+    `Teléfono: ${phone || "No proporcionado"}`,
+    "",
+    "Mensaje:",
+    message,
+  ].join("\n");
+}

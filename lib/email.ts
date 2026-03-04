@@ -105,7 +105,7 @@ export async function sendNewOrderNotificationEmail({
   currency,
   stripeSessionId,
 }: NewOrderNotificationEmailParams) {
-  const adminEmail = process.env.ADMIN_EMAIL ?? "info@almadenomada.com";
+  const adminEmail = process.env.ADMIN_EMAIL ?? "almadenomad@gmail.com";
   const totalFormatted = `${(totalCents / 100).toFixed(2)} ${currency.toUpperCase()}`;
 
   return sendEmail({
