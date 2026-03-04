@@ -45,14 +45,14 @@ export function CollectionSection() {
       </div>
 
       <div className="pb-14 md:pb-24">
-        <div className="grid grid-cols-2 gap-4 px-6 md:gap-8 md:px-12 lg:px-20">
+        <div className="grid grid-cols-2 gap-4 px-6 sm:grid-cols-3 md:px-12 lg:grid-cols-4 lg:px-20">
           {items.map((guide) => (
             <Link
               key={guide.id}
               href={`/guias/${guide.slug}`}
-              className={`group ${guide.stock <= 0 ? "opacity-80" : ""}`}
+              className={`group max-w-[220px] ${guide.stock <= 0 ? "opacity-80" : ""}`}
             >
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
+              <div className="relative aspect-[2/3] overflow-hidden rounded-xl bg-secondary">
                 <FadeImage
                   src={guide.image_url || "/placeholder.svg"}
                   alt={guide.title}
@@ -61,27 +61,23 @@ export function CollectionSection() {
                 />
               </div>
 
-              <div className="py-3 md:py-6">
-                <div className="flex flex-col gap-1 md:flex-row md:items-start md:justify-between md:gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-sm font-medium leading-snug text-foreground md:text-lg">
-                      {guide.title}
-                    </h3>
-                    <p className="mt-1 hidden text-sm text-muted-foreground md:block">
-                      {guide.short_description}
-                    </p>
-                    <p
-                      className={`mt-1 text-xs font-medium ${
-                        guide.stock > 0 ? "text-emerald-700" : "text-red-600"
-                      }`}
-                    >
-                      {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
-                    </p>
-                  </div>
-                  <span className="text-sm font-medium text-foreground md:text-2xl">
-                    {formatPrice(guide.price_cents, guide.currency)}
-                  </span>
-                </div>
+              <div className="py-3">
+                <h3 className="text-xs font-medium leading-snug text-foreground md:text-sm">
+                  {guide.title}
+                </h3>
+                <p className="mt-1 hidden text-xs text-muted-foreground line-clamp-2 md:block">
+                  {guide.short_description}
+                </p>
+                <p
+                  className={`mt-1 text-[10px] font-medium ${
+                    guide.stock > 0 ? "text-emerald-700" : "text-red-600"
+                  }`}
+                >
+                  {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
+                </p>
+                <span className="mt-1 block text-xs font-medium text-foreground md:text-sm">
+                  {formatPrice(guide.price_cents, guide.currency)}
+                </span>
               </div>
             </Link>
           ))}
