@@ -68,13 +68,11 @@ export function CollectionSection() {
                 <p className="mt-1 hidden text-xs text-muted-foreground line-clamp-2 md:block">
                   {guide.short_description}
                 </p>
-                <p
-                  className={`mt-1 text-[10px] font-medium ${
-                    guide.stock > 0 ? "text-emerald-700" : "text-red-600"
-                  }`}
-                >
-                  {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
-                </p>
+                {guide.stock <= 0 && (
+                  <p className="mt-1 text-[10px] font-medium text-red-600">
+                    Agotado
+                  </p>
+                )}
                 <span className="mt-1 block text-xs font-medium text-foreground md:text-sm">
                   {formatPrice(guide.price_cents, guide.currency)}
                 </span>

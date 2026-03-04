@@ -58,13 +58,11 @@ export default async function GuidesPage() {
                 <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
                   {guide.short_description}
                 </p>
-                <p
-                  className={`mt-2 text-xs font-medium ${
-                    guide.stock > 0 ? "text-emerald-700" : "text-red-600"
-                  }`}
-                >
-                  {guide.stock > 0 ? `Stock: ${guide.stock}` : "Agotado"}
-                </p>
+                {guide.stock <= 0 && (
+                  <p className="mt-2 text-xs font-medium text-red-600">
+                    Agotado
+                  </p>
+                )}
                 <p className="mt-2 text-sm font-semibold text-foreground">
                   {formatPrice(guide.price_cents, guide.currency)}
                 </p>

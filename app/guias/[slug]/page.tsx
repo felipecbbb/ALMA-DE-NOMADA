@@ -100,13 +100,11 @@ export default async function GuideDetailPage({
             <p className="mt-6 text-3xl font-semibold text-foreground">
               {formatPrice(guide.price_cents, guide.currency)}
             </p>
-            <p
-              className={`mt-3 text-sm font-medium ${
-                isOutOfStock ? "text-red-600" : "text-emerald-700"
-              }`}
-            >
-              {isOutOfStock ? "Agotado" : `Stock disponible: ${stock}`}
-            </p>
+            {isOutOfStock && (
+              <p className="mt-3 text-sm font-medium text-red-600">
+                Agotado
+              </p>
+            )}
             <div className="mt-8">
               <GuideCheckoutButton
                 productId={guide.id}
