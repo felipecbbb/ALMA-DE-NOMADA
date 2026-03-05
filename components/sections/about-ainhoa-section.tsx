@@ -15,21 +15,21 @@ export function AboutAinhoaSection() {
 
         <div className="text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Quiénes somos</p>
-          <h2 className="mt-4 text-2xl font-bold leading-tight text-foreground md:text-3xl lg:text-4xl">
+          <h2 className="mt-4 text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl">
             Hola, soy Ainhoa: viajar me cambió la vida.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
             Y ahora ayudo a otras personas a diseñar la suya en cualquier parte del mundo.
           </p>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             Soy travel coach y fundadora de Alma de Nómada. Después de vivir mi propia experiencia migrando y
             viajando, entendí que no se trata solo de elegir un destino, sino de crear una etapa que tenga sentido.
           </p>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             Acompaño a personas que sienten que quieren algo más: una temporada fuera, un cambio, una aventura con
             propósito. Juntas transformamos la idea en un plan claro, estratégico y alineado contigo.
           </p>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             Porque viajar no es escapar. Es expandirte.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

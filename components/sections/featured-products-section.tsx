@@ -76,13 +76,10 @@ export function FeaturedProductsSection() {
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
           ¿En qué destinos podemos ayudarte?
         </h2>
-        <p className="mx-auto mt-6 max-w-md text-sm text-muted-foreground uppercase tracking-widest">
-          Destinos
-        </p>
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-1 gap-4 px-6 pb-20 sm:grid-cols-2 md:grid-cols-3 md:px-12 lg:grid-cols-4 lg:px-20">
+      <div className="grid grid-cols-1 gap-4 px-6 pb-20 sm:grid-cols-2 md:grid-cols-3 md:px-12 lg:grid-cols-3 lg:px-20">
         {features.map((feature) => (
           <div key={feature.title} className="group">
             {/* Image */}

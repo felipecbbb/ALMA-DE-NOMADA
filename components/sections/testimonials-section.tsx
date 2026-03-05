@@ -12,7 +12,7 @@ export function TestimonialsSection() {
           transparencia. El servicio es informativo, orientativo y de acompañamiento.
         </p>
         <p className="mt-4 max-w-5xl text-left text-sm leading-relaxed text-muted-foreground md:text-base">
-          Responsable: Ainhoa García. Contacto: almadenomad@gmail.com.
+          Responsable: Ainhoa García.<br />Contacto: almadenomad@gmail.com.
         </p>
       </div>
 

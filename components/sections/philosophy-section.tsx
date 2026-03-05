@@ -101,15 +101,10 @@ export function PhilosophySection() {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute bottom-6 left-6">
-                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Mentalidad
-                  </span>
-                </div>
               </div>
 
               {/* Forest Image - comes from right */}
-              <div 
+              <div
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl"
                 style={{
                   transform: `translate3d(${forestTranslateX}%, 0, 0)`,
@@ -124,11 +119,6 @@ export function PhilosophySection() {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute bottom-6 left-6">
-                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Trámites claros
-                  </span>
-                </div>
               </div>
             </div>
           </div>

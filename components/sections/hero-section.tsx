@@ -281,7 +281,7 @@ export function HeroSection() {
     </section>
 
     {/* Tagline Section — outside hero so it's never covered by sticky video */}
-    <div className="bg-background px-6 py-14 md:px-12 md:py-20 lg:px-20 lg:py-28">
+    <div className="bg-background px-6 py-3 md:px-12 md:py-6 lg:px-20 lg:py-8">
       <p className="mx-auto max-w-2xl text-center text-xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
         Asesoría personalizada para organizar tu viaje o tu cambio de vida con claridad, confianza y tranquilidad.
       </p>
