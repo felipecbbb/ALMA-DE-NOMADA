@@ -19,7 +19,7 @@ export function AboutAinhoaSection() {
             Hola, soy Ainhoa: viajar me cambió la vida.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Y ahora ayudo a otras personas a diseñar la suya en cualquier parte del mundo.
+            ahora ayudo a otras personas a diseñar la suya en cualquier parte del mundo.
           </p>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             Soy travel coach y fundadora de Alma de Nómada. Después de vivir mi propia experiencia migrando y
