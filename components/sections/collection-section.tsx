@@ -40,7 +40,7 @@ export function CollectionSection() {
     <section id="guias" className="bg-background">
       <div className="px-6 py-12 md:px-12 md:py-10 lg:px-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
-          Guías digitales
+          Nuestras guías
         </h2>
       </div>
 
