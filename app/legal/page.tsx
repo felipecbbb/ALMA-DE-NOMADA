@@ -82,7 +82,7 @@ export default function LegalPage() {
               <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                 <p>
                   Titular del sitio: ALMA DE NÓMADA. Actividad principal: contenidos,
-                  guías digitales y asesoría de viajes personalizada.
+                  nuestras guías y asesoría de viajes personalizada.
                 </p>
                 <p>
                   Contacto:{" "}

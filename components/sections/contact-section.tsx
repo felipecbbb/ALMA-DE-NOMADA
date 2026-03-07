@@ -83,7 +83,7 @@ export function ContactSection() {
                 <p className="text-sm font-bold uppercase tracking-wider text-foreground">
                   Oficinas
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">España</p>
+                <p className="mt-1 text-sm text-muted-foreground">España / Australia</p>
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@ export function ContactSection() {
                   rows={5}
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Hola, me gustaría información sobre el viaje a Brasil..."
+                  placeholder="Hola, me gustaría información sobre el viaje a Tailandia..."
                   className="w-full resize-y rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
