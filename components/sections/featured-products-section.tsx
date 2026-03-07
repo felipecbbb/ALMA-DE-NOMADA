@@ -18,7 +18,7 @@ const features = [
       "Una isla donde el surf, la selva y la espiritualidad se encuentran. Descubre Sri Lanka a tu ritmo, con un itinerario que fluye contigo.",
   },
   {
-    title: "🇯🇵 Japan",
+    title: "🇯🇵 Japón",
     description: "Tradición y vanguardia",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/japon.jpeg?v=69856797805187058121769101746",
     summary:
@@ -32,14 +32,14 @@ const features = [
       "Empieza tu nueva vida al otro lado del mundo con claridad, confianza y una estrategia que te permita construir tu propio camino.",
   },
   {
-    title: "🇳🇿 New Zealand",
+    title: "🇳🇿 Nueva Zelanda",
     description: "Roadtrip consciente",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/new%20zealand.jpeg?v=23240636594380725261769101745",
     summary:
       "Carreteras infinitas, montañas dramáticas y lagos imposibles. Vive Nueva Zelanda como una aventura consciente y bien planificada.",
   },
   {
-    title: "🇲🇻 Maldives",
+    title: "🇲🇻 Maldivas",
     description: "Calma y paraíso",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747",
     summary:

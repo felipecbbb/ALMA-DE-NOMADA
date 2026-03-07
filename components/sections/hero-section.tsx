@@ -13,7 +13,7 @@ const rotatingPhrases = [
 const sideImages = [
   {
     src: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
-    alt: "Thailand",
+    alt: "Tailandia",
     position: "left",
     span: 1,
   },
