@@ -49,7 +49,7 @@ export function HeroSection() {
       if (!sectionRef.current) return;
       
       const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * (isMobile ? 0.9 : 2);
+      const scrollableHeight = window.innerHeight * (isMobile ? 0.9 : 1.2);
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
       
@@ -113,7 +113,7 @@ export function HeroSection() {
   }, []);
 
   // Keep title readable for longer before transitioning into the grid.
-  const textFadeEnd = isMobile ? 0.05 : 0.32;
+  const textFadeEnd = isMobile ? 0.05 : 0.18;
   const textOpacity = isMobile ? 1 : Math.max(0, 1 - (scrollProgress / textFadeEnd));
   
   // Image transforms start after the text has mostly faded.
@@ -276,7 +276,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll space to enable animation */}
-      <div style={{ height: isMobile ? "0" : "200vh" }} />
+      <div style={{ height: isMobile ? "0" : "120vh" }} />
 
     </section>
 
