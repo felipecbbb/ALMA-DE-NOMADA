@@ -16,8 +16,11 @@ export function AboutAinhoaSection() {
         <div className="text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Quiénes somos</p>
           <h2 className="mt-4 text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl">
-            Hola, soy Ainhoa: viajar me cambió la vida.
+            Hola, soy Ainhoa
           </h2>
+          <p className="mt-2 text-lg font-bold text-foreground md:text-xl">
+            viajar me cambió la vida.
+          </p>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
             ahora ayudo a otras personas a diseñar la suya en cualquier parte del mundo.
           </p>
