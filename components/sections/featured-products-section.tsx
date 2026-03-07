@@ -5,7 +5,7 @@ import { FadeImage } from "@/components/fade-image";
 const features = [
   {
     title: "🇹🇭 Tailandia",
-    description: "Templos, selva y mar turquesa",
+    description: "Templos y selva",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
     summary:
       "Viaja entre templos dorados, selvas y aguas turquesa en una ruta diseñada para que vivas la esencia de Tailandia con intención y libertad.",
