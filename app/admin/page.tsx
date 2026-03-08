@@ -151,7 +151,8 @@ export default function AdminPage() {
       return url;
     }
 
-    // For large files (guides), use signed URL for direct upload to Supabase
+    // For large files (guides), get a signed upload URL from the server
+    // then upload directly from the browser to Supabase Storage
     const signedRes = await fetch("/api/admin/signed-upload", {
       method: "POST",
       headers: {
@@ -170,15 +171,26 @@ export default function AdminPage() {
       throw new Error(signedData.error ?? "No se pudo generar la URL de subida.");
     }
 
-    // Upload directly to Supabase Storage using the signed URL
-    const uploadRes = await fetch(signedData.signedUrl, {
+    // Build the upload URL the same way Supabase SDK does internally:
+    // PUT {supabaseUrl}/storage/v1/object/upload/sign/{bucket}/{path}?token={token}
+    const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
+    const uploadUrl = new URL(
+      `${supabaseUrl}/storage/v1/object/upload/sign/${signedData.bucket}/${signedData.path}`
+    );
+    uploadUrl.searchParams.set("token", signedData.token);
+
+    const uploadRes = await fetch(uploadUrl.toString(), {
       method: "PUT",
-      headers: { "Content-Type": file.type || "application/octet-stream" },
+      headers: {
+        "x-upsert": "false",
+        "content-type": file.type || "application/octet-stream",
+      },
       body: file,
     });
 
     if (!uploadRes.ok) {
-      throw new Error("Error al subir el archivo a Storage.");
+      const errText = await uploadRes.text().catch(() => "");
+      throw new Error(errText || `Error al subir (${uploadRes.status}).`);
     }
 
     const path = String(signedData.path ?? "").trim();

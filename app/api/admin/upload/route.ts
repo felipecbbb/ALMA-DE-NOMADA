@@ -5,6 +5,8 @@ import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { getPrivateGuidesBucket, getPublicImagesBucket } from "@/lib/storage-config";
 
 export const runtime = "nodejs";
+export const maxDuration = 300; // 5 minutes for large uploads
+export const dynamic = "force-dynamic";
 
 type UploadKind = "image" | "guide";
 
