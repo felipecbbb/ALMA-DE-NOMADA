@@ -71,7 +71,7 @@ export function TechnologySection() {
   const [textProgress, setTextProgress] = useState(0);
 
   const descriptionText =
-    "Cambiar de país o planear una aventura larga requiere algo más que motivación: requiere claridad. Esta asesoría te ayuda a ordenar ideas, tomar decisiones con seguridad y construir un plan sólido que te permita disfrutar el proceso desde el inicio. Porque cuando tienes dirección, todo fluye diferente.";
+    "Cambiar de país o planear una nueva aventura requiere algo más que motivación, requiere claridad. Esta asesoría te ayuda a ordenar ideas, tomar decisiones con seguridad y construir un plan sólido que te permita disfrutar el proceso desde el inicio. Porque cuando tienes dirección, todo fluye diferente.";
   const planningSteps = [
     {
       id: "01",
