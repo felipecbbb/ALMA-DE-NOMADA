@@ -42,7 +42,7 @@ export function ContactSection() {
             Hablemos de tu próximo viaje
           </h2>
           <p className="mt-6 max-w-md text-base text-muted-foreground">
-            ¿Tienes dudas o quieres un paquete a medida? Nuestro equipo de
+            ¿Tienes dudas o quieres una asesoria a medida? Nuestro equipo de
             expertos está listo para ayudarte.
           </p>
 

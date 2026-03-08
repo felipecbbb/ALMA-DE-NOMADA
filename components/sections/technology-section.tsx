@@ -85,7 +85,7 @@ export function TechnologySection() {
     },
     {
       id: "03",
-      title: "PREPARACIÓN MENTAL",
+      title: "MENTALIDAD",
       description: "Prepárate para el cambio, gestiona tus miedos y da el salto con seguridad y confianza.",
     },
   ];
