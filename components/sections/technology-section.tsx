@@ -46,6 +46,8 @@ function ScrollRevealText({ text, fullyVisible = false }: { text: string; fullyV
       {words.map((word, index) => {
         const wordProgress = index / words.length;
         const isRevealed = progress > wordProgress;
+        const isItalic = word.startsWith("*") || word.endsWith("*");
+        const cleanWord = word.replace(/\*/g, "");
 
         return (
           <span
@@ -53,9 +55,10 @@ function ScrollRevealText({ text, fullyVisible = false }: { text: string; fullyV
             className="transition-colors duration-150"
             style={{
               color: isRevealed ? "var(--foreground)" : "#c9beaa",
+              fontStyle: isItalic ? "italic" : undefined,
             }}
           >
-            {word}{index < words.length - 1 ? " " : ""}
+            {cleanWord}{index < words.length - 1 ? " " : ""}
           </span>
         );
       })}
@@ -71,7 +74,7 @@ export function TechnologySection() {
   const [textProgress, setTextProgress] = useState(0);
 
   const descriptionText =
-    "Cambiar de país o planear una nueva aventura requiere algo más que motivación, requiere claridad. Esta asesoría te ayuda a ordenar ideas, tomar decisiones con seguridad y construir un plan sólido que te permita disfrutar el proceso desde el inicio. Porque cuando tienes dirección, todo fluye diferente.";
+    "Cambiar de país o planear una nueva aventura requiere algo más que motivación, *requiere *claridad. Esta asesoría te ayuda a ordenar ideas, tomar decisiones con seguridad y construir un plan sólido que te permita disfrutar el proceso desde el inicio. Porque cuando tienes dirección, todo fluye diferente.";
   const planningSteps = [
     {
       id: "01",
