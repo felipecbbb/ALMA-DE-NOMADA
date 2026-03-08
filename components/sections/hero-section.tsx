@@ -76,7 +76,7 @@ export function HeroSection() {
     const video = heroVideoRef.current;
     if (!video) return;
 
-    const startSecond = 8;
+    const startSecond = 9;
 
     const playFromSecond = () => {
       video.currentTime = startSecond;
