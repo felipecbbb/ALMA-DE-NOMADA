@@ -76,7 +76,7 @@ export function HeroSection() {
     const video = heroVideoRef.current;
     if (!video) return;
 
-    const startSecond = 3;
+    const startSecond = 6;
 
     const playFromSecond = () => {
       const safeStart = Number.isFinite(video.duration)
