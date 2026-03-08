@@ -33,7 +33,7 @@ export function AboutAinhoaSection() {
             propósito. Juntas transformamos la idea en un plan claro, estratégico y alineado contigo.
           </p>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            Porque viajar no es escapar. Es expandirte.
+            no es escapar, es <em>expandirse</em>.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
