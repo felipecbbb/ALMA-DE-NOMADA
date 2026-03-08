@@ -152,7 +152,7 @@ export default function AdminPage() {
     }
 
     // For large files (guides), use TUS resumable upload to bypass 50MB limit
-    const { default: tus } = await import("tus-js-client");
+    const tus = await import("tus-js-client");
 
     // Get the object path from the server (for naming / auth)
     const signedRes = await fetch("/api/admin/signed-upload", {
