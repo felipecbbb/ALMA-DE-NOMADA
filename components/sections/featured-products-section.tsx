@@ -22,7 +22,7 @@ const features = [
     description: "Tradición y vanguardia",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/japon.jpeg?v=69856797805187058121769101746",
     summary:
-      "Tradición y vanguardia en equilibrio perfecto. Explora Japón con un recorrido pensado para que cada día se sienta único e inolvidable.",
+      "Tradición y vanguardia en equilibrio perfecto. Explora Japón con un recorrido pensado para vivirlo desde dentro.",
   },
   {
     title: "🇦🇺 Australia",
