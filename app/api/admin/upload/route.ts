@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 type UploadKind = "image" | "guide";
 
 const IMAGE_MAX_SIZE = 8 * 1024 * 1024;
-const GUIDE_MAX_SIZE = 60 * 1024 * 1024;
+const GUIDE_MAX_SIZE = 250 * 1024 * 1024;
 
 function sanitizeFileName(name: string) {
   return name

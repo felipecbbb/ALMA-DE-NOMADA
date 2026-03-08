@@ -126,22 +126,23 @@ export default function AdminPage() {
   const resetForm = () => setForm(emptyForm);
 
   const uploadAsset = async (file: File, kind: "image" | "guide"): Promise<string> => {
-    const formData = new FormData();
-    formData.append("kind", kind);
-    formData.append("file", file);
-
-    const response = await fetch("/api/admin/upload", {
-      method: "POST",
-      headers: { "x-admin-key": adminKey },
-      body: formData,
-    });
-
-    const result = await response.json();
-    if (!response.ok) {
-      throw new Error(result.error ?? "No se pudo subir el archivo.");
-    }
-
+    // For small files (images), use the server-side upload endpoint
     if (kind === "image") {
+      const formData = new FormData();
+      formData.append("kind", kind);
+      formData.append("file", file);
+
+      const response = await fetch("/api/admin/upload", {
+        method: "POST",
+        headers: { "x-admin-key": adminKey },
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error ?? "No se pudo subir el archivo.");
+      }
+
       const url = String(result.url ?? "").trim();
       if (!url) {
         throw new Error("No se recibio URL de imagen tras la subida.");
@@ -150,7 +151,37 @@ export default function AdminPage() {
       return url;
     }
 
-    const path = String(result.path ?? "").trim();
+    // For large files (guides), use signed URL for direct upload to Supabase
+    const signedRes = await fetch("/api/admin/signed-upload", {
+      method: "POST",
+      headers: {
+        "x-admin-key": adminKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        kind,
+        fileName: file.name,
+        contentType: file.type || "application/octet-stream",
+      }),
+    });
+
+    const signedData = await signedRes.json();
+    if (!signedRes.ok) {
+      throw new Error(signedData.error ?? "No se pudo generar la URL de subida.");
+    }
+
+    // Upload directly to Supabase Storage using the signed URL
+    const uploadRes = await fetch(signedData.signedUrl, {
+      method: "PUT",
+      headers: { "Content-Type": file.type || "application/octet-stream" },
+      body: file,
+    });
+
+    if (!uploadRes.ok) {
+      throw new Error("Error al subir el archivo a Storage.");
+    }
+
+    const path = String(signedData.path ?? "").trim();
     if (!path) {
       throw new Error("No se recibio la ruta del archivo digital.");
     }
