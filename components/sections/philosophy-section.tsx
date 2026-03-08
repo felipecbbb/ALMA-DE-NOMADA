@@ -132,8 +132,8 @@ export function PhilosophySection() {
             Asesoría personalizada para Australia
           </p>
           <p className="mt-6 text-justify text-xl leading-relaxed text-muted-foreground md:mt-8 md:text-3xl">
-            Gracias a mi experiencia viviendo en Australia, transformaré tus dudas en un plan personalizado con una
-            acción clara. Te acompañamos a dar tus primeros pasos: ciudad, trámites, visados para darte seguridad,
+            Gracias a mi experiencia viviendo en Australia, transformaremos tus dudas en un plan personalizado con una
+            acción clara. Acompañándote a dar tus primeros pasos: ciudad, trámites y visados para darte seguridad,
             confianza y sin estrés.
           </p>
           <a
