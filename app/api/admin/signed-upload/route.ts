@@ -61,9 +61,13 @@ export async function POST(request: NextRequest) {
       publicUrl = urlData.publicUrl;
     }
 
+    // Also return the service token for TUS resumable uploads
+    const serviceToken = String(process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
+
     return NextResponse.json({
       signedUrl: data.signedUrl,
       token: data.token,
+      serviceToken,
       path: objectPath,
       bucket,
       publicUrl,

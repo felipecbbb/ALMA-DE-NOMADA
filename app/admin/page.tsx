@@ -151,8 +151,10 @@ export default function AdminPage() {
       return url;
     }
 
-    // For large files (guides), get a signed upload URL from the server
-    // then upload directly from the browser to Supabase Storage
+    // For large files (guides), use TUS resumable upload to bypass 50MB limit
+    const { default: tus } = await import("tus-js-client");
+
+    // Get the object path from the server (for naming / auth)
     const signedRes = await fetch("/api/admin/signed-upload", {
       method: "POST",
       headers: {
@@ -171,32 +173,37 @@ export default function AdminPage() {
       throw new Error(signedData.error ?? "No se pudo generar la URL de subida.");
     }
 
-    // Build the upload URL the same way Supabase SDK does internally:
-    // PUT {supabaseUrl}/storage/v1/object/upload/sign/{bucket}/{path}?token={token}
     const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
-    const uploadUrl = new URL(
-      `${supabaseUrl}/storage/v1/object/upload/sign/${signedData.bucket}/${signedData.path}`
-    );
-    uploadUrl.searchParams.set("token", signedData.token);
+    const bucket = signedData.bucket;
+    const objectPath = signedData.path;
 
-    const uploadRes = await fetch(uploadUrl.toString(), {
-      method: "PUT",
-      headers: {
-        "x-upsert": "false",
-        "content-type": file.type || "application/octet-stream",
-      },
-      body: file,
+    // Upload via TUS protocol (chunked, resumable) directly to Supabase Storage
+    const path = await new Promise<string>((resolve, reject) => {
+      const upload = new tus.Upload(file, {
+        endpoint: `${supabaseUrl}/storage/v1/upload/resumable`,
+        retryDelays: [0, 3000, 5000, 10000],
+        chunkSize: 6 * 1024 * 1024, // 6MB chunks
+        headers: {
+          authorization: `Bearer ${signedData.serviceToken}`,
+          "x-upsert": "false",
+        },
+        uploadDataDuringCreation: true,
+        removeFingerprintOnSuccess: true,
+        metadata: {
+          bucketName: bucket,
+          objectName: objectPath,
+          contentType: file.type || "application/octet-stream",
+          cacheControl: "3600",
+        },
+        onError: (err) => reject(new Error(err.message || "Error al subir el archivo.")),
+        onSuccess: () => resolve(objectPath),
+      });
+      upload.findPreviousUploads().then((prev) => {
+        if (prev.length) upload.resumeFrom(prev[0]);
+        upload.start();
+      });
     });
 
-    if (!uploadRes.ok) {
-      const errText = await uploadRes.text().catch(() => "");
-      throw new Error(errText || `Error al subir (${uploadRes.status}).`);
-    }
-
-    const path = String(signedData.path ?? "").trim();
-    if (!path) {
-      throw new Error("No se recibio la ruta del archivo digital.");
-    }
     setForm((prev) => ({ ...prev, digitalFilePath: path }));
     return path;
   };
