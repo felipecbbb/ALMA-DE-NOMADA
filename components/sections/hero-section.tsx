@@ -76,18 +76,19 @@ export function HeroSection() {
     const video = heroVideoRef.current;
     if (!video) return;
 
-    const startSecond = 6;
+    const startSecond = 8;
 
     const playFromSecond = () => {
-      const safeStart = Number.isFinite(video.duration)
-        ? Math.min(startSecond, Math.max(0, video.duration - 0.1))
-        : startSecond;
-      video.currentTime = safeStart;
+      video.currentTime = startSecond;
       const playPromise = video.play();
       if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {
-          // Ignore autoplay rejections from some browsers.
-        });
+        playPromise.catch(() => {});
+      }
+    };
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime < startSecond) {
+        video.currentTime = startSecond;
       }
     };
 
@@ -101,6 +102,7 @@ export function HeroSection() {
 
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
     video.addEventListener("ended", handleEnded);
+    video.addEventListener("timeupdate", handleTimeUpdate);
 
     if (video.readyState >= 1) {
       playFromSecond();
@@ -109,6 +111,7 @@ export function HeroSection() {
     return () => {
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       video.removeEventListener("ended", handleEnded);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, []);
 
@@ -193,7 +196,6 @@ export function HeroSection() {
             >
               <video
                 ref={heroVideoRef}
-                autoPlay
                 muted
                 playsInline
                 preload="auto"
