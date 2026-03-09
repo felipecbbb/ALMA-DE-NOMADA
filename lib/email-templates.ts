@@ -257,6 +257,7 @@ type ContactFormParams = {
   email: string;
   phone: string;
   message: string;
+  newsletter: boolean;
 };
 
 export function contactFormHtml({ name, email, phone, message }: ContactFormParams) {
@@ -288,6 +289,12 @@ export function contactFormHtml({ name, email, phone, message }: ContactFormPara
                 <p style="margin:0;font-size:15px;color:${BRAND.textDark};">${phone || "No proporcionado"}</p>
               </td>
             </tr>
+            <tr>
+              <td style="padding:8px 0;vertical-align:top;border-top:1px solid #e5e7eb;">
+                <p style="margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:${BRAND.textLight};font-weight:bold;">Newsletter</p>
+                <p style="margin:0;font-size:15px;color:${BRAND.textDark};font-weight:bold;">${newsletter ? "✅ Sí, quiere suscribirse" : "No"}</p>
+              </td>
+            </tr>
           </table>
         </td>
       </tr>
@@ -314,13 +321,14 @@ export function contactFormHtml({ name, email, phone, message }: ContactFormPara
   `);
 }
 
-export function contactFormText({ name, email, phone, message }: ContactFormParams) {
+export function contactFormText({ name, email, phone, message, newsletter }: ContactFormParams) {
   return [
     "NUEVO MENSAJE DE CONTACTO — ALMA DE NÓMADA",
     "",
     `Nombre: ${name}`,
     `Email: ${email}`,
     `Teléfono: ${phone || "No proporcionado"}`,
+    `Newsletter: ${newsletter ? "Sí, quiere suscribirse" : "No"}`,
     "",
     "Mensaje:",
     message,

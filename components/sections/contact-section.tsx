@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Mail, Instagram, MapPin } from "lucide-react";
 
 export function ContactSection() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", newsletter: false });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
@@ -25,7 +25,7 @@ export function ContactSection() {
       });
       if (!res.ok) throw new Error("Error");
       setSent(true);
-      setForm({ name: "", email: "", phone: "", message: "" });
+      setForm({ name: "", email: "", phone: "", message: "", newsletter: false });
     } catch {
       setError(true);
     } finally {
@@ -165,6 +165,19 @@ export function ContactSection() {
                   className="w-full resize-y rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
+
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="newsletter"
+                  checked={form.newsletter}
+                  onChange={(e) => setForm((prev) => ({ ...prev, newsletter: e.target.checked }))}
+                  className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+                />
+                <span className="text-sm text-muted-foreground">
+                  Quiero recibir novedades, consejos de viaje y ofertas exclusivas por email.
+                </span>
+              </label>
 
               <button
                 type="submit"
