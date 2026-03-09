@@ -211,7 +211,7 @@ export function HeroSection() {
                 style={{ opacity: textOpacity }}
               >
                 <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center text-center">
-                  <h1 className="mb-4 text-center text-[clamp(2.8rem,8.4vw,8rem)] font-semibold uppercase leading-[0.9] tracking-tight text-primary drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]">
+                  <h1 className="mb-4 text-center text-[clamp(2.8rem,8.4vw,8rem)] font-semibold uppercase leading-[1] tracking-tight text-primary drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]">
                     ALMA DE
                     <br />
                     NÓMADA
