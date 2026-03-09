@@ -149,8 +149,8 @@ export function TechnologySection() {
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           <h2 className="max-w-3xl text-5xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl">
             {["¿Estás", "planeando", "viajar?"].map((word, index) => {
-              const wordFadeStart = isMobile ? 999 : index * 0.12;
-              const wordFadeEnd = wordFadeStart + 0.12;
+              const wordFadeStart = isMobile ? 999 : index * 0.08;
+              const wordFadeEnd = wordFadeStart + 0.08;
               const wordProgress = Math.max(0, Math.min(1, (scrollProgress - wordFadeStart) / (wordFadeEnd - wordFadeStart)));
               const wordOpacity = 1 - wordProgress;
               const wordBlur = wordProgress * 10;
