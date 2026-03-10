@@ -205,7 +205,7 @@ export function TechnologySection() {
             {planningSteps.map((step) => (
               <article
                 key={step.id}
-                className="rounded-2xl border border-border bg-card p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1"
+                className="flex h-full flex-col items-start rounded-2xl border border-border bg-card p-6 text-left shadow-sm transition-transform duration-300 hover:-translate-y-1"
               >
                 <p className="text-5xl font-medium leading-none text-primary/20">{step.id}</p>
                 <h3 className="mt-3 text-lg font-semibold text-foreground">{step.title}</h3>

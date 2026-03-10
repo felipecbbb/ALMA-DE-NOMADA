@@ -9,7 +9,7 @@ export function TestimonialsSection() {
       <div className="px-6 py-14 md:px-12 md:py-24 lg:px-20 lg:py-28">
         <p className="max-w-5xl text-left text-xl leading-relaxed text-foreground md:text-2xl lg:text-3xl lg:leading-snug">
           Política de privacidad, términos y condiciones y aviso legal disponibles para que tomes decisiones con total
-          transparencia. El servicio es informativo, orientativo y de acompañamiento.
+          transparencia.<br />El servicio es informativo, orientativo y de acompañamiento.
         </p>
         <p className="mt-4 max-w-5xl text-left text-sm leading-relaxed text-muted-foreground md:text-base">
           Responsable: Ainhoa García.<br />Contacto: almadenomad@gmail.com.

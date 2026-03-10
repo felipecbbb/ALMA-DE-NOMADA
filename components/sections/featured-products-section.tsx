@@ -7,6 +7,7 @@ const features = [
     title: "🇹🇭 Tailandia",
     description: "Templos y selva",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
+    objectPosition: "center 70%",
     summary:
       "Viaja entre templos dorados, selvas y aguas turquesa en una ruta diseñada para que vivas la esencia de Tailandia con intención y libertad.",
   },
@@ -42,6 +43,7 @@ const features = [
     title: "🇲🇻 Maldivas",
     description: "Calma y paraíso",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747",
+    objectPosition: "center 70%",
     summary:
       "Aguas cristalinas, arena blanca y calma absoluta. Organiza tu viaje a Maldivas para disfrutar el paraíso sin preocupación.",
   },
@@ -63,6 +65,7 @@ const features = [
     title: "🇮🇩 Indonesia",
     description: "Templos, volcanes y océano",
     image: "https://almadenomada.com/cdn/shop/t/5/assets/lombok.jpeg?v=173855469035230574911769101747",
+    objectPosition: "center 70%",
     summary:
       "Explora Indonesia a tu ritmo entre cultura, naturaleza y playas espectaculares con una guía clara para organizar cada etapa.",
   },
@@ -89,6 +92,7 @@ export function FeaturedProductsSection() {
                 alt={feature.title}
                 fill
                 className="object-cover group-hover:scale-105"
+                style={feature.objectPosition ? { objectPosition: feature.objectPosition } : undefined}
               />
             </div>
 
