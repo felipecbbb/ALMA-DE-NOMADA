@@ -1,26 +1,42 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 
 export function NewsletterSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "exists" | "error">("idle");
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-    // Avoid duplicate scripts
-    if (containerRef.current.querySelector("script")) return;
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
 
-    const script = document.createElement("script");
-    script.src =
-      "https://panel.kujme.es/api/public/widget.js?v=20260226&success=Te+has+suscrito+correctamente.&exists=Este+email+ya+esta+registrado+en+la+newsletter.&error=No+se+pudo+completar+la+suscripcion.";
-    script.setAttribute("data-endpoint", "https://panel.kujme.es/api/public/subscribe");
-    script.setAttribute("data-tenant", "feseoo");
-    script.setAttribute("data-project", "entre-olas-surf-school");
-    script.setAttribute("data-source", "newsletter-home");
-    script.async = true;
+    try {
+      const res = await fetch("https://panel.kujme.es/api/public/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tenant: "ainhoooagarcia28",
+          project: "alma-de-nomada",
+          source: "newsletter-home",
+          email,
+          first_name: name,
+        }),
+      });
 
-    containerRef.current.appendChild(script);
-  }, []);
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+        setName("");
+      } else if (res.status === 409) {
+        setStatus("exists");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section id="newsletter" className="bg-secondary px-6 py-20 md:px-12 md:py-28 lg:px-20">
@@ -32,8 +48,40 @@ export function NewsletterSection() {
           Recibe consejos de viaje, destinos nuevos y ofertas exclusivas directamente en tu bandeja de entrada.
         </p>
 
-        {/* Widget container */}
-        <div ref={containerRef} className="mt-10 [&_form]:mx-auto [&_form]:flex [&_form]:max-w-md [&_form]:flex-col [&_form]:gap-4 [&_input]:w-full [&_input]:rounded-lg [&_input]:border [&_input]:border-white/20 [&_input]:bg-white/10 [&_input]:px-4 [&_input]:py-3 [&_input]:text-sm [&_input]:text-white [&_input]:placeholder-white/50 [&_input]:outline-none [&_input]:focus:ring-2 [&_input]:focus:ring-white/30 [&_button]:w-full [&_button]:rounded-full [&_button]:bg-primary [&_button]:py-4 [&_button]:text-sm [&_button]:font-bold [&_button]:uppercase [&_button]:tracking-widest [&_button]:text-white [&_button]:transition-opacity [&_button]:hover:opacity-90 [&_.success]:mt-4 [&_.success]:text-sm [&_.success]:text-emerald-300 [&_.error]:mt-4 [&_.error]:text-sm [&_.error]:text-red-300" />
+        <form onSubmit={handleSubmit} className="mx-auto mt-10 flex max-w-md flex-col gap-4">
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Tu email"
+            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 outline-none focus:ring-2 focus:ring-white/30"
+          />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Tu nombre (opcional)"
+            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 outline-none focus:ring-2 focus:ring-white/30"
+          />
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="w-full rounded-full bg-primary py-4 text-sm font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+          >
+            {status === "sending" ? "Enviando..." : "Suscribirme"}
+          </button>
+        </form>
+
+        {status === "success" && (
+          <p className="mt-4 text-sm text-emerald-300">Te has suscrito correctamente.</p>
+        )}
+        {status === "exists" && (
+          <p className="mt-4 text-sm text-amber-300">Este email ya está registrado en la newsletter.</p>
+        )}
+        {status === "error" && (
+          <p className="mt-4 text-sm text-red-300">No se pudo completar la suscripción. Inténtalo de nuevo.</p>
+        )}
       </div>
     </section>
   );
