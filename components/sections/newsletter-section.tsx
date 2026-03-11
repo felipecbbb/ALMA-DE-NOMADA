@@ -12,16 +12,17 @@ export function NewsletterSection() {
     setStatus("sending");
 
     try {
+      const body = new URLSearchParams({
+        tenant: "ainhoooagarcia28",
+        project: "alma-de-nomada",
+        source: "newsletter-home",
+        email,
+        first_name: name,
+      });
+
       const res = await fetch("https://panel.kujme.es/api/public/subscribe", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tenant: "ainhoooagarcia28",
-          project: "alma-de-nomada",
-          source: "newsletter-home",
-          email,
-          first_name: name,
-        }),
+        body,
       });
 
       if (res.ok) {
