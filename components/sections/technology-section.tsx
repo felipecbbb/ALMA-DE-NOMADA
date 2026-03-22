@@ -191,7 +191,7 @@ export function TechnologySection() {
           }}
         >
           <Image
-            src="https://almadenomada.com/cdn/shop/t/5/assets/new%20zealand.jpeg?v=23240636594380725261769101745"
+            src="/destinations/new-zealand.jpg"
             alt="Aventura"
             fill
             className="object-cover opacity-10"

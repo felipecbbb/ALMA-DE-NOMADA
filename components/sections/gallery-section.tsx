@@ -3,13 +3,13 @@
 import Image from "next/image";
 
 const images = [
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746", alt: "Tailandia" },
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/sir%20lanka.jpeg?v=60339183477933206391769101746", alt: "Sri Lanka" },
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/japon.jpeg?v=69856797805187058121769101746", alt: "Japón" },
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751", alt: "Australia" },
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/new%20zealand.jpeg?v=23240636594380725261769101745", alt: "Nueva Zelanda" },
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747", alt: "Maldivas" },
-  { src: "https://almadenomada.com/cdn/shop/t/5/assets/vietnam.jpeg?v=35700450405453791711769101746", alt: "Vietnam" },
+  { src: "/destinations/tailandia.jpg", alt: "Tailandia" },
+  { src: "/destinations/sri-lanka.jpg", alt: "Sri Lanka" },
+  { src: "/destinations/japon.jpg", alt: "Japón" },
+  { src: "/destinations/australia.jpg", alt: "Australia" },
+  { src: "/destinations/new-zealand.jpg", alt: "Nueva Zelanda" },
+  { src: "/destinations/maldives.jpg", alt: "Maldivas" },
+  { src: "/destinations/vietnam.jpg", alt: "Vietnam" },
   { src: "/IMG_1343.jpg", alt: "Filipinas" },
 ];
 

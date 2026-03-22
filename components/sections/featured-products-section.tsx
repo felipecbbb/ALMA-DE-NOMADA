@@ -6,7 +6,7 @@ const features = [
   {
     title: "🇹🇭 Tailandia",
     description: "Templos y selva",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
+    image: "/destinations/tailandia.jpg",
     objectPosition: "center 70%",
     summary:
       "Viaja entre templos dorados, selvas y aguas turquesa en una ruta diseñada para que vivas la esencia de Tailandia con intención y libertad.",
@@ -14,35 +14,35 @@ const features = [
   {
     title: "🇱🇰 Sri Lanka",
     description: "Surf, selva y espiritualidad",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/sir%20lanka.jpeg?v=60339183477933206391769101746",
+    image: "/destinations/sri-lanka.jpg",
     summary:
       "Una isla donde el surf, la selva y la espiritualidad se encuentran. Descubre Sri Lanka a tu ritmo, con un itinerario que fluye contigo.",
   },
   {
     title: "🇯🇵 Japón",
     description: "Tradición y vanguardia",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/japon.jpeg?v=69856797805187058121769101746",
+    image: "/destinations/japon.jpg",
     summary:
       "Tradición y vanguardia en equilibrio perfecto. Explora Japón con un recorrido pensado para vivirlo desde dentro.",
   },
   {
     title: "🇦🇺 Australia",
     description: "Nueva vida con estrategia",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751",
+    image: "/destinations/australia.jpg",
     summary:
       "Empieza tu nueva vida al otro lado del mundo con claridad, confianza y una estrategia que te permita construir tu propio camino.",
   },
   {
     title: "🇳🇿 Nueva Zelanda",
     description: "Roadtrip consciente",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/new%20zealand.jpeg?v=23240636594380725261769101745",
+    image: "/destinations/new-zealand.jpg",
     summary:
       "Carreteras infinitas, montañas dramáticas y lagos imposibles. Vive Nueva Zelanda como una aventura consciente y bien planificada.",
   },
   {
     title: "🇲🇻 Maldivas",
     description: "Calma y paraíso",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/maldivas.jpeg?v=48811264592296444881769101747",
+    image: "/destinations/maldives.jpg",
     objectPosition: "center 70%",
     summary:
       "Aguas cristalinas, arena blanca y calma absoluta. Organiza tu viaje a Maldivas para disfrutar el paraíso sin preocupación.",
@@ -50,7 +50,7 @@ const features = [
   {
     title: "🇻🇳 Vietnam",
     description: "Ruta cultural y naturaleza",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/vietnam.jpeg?v=35700450405453791711769101746",
+    image: "/destinations/vietnam.jpg",
     summary:
       "Descubre Vietnam entre arrozales, ciudades vibrantes y paisajes únicos con un recorrido pensado para viajar con intención.",
   },
@@ -64,7 +64,7 @@ const features = [
   {
     title: "🇮🇩 Indonesia",
     description: "Templos, volcanes y océano",
-    image: "https://almadenomada.com/cdn/shop/t/5/assets/lombok.jpeg?v=173855469035230574911769101747",
+    image: "/destinations/lombok.jpg",
     objectPosition: "center 70%",
     summary:
       "Explora Indonesia a tu ritmo entre cultura, naturaleza y playas espectaculares con una guía clara para organizar cada etapa.",

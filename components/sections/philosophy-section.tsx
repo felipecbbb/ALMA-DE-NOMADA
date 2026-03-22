@@ -96,7 +96,7 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751"
+                  src="/destinations/australia.jpg"
                   alt="Australia"
                   fill
                   className="object-cover"

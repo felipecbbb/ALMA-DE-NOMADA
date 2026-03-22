@@ -19,7 +19,7 @@ export function TestimonialsSection() {
       {/* About Image */}
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src="https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751"
+          src="/destinations/australia.jpg"
           alt="Australia landscape"
           fill
           className="object-cover"

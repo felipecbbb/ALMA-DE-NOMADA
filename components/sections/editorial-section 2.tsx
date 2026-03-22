@@ -70,7 +70,7 @@ export function EditorialSection() {
           muted
           playsInline
           className="absolute inset-0 h-full w-full object-cover"
-          src="https://almadenomada.com/cdn/shop/videos/c/vp/b04b9e96f33a42878b3d61ea1e7ec3d0/b04b9e96f33a42878b3d61ea1e7ec3d0.HD-1080p-7.2Mbps-67097679.mp4?v=0"
+          src="/video/hero.mp4"
         />
       </div>
     </section>

@@ -12,25 +12,25 @@ const rotatingPhrases = [
 
 const sideImages = [
   {
-    src: "https://almadenomada.com/cdn/shop/t/5/assets/thailandia.jpeg?v=131009810260977809441769101746",
+    src: "/destinations/tailandia.jpg",
     alt: "Tailandia",
     position: "left",
     span: 1,
   },
   {
-    src: "https://almadenomada.com/cdn/shop/t/5/assets/bali.jpeg?v=81726093188308884481769101751",
+    src: "/destinations/indonesia.webp",
     alt: "Indonesia",
     position: "left",
     span: 1,
   },
   {
-    src: "https://almadenomada.com/cdn/shop/t/5/assets/autralia.jpeg?v=95094110439352087451769101751",
+    src: "/destinations/australia.jpg",
     alt: "Australia",
     position: "right",
     span: 1,
   },
   {
-    src: "https://almadenomada.com/cdn/shop/t/5/assets/lombok.jpeg?v=173855469035230574911769101747",
+    src: "/destinations/lombok.jpg",
     alt: "Lombok",
     position: "right",
     span: 1,
@@ -201,7 +201,7 @@ export function HeroSection() {
                 preload="auto"
                 poster="/IMG_1343.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
-                src="https://almadenomada.com/cdn/shop/videos/c/vp/b04b9e96f33a42878b3d61ea1e7ec3d0/b04b9e96f33a42878b3d61ea1e7ec3d0.HD-1080p-7.2Mbps-67097679.mp4?v=0"
+                src="/video/hero.mp4"
               />
               <div className="absolute inset-0 bg-secondary/35" />
               
