@@ -18,7 +18,7 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/destinations/indonesia.webp",
+    src: "/destinations/indonesia.png",
     alt: "Indonesia",
     position: "left",
     span: 1,
