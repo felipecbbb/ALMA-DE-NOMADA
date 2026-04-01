@@ -64,7 +64,7 @@ const features = [
   {
     title: "🇮🇩 Indonesia",
     description: "Templos, volcanes y océano",
-    image: "/destinations/lombok.jpg",
+    image: "/destinations/indonesia.png",
     objectPosition: "center 70%",
     summary:
       "Explora Indonesia a tu ritmo entre cultura, naturaleza y playas espectaculares con una guía clara para organizar cada etapa.",
