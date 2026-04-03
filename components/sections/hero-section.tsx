@@ -18,7 +18,7 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/destinations/indonesia.jpg",
+    src: "/destinations/indonesia.png",
     alt: "Indonesia",
     position: "left",
     span: 1,
@@ -30,7 +30,7 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/destinations/lombok.jpg",
+    src: "/destinations/indonesia.jpg",
     alt: "Lombok",
     position: "right",
     span: 1,
