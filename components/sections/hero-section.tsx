@@ -18,7 +18,7 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/destinations/indonesia.png",
+    src: "/destinations/indonesia.jpg",
     alt: "Indonesia",
     position: "left",
     span: 1,
@@ -199,7 +199,6 @@ export function HeroSection() {
                 muted
                 playsInline
                 preload="auto"
-                poster="/IMG_1343.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
                 src="/video/hero.mp4"
               />

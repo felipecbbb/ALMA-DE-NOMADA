@@ -28,7 +28,7 @@ const features = [
   {
     title: "🇦🇺 Australia",
     description: "Nueva vida con estrategia",
-    image: "/destinations/australia.jpg",
+    image: "/destinations/australia-grid.jpg",
     summary:
       "Empieza tu nueva vida al otro lado del mundo con claridad, confianza y una estrategia que te permita construir tu propio camino.",
   },
@@ -64,7 +64,7 @@ const features = [
   {
     title: "🇮🇩 Indonesia",
     description: "Templos, volcanes y océano",
-    image: "/destinations/indonesia.png",
+    image: "/destinations/indonesia.jpg",
     objectPosition: "center 70%",
     summary:
       "Explora Indonesia a tu ritmo entre cultura, naturaleza y playas espectaculares con una guía clara para organizar cada etapa.",
