@@ -68,6 +68,8 @@ export default async function GuideDetailPage({
     : [];
   const stock = Number(guide.stock ?? 0);
   const isOutOfStock = stock <= 0;
+  const slugLower = String(guide.slug ?? "").toLowerCase();
+  const showReferralCode = slugLower.includes("australia");
 
   return (
     <main className="min-h-screen bg-background">
@@ -110,6 +112,7 @@ export default async function GuideDetailPage({
                 productId={guide.id}
                 label="Comprar guía"
                 disabled={isOutOfStock}
+                showReferralCode={showReferralCode}
               />
             </div>
             {isOutOfStock ? (

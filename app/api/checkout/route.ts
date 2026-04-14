@@ -20,6 +20,9 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const productId = String(body.productId ?? "").trim();
+    const referralCode = String(body.referralCode ?? "")
+      .trim()
+      .slice(0, 40);
 
     if (!productId) {
       return NextResponse.json(
@@ -86,6 +89,7 @@ export async function POST(request: NextRequest) {
         product_id: product.id,
         product_slug: product.slug,
         product_title: product.title,
+        ...(referralCode ? { referral_code: referralCode } : {}),
       },
       customer_creation: "always",
       allow_promotion_codes: true,

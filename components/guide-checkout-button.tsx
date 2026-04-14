@@ -7,6 +7,7 @@ type GuideCheckoutButtonProps = {
   className?: string;
   label?: string;
   disabled?: boolean;
+  showReferralCode?: boolean;
 };
 
 export function GuideCheckoutButton({
@@ -14,9 +15,11 @@ export function GuideCheckoutButton({
   className,
   label = "Comprar ahora",
   disabled = false,
+  showReferralCode = false,
 }: GuideCheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [referralCode, setReferralCode] = useState("");
 
   const handleCheckout = async () => {
     try {
@@ -25,7 +28,10 @@ export function GuideCheckoutButton({
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ productId }),
+        body: JSON.stringify({
+          productId,
+          referralCode: referralCode.trim() || undefined,
+        }),
       });
 
       const payload = await response.json();
@@ -46,6 +52,26 @@ export function GuideCheckoutButton({
 
   return (
     <div className="w-full">
+      {showReferralCode ? (
+        <div className="mb-4">
+          <label
+            htmlFor="referral-code"
+            className="block text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground"
+          >
+            ¿Te ha recomendado alguien? (opcional)
+          </label>
+          <input
+            id="referral-code"
+            type="text"
+            value={referralCode}
+            onChange={(event) => setReferralCode(event.target.value)}
+            placeholder="Código de referido"
+            className="mt-2 w-full max-w-xs rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+            autoComplete="off"
+            maxLength={40}
+          />
+        </div>
+      ) : null}
       <button
         type="button"
         onClick={handleCheckout}

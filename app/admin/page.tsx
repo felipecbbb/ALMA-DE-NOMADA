@@ -872,6 +872,7 @@ export default function AdminPage() {
                     <th className="px-4 py-3">Email</th>
                     <th className="px-4 py-3">Producto</th>
                     <th className="px-4 py-3">Importe</th>
+                    <th className="px-4 py-3">Referido</th>
                     <th className="px-4 py-3">Estado</th>
                     <th className="px-4 py-3">Stripe session</th>
                   </tr>
@@ -892,6 +893,9 @@ export default function AdminPage() {
                         </td>
                         <td className="px-4 py-3 text-foreground">
                           {formatPrice(order.total_cents, order.currency)}
+                        </td>
+                        <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-foreground">
+                          {order.metadata?.referral_code ?? "-"}
                         </td>
                         <td className="px-4 py-3">
                           <select
@@ -917,7 +921,7 @@ export default function AdminPage() {
                   {orders.length === 0 ? (
                     <tr>
                       <td
-                        colSpan={6}
+                        colSpan={7}
                         className="px-4 py-6 text-center text-sm text-muted-foreground"
                       >
                         No hay pedidos todavía.

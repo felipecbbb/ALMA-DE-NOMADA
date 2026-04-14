@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 
-const partners = [
+type Partner = {
+  name: string;
+  logo?: string;
+  href: string;
+  discount: string;
+  description: string;
+};
+
+const partners: Partner[] = [
   {
     name: "IATI SEGUROS",
     logo: "/logos/logo-iati-flat-orange.svg",
@@ -16,6 +24,20 @@ const partners = [
     href: "https://esim.holafly.com/?irclickid=3A5QomSSfxycUzgxaS1LvWC5UkpSUH1HlxBEU80&discount=ainhhgarcia&utm_source=affiliate&utm_medium=Ainhoa%20Garcia%20Rey&utm_campaign=6841836&irgwc=1&afsrc=1&tw_source=impact&tw_campaign=6841836&tw_term=2006335",
     discount: "5 % dto.",
     description: "eSIM internacional con descuento para viajar conectado desde el primer día.",
+  },
+  {
+    name: "CHAPKA",
+    logo: "/logos/chapka.png",
+    href: "https://www.chapkadirect.es/index.php?action=produit&id=941&app=pablocarmona",
+    discount: "Dto. exclusivo",
+    description: "Seguro de viaje con coberturas amplias para estancias largas y mochileros.",
+  },
+  {
+    name: "HEYMONDO",
+    logo: "/logos/heymondo.svg",
+    href: "https://heymondo.es/?utm_medium=Afiliado&utm_source=PABLOCARMONA&utm_campaign=PRINCIPAL&cod_descuento=PABLOCARMONA&ag_campaign=ENTRADA&agencia=8pCoM26RdmHRWf6yxnSRjZImoSk7puFo3RpaxUGJ",
+    discount: "Dto. exclusivo",
+    description: "Seguro de viaje con app 24/7 y asistencia médica en cualquier parte del mundo.",
   },
 ];
 
@@ -80,12 +102,18 @@ export function EditorialSection() {
               className="group flex items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10"
             >
               <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-white p-2">
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className="h-full w-full object-contain"
-                  loading="lazy"
-                />
+                {partner.logo ? (
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-full w-full object-contain"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="text-center text-[0.65rem] font-bold uppercase tracking-tight text-primary">
+                    {partner.name}
+                  </span>
+                )}
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
