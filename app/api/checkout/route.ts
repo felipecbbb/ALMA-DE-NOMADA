@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const productId = String(body.productId ?? "").trim();
-    const VALID_REFERRAL_CODES = new Set(["ALMAUSTRALIA"]);
+    const VALID_REFERRAL_CODES = new Set(["PABLOAUSTRALIA"]);
     const rawReferral = String(body.referralCode ?? "")
       .trim()
       .toUpperCase()
