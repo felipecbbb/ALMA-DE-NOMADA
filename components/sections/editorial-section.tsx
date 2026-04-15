@@ -43,7 +43,7 @@ const partners: Partner[] = [
 
 export function EditorialSection() {
   return (
-    <section className="bg-secondary px-6 py-16 md:px-12 md:py-28 lg:px-20">
+    <section id="descuentos" className="scroll-mt-24 bg-secondary px-6 py-16 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-5xl">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
           Partners

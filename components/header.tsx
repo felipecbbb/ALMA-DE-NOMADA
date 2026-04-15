@@ -43,7 +43,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-5 md:flex lg:gap-8">
+        <nav className="hidden items-center gap-5 md:flex lg:gap-7">
           <Link
             href="/#quienes-somos"
             className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
@@ -63,11 +63,25 @@ export function Header() {
             Guías
           </Link>
           <Link
+            href="/#descuentos"
+            className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
+          >
+            Descuentos
+          </Link>
+          <Link
             href="/#contacto"
             className={`text-xs transition-colors md:text-sm ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
             Contacto
           </Link>
+          <a
+            href="https://calendly.com/ainhhgarcia/nueva-reunion?back=1"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 md:text-[0.78rem]"
+          >
+            Australia
+          </a>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -103,16 +117,32 @@ export function Header() {
               href="/#guias"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
-              >
-                Guías
-              </Link>
-              <Link
+            >
+              Guías
+            </Link>
+            <Link
+              href="/#descuentos"
+              className="text-lg text-foreground"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Descuentos
+            </Link>
+            <Link
               href="/#contacto"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
               Contacto
             </Link>
+            <a
+              href="https://calendly.com/ainhhgarcia/nueva-reunion?back=1"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white"
+            >
+              Australia
+            </a>
           </nav>
         </div>
       )}
