@@ -19,17 +19,28 @@ export function Header() {
   }, []);
 
   return (
-    <header 
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-[1500px] transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md rounded-full" : "bg-transparent"}`}
+    <header
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-[1500px] transition-all duration-300 ${
+        isMenuOpen
+          ? "bg-background rounded-3xl shadow-xl"
+          : isScrolled
+            ? "bg-background/80 backdrop-blur-md rounded-full"
+            : "bg-transparent"
+      }`}
       style={{
-        boxShadow: isScrolled ? "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px" : "none"
+        boxShadow:
+          !isMenuOpen && isScrolled
+            ? "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
+            : undefined,
       }}
     >
       <div className="flex items-center justify-between transition-all duration-300 px-3 py-2 md:px-5">
         {/* Logo */}
         <Link
           href="/#inicio"
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold uppercase tracking-tight transition-colors duration-300 md:text-base lg:text-lg ${isScrolled ? "text-primary" : "text-white"}`}
+          className={`flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold uppercase tracking-tight transition-colors duration-300 md:text-base lg:text-lg ${
+            isMenuOpen || isScrolled ? "text-primary" : "text-white"
+          }`}
         >
           <Image
             src="/logo-alma.png"
@@ -88,7 +99,9 @@ export function Header() {
         <button
           type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className={`transition-colors md:hidden ${isScrolled ? "text-foreground" : "text-white"}`}
+          className={`transition-colors md:hidden ${
+            isMenuOpen || isScrolled ? "text-foreground" : "text-white"
+          }`}
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -97,49 +110,30 @@ export function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="border-t border-border bg-background px-6 py-8 md:hidden rounded-b-2xl">
-          <nav className="flex flex-col gap-6">
-            <Link
-              href="/#quienes-somos"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Sobre mí
-            </Link>
-            <Link
-              href="/#destinos"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Destinos
-            </Link>
-            <Link
-              href="/#guias"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Guías
-            </Link>
-            <Link
-              href="/#descuentos"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Descuentos
-            </Link>
-            <Link
-              href="/#contacto"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contacto
-            </Link>
+        <div className="overflow-hidden rounded-b-3xl border-t border-border bg-background px-6 py-6 md:hidden">
+          <nav className="flex flex-col">
+            {[
+              { href: "/#quienes-somos", label: "Sobre mí" },
+              { href: "/#destinos", label: "Destinos" },
+              { href: "/#guias", label: "Guías" },
+              { href: "/#descuentos", label: "Descuentos" },
+              { href: "/#contacto", label: "Contacto" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="border-b border-border/60 py-4 text-base font-medium text-foreground transition-colors last:border-b-0 hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            ))}
             <a
               href="https://calendly.com/ainhhgarcia/nueva-reunion?back=1"
               target="_blank"
               rel="noreferrer"
               onClick={() => setIsMenuOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white"
+              className="mt-5 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90"
             >
               Australia
             </a>
