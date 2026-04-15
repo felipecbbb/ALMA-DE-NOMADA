@@ -4,7 +4,8 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { formatPrice, slugify } from "@/lib/store-utils";
 import { DashboardStats, OrderRecord, ProductRecord } from "@/lib/store-types";
 
-type TabKey = "resumen" | "productos" | "pedidos";
+type TabKey = "resumen" | "productos" | "pedidos" | "australia";
+type AustraliaCodeFilter = "all" | "with" | "without";
 
 const emptyForm = {
   id: "",
@@ -46,6 +47,9 @@ export default function AdminPage() {
   const [uploadingGuide, setUploadingGuide] = useState(false);
   const [uploadingGallery, setUploadingGallery] = useState(false);
   const [form, setForm] = useState(emptyForm);
+  const [australiaMonth, setAustraliaMonth] = useState<string>("all");
+  const [australiaCodeFilter, setAustraliaCodeFilter] =
+    useState<AustraliaCodeFilter>("all");
 
   const isEditing = useMemo(() => form.id !== "", [form.id]);
 
@@ -435,7 +439,7 @@ export default function AdminPage() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-2">
-          {(["resumen", "productos", "pedidos"] as TabKey[]).map((key) => (
+          {(["resumen", "productos", "pedidos", "australia"] as TabKey[]).map((key) => (
             <button
               key={key}
               type="button"
@@ -933,7 +937,233 @@ export default function AdminPage() {
             </div>
           </section>
         ) : null}
+
+        {tab === "australia" ? (
+          <AustraliaTab
+            orders={orders}
+            month={australiaMonth}
+            onMonthChange={setAustraliaMonth}
+            codeFilter={australiaCodeFilter}
+            onCodeFilterChange={setAustraliaCodeFilter}
+          />
+        ) : null}
       </div>
     </main>
+  );
+}
+
+function AustraliaTab({
+  orders,
+  month,
+  onMonthChange,
+  codeFilter,
+  onCodeFilterChange,
+}: {
+  orders: OrderRecord[];
+  month: string;
+  onMonthChange: (value: string) => void;
+  codeFilter: AustraliaCodeFilter;
+  onCodeFilterChange: (value: AustraliaCodeFilter) => void;
+}) {
+  const australiaOrders = useMemo(
+    () =>
+      orders.filter((order) => {
+        const slug = (order.metadata?.product_slug ?? "").toLowerCase();
+        const title = (order.metadata?.product_title ?? "").toLowerCase();
+        const itemDesc = (order.items?.[0]?.description ?? "").toLowerCase();
+        return (
+          slug.includes("australia") ||
+          title.includes("australia") ||
+          itemDesc.includes("australia")
+        );
+      }),
+    [orders],
+  );
+
+  const months = useMemo(() => {
+    const set = new Set<string>();
+    for (const order of australiaOrders) {
+      const date = new Date(order.created_at);
+      if (Number.isNaN(date.getTime())) continue;
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+      set.add(key);
+    }
+    return Array.from(set).sort().reverse();
+  }, [australiaOrders]);
+
+  const filtered = useMemo(
+    () =>
+      australiaOrders.filter((order) => {
+        const code = (order.metadata?.referral_code ?? "").trim();
+        if (codeFilter === "with" && !code) return false;
+        if (codeFilter === "without" && code) return false;
+        if (month !== "all") {
+          const date = new Date(order.created_at);
+          const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+          if (key !== month) return false;
+        }
+        return true;
+      }),
+    [australiaOrders, codeFilter, month],
+  );
+
+  const paidFiltered = filtered.filter((order) => order.status === "paid");
+  const withCodeCount = paidFiltered.filter(
+    (order) => (order.metadata?.referral_code ?? "").trim() !== "",
+  ).length;
+  const withoutCodeCount = paidFiltered.length - withCodeCount;
+  const totalCents = paidFiltered.reduce(
+    (sum, order) => sum + (order.total_cents ?? 0),
+    0,
+  );
+  const totalWithCode = paidFiltered
+    .filter((order) => (order.metadata?.referral_code ?? "").trim() !== "")
+    .reduce((sum, order) => sum + (order.total_cents ?? 0), 0);
+
+  const monthLabel = (key: string) => {
+    const [y, m] = key.split("-");
+    const date = new Date(Number(y), Number(m) - 1, 1);
+    return date.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
+  };
+
+  return (
+    <section className="mt-8 space-y-6">
+      <div className="grid gap-4 md:grid-cols-4">
+        <article className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            Pedidos pagados
+          </p>
+          <p className="mt-2 text-3xl font-semibold text-foreground">
+            {paidFiltered.length}
+          </p>
+        </article>
+        <article className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            Facturación
+          </p>
+          <p className="mt-2 text-3xl font-semibold text-foreground">
+            {formatPrice(totalCents, "EUR")}
+          </p>
+        </article>
+        <article className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            Con código
+          </p>
+          <p className="mt-2 text-3xl font-semibold text-foreground">
+            {withCodeCount}
+          </p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {formatPrice(totalWithCode, "EUR")}
+          </p>
+        </article>
+        <article className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            Sin código
+          </p>
+          <p className="mt-2 text-3xl font-semibold text-foreground">
+            {withoutCodeCount}
+          </p>
+        </article>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card p-4">
+        <label className="flex items-center gap-2 text-sm text-foreground">
+          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            Mes
+          </span>
+          <select
+            value={month}
+            onChange={(event) => onMonthChange(event.target.value)}
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
+          >
+            <option value="all">Todos</option>
+            {months.map((key) => (
+              <option key={key} value={key}>
+                {monthLabel(key)}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <div className="flex items-center gap-1 rounded-full border border-border p-1">
+          {([
+            ["all", "Todos"],
+            ["with", "Con código"],
+            ["without", "Sin código"],
+          ] as [AustraliaCodeFilter, string][]).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => onCodeFilterChange(value)}
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] transition-colors ${
+                codeFilter === value
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="overflow-auto">
+          <table className="w-full min-w-[900px] border-collapse">
+            <thead>
+              <tr className="border-b border-border bg-muted/40 text-left text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                <th className="px-4 py-3">Fecha</th>
+                <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Importe</th>
+                <th className="px-4 py-3">Código</th>
+                <th className="px-4 py-3">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((order) => {
+                const code = (order.metadata?.referral_code ?? "").trim();
+                return (
+                  <tr key={order.id} className="border-b border-border text-sm">
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {new Date(order.created_at).toLocaleString("es-ES")}
+                    </td>
+                    <td className="px-4 py-3 text-foreground">
+                      {order.customer_email ?? "-"}
+                    </td>
+                    <td className="px-4 py-3 text-foreground">
+                      {formatPrice(order.total_cents, order.currency)}
+                    </td>
+                    <td className="px-4 py-3">
+                      {code ? (
+                        <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+                          {code}
+                        </span>
+                      ) : (
+                        <span className="inline-flex rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                          Sin código
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                      {order.status}
+                    </td>
+                  </tr>
+                );
+              })}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="px-4 py-6 text-center text-sm text-muted-foreground"
+                  >
+                    No hay pedidos para los filtros seleccionados.
+                  </td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   );
 }

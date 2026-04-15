@@ -20,9 +20,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const productId = String(body.productId ?? "").trim();
-    const referralCode = String(body.referralCode ?? "")
+    const VALID_REFERRAL_CODES = new Set(["ALMAUSTRALIA"]);
+    const rawReferral = String(body.referralCode ?? "")
       .trim()
+      .toUpperCase()
       .slice(0, 40);
+    const referralCode = VALID_REFERRAL_CODES.has(rawReferral) ? rawReferral : "";
 
     if (!productId) {
       return NextResponse.json(
